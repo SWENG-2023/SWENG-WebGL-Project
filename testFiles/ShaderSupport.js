@@ -17,7 +17,7 @@ function loadAndCompileShader(id, shaderType) {
         gGL.getShaderInfoLog(compiledShader));
     }
     return compiledShader;
-}
+};
 
 function initSimpleShader(vertexShaderID, fragmentShaderID) {
     // Step A: load and compile the vertex and fragment shaders
