@@ -48,21 +48,34 @@ gEngine.GameLoop = (function () {
             // Step D: now let's draw
             this.draw();    // Call MyGame.draw()
         }
+        else {
+            // the game loops has stopped, unload current scene!
+            mMyGame.unloadScene();
+        }
     };
 
-    // update and draw functions must be set before this.
-    var start = function (myGame) {
-        mMyGame = myGame;
-
-        // Step A: reset frame time 
+    var _startLoop = function() {
+        // Step A: reset frame time
         mPreviousTime = Date.now();
         mLagTime = 0.0;
-
         // Step B: remember that loop is now running
         mIsLoopRunning = true;
-
         // Step C: request _runLoop to start when loading is done
-        requestAnimationFrame(function () { _runLoop.call(mMyGame); });
+        requestAnimationFrame(function(){_runLoop.call(mMyGame);});
+    }
+
+    // update and draw functions must be set before this.
+    var start = function(myGame) {
+        mMyGame = myGame;
+        gEngine.ResourceMap.setLoadCompleteCallback(
+        function() {
+        mMyGame.initialize();
+        _startLoop();
+        });
+    };
+
+    var stop = function() {
+        mIsLoopRunning = false;
     };
 
     // No Stop or Pause function, as all input are pull during the loop
@@ -70,7 +83,8 @@ gEngine.GameLoop = (function () {
     // You should implement pausing of game in game update.
 
     var mPublic = {
-        start: start
+        start: start,
+        stop: stop
     };
     return mPublic;
 
