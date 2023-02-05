@@ -39,9 +39,9 @@ gEngine.Core = (function () {
     // Accessor of the webgl context
     var getGL = function () { return mGL; };
 
-    var startScene = function (myGame) {
-        myGame.loadScene.call(myGame); // Called in this way to keep correct context
-        gEngine.GameLoop.start(myGame); // start the game loop after initialization is done
+    var startScene = function (scene) {
+        scene.loadScene.call(scene); // Called in this way to keep correct context
+        gEngine.GameLoop.start(scene); // will wait until async loading is done and call scene.initialize()
     };
 
     // initialize all of the EngineCore components
@@ -49,6 +49,7 @@ gEngine.Core = (function () {
         _initializeWebGL(htmlCanvasID);
         gEngine.VertexBuffer.initialize();
         gEngine.Input.initialize();
+        gEngine.AudioClips.initAudioContext();
 
         // Inits DefaultResources, when done, invoke the anonymous function to call startScene(myGame).
         gEngine.DefaultResources.initialize(function () { startScene(myGame); });
@@ -60,12 +61,11 @@ gEngine.Core = (function () {
         mGL.clear(mGL.COLOR_BUFFER_BIT);      // clear to the color previously set
     };
 
-    var inheritPrototype = function(subClass, superClass) {
+    var inheritPrototype = function (subClass, superClass) {
         var prototype = Object.create(superClass.prototype);
         prototype.constructor = subClass;
         subClass.prototype = prototype;
     };
-
     // -- end of public methods
 
     var mPublic = {

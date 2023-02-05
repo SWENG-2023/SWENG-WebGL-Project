@@ -51,6 +51,7 @@ gEngine.TextFileLoader = (function () {
             };
             req.send();
         } else {
+            gEngine.ResourceMap.incAssetRefCount(fileName);
             if ((callbackFunction !== null) && (callbackFunction !== undefined)) {
                 callbackFunction(fileName);
             }

@@ -41,51 +41,47 @@ gEngine.GameLoop = (function () {
             //      If lag larger then update frames, update until caught up.
             while ((mLagTime >= kMPF) && mIsLoopRunning) {
                 gEngine.Input.update();
-                this.update();      // call MyGame.update()
+                this.update();      // call Scene.update()
                 mLagTime -= kMPF;
             }
-
             // Step D: now let's draw
-            this.draw();    // Call MyGame.draw()
-        }
-        else {
-            // the game loops has stopped, unload current scene!
+            this.draw();    // Call Scene.draw()
+        } else {
+            // this scene is done, unload it!
             mMyGame.unloadScene();
         }
     };
 
-    var _startLoop = function() {
-        // Step A: reset frame time
+    // update and draw functions must be set before this.
+    var _startLoop = function () {
+        // Step A: reset frame time 
         mPreviousTime = Date.now();
         mLagTime = 0.0;
+
         // Step B: remember that loop is now running
         mIsLoopRunning = true;
-        // Step C: request _runLoop to start when loading is done
-        requestAnimationFrame(function(){_runLoop.call(mMyGame);});
-    }
 
-    // update and draw functions must be set before this.
-    var start = function(myGame) {
+        // Step C: request _runLoop to start when loading is done
+        requestAnimationFrame(function () { _runLoop.call(mMyGame); });
+    };
+
+    var start = function (myGame) {
         mMyGame = myGame;
         gEngine.ResourceMap.setLoadCompleteCallback(
-        function() {
-        mMyGame.initialize();
-        _startLoop();
-        });
+            function () {
+                mMyGame.initialize();
+                _startLoop();
+            }
+        );
     };
 
-    var stop = function() {
+    var stop = function () {
         mIsLoopRunning = false;
     };
-
-    // No Stop or Pause function, as all input are pull during the loop
-    // once stopped, tricky to start the loop
-    // You should implement pausing of game in game update.
 
     var mPublic = {
         start: start,
         stop: stop
     };
     return mPublic;
-
 }());

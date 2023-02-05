@@ -9,6 +9,10 @@
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
 function BlueLevel() {
+    // audio clips: supports both mp3 and wav formats
+    this.kBgClip = "assets/sounds/BGWaltz.mp3";
+    this.kCue = "assets/sounds/button2.wav";
+
     // scene file name
     this.kSceneFile = "assets/BlueLevel.xml";
     // all squares
@@ -22,11 +26,20 @@ gEngine.Core.inheritPrototype(BlueLevel, Scene);
 BlueLevel.prototype.loadScene = function () {
     // load the scene file
     gEngine.TextFileLoader.loadTextFile(this.kSceneFile, gEngine.TextFileLoader.eTextFileType.eXMLFile);
+
+    // loads the audios
+    gEngine.AudioClips.loadAudio(this.kBgClip);
+    gEngine.AudioClips.loadAudio(this.kCue);
 };
 
 BlueLevel.prototype.unloadScene = function () {
-    // unload the scene flie
+    // stop the background audio
+    gEngine.AudioClips.stopBackgroundAudio();
+
+    // unload the scene flie and loaded resources
     gEngine.TextFileLoader.unloadTextFile(this.kSceneFile);
+    gEngine.AudioClips.unloadAudio(this.kBgClip);
+    gEngine.AudioClips.unloadAudio(this.kCue);
 
     var nextLevel = new MyGame();  // load the next level
     gEngine.Core.startScene(nextLevel);
@@ -40,6 +53,9 @@ BlueLevel.prototype.initialize = function () {
 
     // Step B: Read all the squares
     sceneParser.parseSquares(this.mSqSet);
+
+    // now start the bg music ...
+    gEngine.AudioClips.playBackgroundAudio(this.kBgClip);
 };
 
 // This is the draw function, make sure to setup proper drawing environment, and more
@@ -58,7 +74,7 @@ BlueLevel.prototype.draw = function () {
     }
 };
 
-// The Update function, updates the application state. Make sure to _NOT_ draw
+// The update function, updates the application state. Make sure to _NOT_ draw
 // anything from this function!
 BlueLevel.prototype.update = function () {
     // For this very simple game, let's move the first square
@@ -67,6 +83,7 @@ BlueLevel.prototype.update = function () {
 
     /// Move right and swap ovre
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Right)) {
+        gEngine.AudioClips.playACue(this.kCue);
         xform.incXPosBy(deltaX);
         if (xform.getXPos() > 30) { // this is the right-bound of the window
             xform.setPosition(12, 60);
@@ -75,6 +92,7 @@ BlueLevel.prototype.update = function () {
 
     // Step A: test for white square movement
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Left)) {
+        gEngine.AudioClips.playACue(this.kCue);
         xform.incXPosBy(-deltaX);
         if (xform.getXPos() < 11) { // this is the left-boundary
             gEngine.GameLoop.stop();
