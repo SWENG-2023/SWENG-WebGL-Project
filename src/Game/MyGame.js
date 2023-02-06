@@ -13,12 +13,20 @@ function MyGame() {
     this.kBgClip = "assets/sounds/BGWaltz.mp3";
     this.kCue = "assets/sounds/button1.wav";
 
+    // textures: ( Note: supports png with transparency )
+    this.kPortal = "assets/minion_portal.png";
+    this.kCollector = "assets/minion_collector.png";
+
     // The camera to view the scene
     this.mCamera = null;
 
     // the hero and the support objects
     this.mHero = null;
     this.mSupport = null;
+    this.mPortal = null;
+    this.mCollector = null;
+
+
 }
 gEngine.Core.inheritPrototype(MyGame, Scene);
 
@@ -26,6 +34,10 @@ MyGame.prototype.loadScene = function () {
    // loads the audios
     gEngine.AudioClips.loadAudio(this.kBgClip);
     gEngine.AudioClips.loadAudio(this.kCue);
+
+    // loads the textures
+    gEngine.Textures.loadTexture(this.kPortal);
+    gEngine.Textures.loadTexture(this.kCollector);
 };
 
 
@@ -39,6 +51,10 @@ MyGame.prototype.unloadScene = function() {
     //      You know this clip will be used elsewhere in the game
     //      So you decide to not unload this clip!!
     gEngine.AudioClips.unloadAudio(this.kCue);
+
+    // unload textures
+    gEngine.Textures.unloadTexture(this.kPortal);
+    gEngine.Textures.unloadTexture(this.kCollector);
 
     // Step B: starts the next level
     // starts the next level
@@ -56,6 +72,17 @@ MyGame.prototype.initialize = function () {
     this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
             // sets the background to gray
 
+    // Step B: Create the game objects
+    this.mPortal = new TextureRenderable(this.kPortal);
+    this.mPortal.setColor([1, 0, 0, 0.2]); // tints red
+    this.mPortal.getXform().setPosition(25, 60);
+    this.mPortal.getXform().setSize(3, 3);
+    
+    this.mCollector = new TextureRenderable(this.kCollector);
+    this.mCollector.setColor([0, 0, 0, 0]); // No tinting
+    this.mCollector.getXform().setPosition(15, 60);
+    this.mCollector.getXform().setSize(3, 3);
+
     // Step B: Create the support object in red
     this.mSupport = new Renderable(gEngine.DefaultResources.getConstColorShader());
     this.mSupport.setColor([0.8, 0.2, 0.2, 1]);
@@ -63,7 +90,7 @@ MyGame.prototype.initialize = function () {
     this.mSupport.getXform().setSize(5, 5);
 
     // Setp C: Create the hero object in blue
-    this.mHero = new Renderable(gEngine.DefaultResources.getConstColorShader());
+    this.mHero = new Renderable();
     this.mHero.setColor([0, 0, 1, 1]);
     this.mHero.getXform().setPosition(20, 60);
     this.mHero.getXform().setSize(2, 3);

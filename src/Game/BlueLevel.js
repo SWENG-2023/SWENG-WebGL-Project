@@ -15,6 +15,11 @@ function BlueLevel() {
 
     // scene file name
     this.kSceneFile = "assets/BlueLevel.xml";
+
+    // textures: ( Note: jpg does not support transparency )
+    this.kPortal = "assets/minion_portal.jpg";
+    this.kCollector = "assets/minion_collector.jpg";
+
     // all squares
     this.mSqSet = [];        // these are the Renderable objects
 
@@ -27,6 +32,10 @@ BlueLevel.prototype.loadScene = function () {
     // load the scene file
     gEngine.TextFileLoader.loadTextFile(this.kSceneFile, gEngine.TextFileLoader.eTextFileType.eXMLFile);
 
+    // load the textures
+    gEngine.Textures.loadTexture(this.kPortal);
+    gEngine.Textures.loadTexture(this.kCollector);
+
     // loads the audios
     gEngine.AudioClips.loadAudio(this.kBgClip);
     gEngine.AudioClips.loadAudio(this.kCue);
@@ -38,6 +47,10 @@ BlueLevel.prototype.unloadScene = function () {
 
     // unload the scene flie and loaded resources
     gEngine.TextFileLoader.unloadTextFile(this.kSceneFile);
+    gEngine.Textures.unloadTexture(this.kPortal);
+    gEngine.Textures.unloadTexture(this.kCollector);
+
+    // unload audio
     gEngine.AudioClips.unloadAudio(this.kBgClip);
     gEngine.AudioClips.unloadAudio(this.kCue);
 
@@ -51,8 +64,9 @@ BlueLevel.prototype.initialize = function () {
     // Step A: Read in the camera
     this.mCamera = sceneParser.parseCamera();
 
-    // Step B: Read all the squares
+    // Step B: Read all the squares and textureSquares
     sceneParser.parseSquares(this.mSqSet);
+    sceneParser.parseTextureSquares(this.mSqSet);
 
     // now start the bg music ...
     gEngine.AudioClips.playBackgroundAudio(this.kBgClip);
@@ -81,7 +95,7 @@ BlueLevel.prototype.update = function () {
     var xform = this.mSqSet[1].getXform();
     var deltaX = 0.05;
 
-    /// Move right and swap ovre
+    /// Move right and swap over
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Right)) {
         gEngine.AudioClips.playACue(this.kCue);
         xform.incXPosBy(deltaX);
@@ -98,4 +112,12 @@ BlueLevel.prototype.update = function () {
             gEngine.GameLoop.stop();
         }
     }
+
+    // continously change texture tinting
+    var c = this.mSqSet[1].getColor();
+    var ca = c[3] + deltaX;
+    if (ca > 1) {
+    ca = 0;
+    }
+    c[3] = ca;
 };
