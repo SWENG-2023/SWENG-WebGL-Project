@@ -2,101 +2,64 @@
  * File: MyGame.js 
  * This is the logic of our game. 
  */
+
 /*jslint node: true, vars: true */
-/*global gEngine: false, Scene: false, BlueLevel: false, Camera: false, Renderable: false, vec2: false */
+/*global gEngine: false, Scene: false, GameObjectSet: false, Camera: false, vec2: false,
+  FontRenderable: false, DyePack: false, Hero: false, Minion: false, Brain: false,
+  GameObject: false */
 /* find out more about jslint: http://www.jslint.com/help.html */
 
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
 function MyGame() {
-     // audio clips: supports both mp3 and wav formats
-    this.kBgClip = "assets/sounds/BGWaltz.mp3";
-    this.kCue = "assets/sounds/button1.wav";
-
-    // textures: ( Note: supports png with transparency )
-    this.kPortal = "assets/minion_portal.png";
-    this.kCollector = "assets/minion_collector.png";
-
+    this.kMinionSprite = "assets/minion_sprite.png";
     // The camera to view the scene
     this.mCamera = null;
 
+    // For echo message
+    this.mMsg = null;
+
     // the hero and the support objects
     this.mHero = null;
-    this.mSupport = null;
-    this.mPortal = null;
-    this.mCollector = null;
+    this.mBrain = null;
 
-
+    // mode of running: 
+    //   H: Player drive brain
+    //   J: Dye drive brain, immediate orientation change
+    //   K: Dye drive brain, gradual orientation change
+    this.mMode = 'H';
 }
 gEngine.Core.inheritPrototype(MyGame, Scene);
 
 MyGame.prototype.loadScene = function () {
-   // loads the audios
-    gEngine.AudioClips.loadAudio(this.kBgClip);
-    gEngine.AudioClips.loadAudio(this.kCue);
-
-    // loads the textures
-    gEngine.Textures.loadTexture(this.kPortal);
-    gEngine.Textures.loadTexture(this.kCollector);
+    gEngine.Textures.loadTexture(this.kMinionSprite);
 };
 
-
-MyGame.prototype.unloadScene = function() {
-    // Step A: Game loop not running, unload all assets
-    // stop the background audio
-    gEngine.AudioClips.stopBackgroundAudio();
-
-    // unload the scene resources
-    // gEngine.AudioClips.unloadAudio(this.kBgClip);
-    //      You know this clip will be used elsewhere in the game
-    //      So you decide to not unload this clip!!
-    gEngine.AudioClips.unloadAudio(this.kCue);
-
-    // unload textures
-    gEngine.Textures.unloadTexture(this.kPortal);
-    gEngine.Textures.unloadTexture(this.kCollector);
-
-    // Step B: starts the next level
-    // starts the next level
-    var nextLevel = new BlueLevel();  // next level to be loaded
-    gEngine.Core.startScene(nextLevel);
+MyGame.prototype.unloadScene = function () {
+    gEngine.Textures.unloadTexture(this.kMinionSprite);
 };
 
 MyGame.prototype.initialize = function () {
     // Step A: set up the cameras
     this.mCamera = new Camera(
-        vec2.fromValues(20, 60),   // position of the camera
-        20,                        // width of camera
-        [20, 40, 600, 300]         // viewport (orgX, orgY, width, height)
-        );
+        vec2.fromValues(50, 37.5),   // position of the camera
+        100,                       // width of camera
+        [0, 0, 640, 480]           // viewport (orgX, orgY, width, height)
+    );
     this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
             // sets the background to gray
 
-    // Step B: Create the game objects
-    this.mPortal = new TextureRenderable(this.kPortal);
-    this.mPortal.setColor([1, 0, 0, 0.2]); // tints red
-    this.mPortal.getXform().setPosition(25, 60);
-    this.mPortal.getXform().setSize(3, 3);
-    
-    this.mCollector = new TextureRenderable(this.kCollector);
-    this.mCollector.setColor([0, 0, 0, 0]); // No tinting
-    this.mCollector.getXform().setPosition(15, 60);
-    this.mCollector.getXform().setSize(3, 3);
+    // Create the brain  
+    this.mBrain = new Brain(this.kMinionSprite);
 
-    // Step B: Create the support object in red
-    this.mSupport = new Renderable(gEngine.DefaultResources.getConstColorShader());
-    this.mSupport.setColor([0.8, 0.2, 0.2, 1]);
-    this.mSupport.getXform().setPosition(20, 60);
-    this.mSupport.getXform().setSize(5, 5);
+    //  Create the hero object 
+    this.mHero = new Hero(this.kMinionSprite);
 
-    // Setp C: Create the hero object in blue
-    this.mHero = new Renderable();
-    this.mHero.setColor([0, 0, 1, 1]);
-    this.mHero.getXform().setPosition(20, 60);
-    this.mHero.getXform().setSize(2, 3);
-
-    // now start the bg music ...
-    gEngine.AudioClips.playBackgroundAudio(this.kBgClip);
+    // For echoing
+    this.mMsg = new FontRenderable("Status Message");
+    this.mMsg.setColor([0, 0, 0, 1]);
+    this.mMsg.getXform().setPosition(1, 2);
+    this.mMsg.setTextHeight(3);
 };
 
 // This is the draw function, make sure to setup proper drawing environment, and more
@@ -108,34 +71,41 @@ MyGame.prototype.draw = function () {
     // Step  B: Activate the drawing Camera
     this.mCamera.setupViewProjection();
 
-    // Step  C: draw everything
-    this.mSupport.draw(this.mCamera.getVPMatrix());
-    this.mHero.draw(this.mCamera.getVPMatrix());
+    // Step  C: Draw everything
+    this.mHero.draw(this.mCamera);
+    this.mBrain.draw(this.mCamera);
+    this.mMsg.draw(this.mCamera);
 };
 
 // The update function, updates the application state. Make sure to _NOT_ draw
 // anything from this function!
 MyGame.prototype.update = function () {
-    // let's only allow the movement of hero, 
-    // and if hero moves too far off, this level ends, we will
-    // load the next level
-    var deltaX = 0.05;
-    var xform = this.mHero.getXform();
+    var msg = "Brain modes [H:keys, J:immediate, K:gradual]: ";
+    var rate = 1;
 
-    // Support hero movements
-    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Right)) {
-        gEngine.AudioClips.playACue(this.kCue);
-        xform.incXPosBy(deltaX);
-        if (xform.getXPos() > 30) { // this is the right-bound of the window
-            xform.setPosition(12, 60);
-        }
+    this.mHero.update();
+
+    switch (this.mMode) {
+    case 'H':
+        this.mBrain.update();  // player steers with arrow keys
+        break;
+    case 'K':
+        rate = 0.02;    // graduate rate
+        // When "K" is typed, the following should also be executed.
+    case 'J':
+        this.mBrain.rotateObjPointTo(this.mHero.getXform().getPosition(), rate);
+        GameObject.prototype.update.call(this.mBrain);  // the default GameObject: only move forward
+        break;
     }
 
-    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Left)) {
-        gEngine.AudioClips.playACue(this.kCue);
-        xform.incXPosBy(-deltaX);
-        if (xform.getXPos() < 11) {  // this is the left-bound of the window
-            gEngine.GameLoop.stop();
-        }
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.H)) {
+        this.mMode = 'H';
     }
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.J)) {
+        this.mMode = 'J';
+    }
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.K)) {
+        this.mMode = 'K';
+    }
+    this.mMsg.setText(msg + this.mMode);
 };

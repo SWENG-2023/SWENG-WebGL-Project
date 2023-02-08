@@ -154,6 +154,16 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
       out[1] = 0;
       return out;
   };
+
+  vec2.rotate = function(out, a, c){
+        var r=[];
+        // perform rotation
+        r[0] = a[0]*Math.cos(c) - a[1]*Math.sin(c);
+        r[1] = a[0]*Math.sin(c) + a[1]*Math.cos(c);
+        out[0] = r[0];
+        out[1] = r[1];
+        return r;
+   };
   
   /**
    * Creates a new vec2 initialized with values from an existing vector

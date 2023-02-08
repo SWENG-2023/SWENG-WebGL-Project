@@ -66,6 +66,11 @@ gEngine.Core = (function () {
         mGL.clear(mGL.COLOR_BUFFER_BIT);      // clear to the color previously set
     };
 
+    var cleanUp = function() {
+        gEngine.VertexBuffer.cleanUp();
+        gEngine.DefaultResources.cleanUp();
+    };
+
     var inheritPrototype = function (subClass, superClass) {
         var prototype = Object.create(superClass.prototype);
         prototype.constructor = subClass;
@@ -78,7 +83,8 @@ gEngine.Core = (function () {
         initializeEngineCore: initializeEngineCore,
         clearCanvas: clearCanvas,
         inheritPrototype: inheritPrototype,
-        startScene: startScene
+        startScene: startScene,
+        cleanUp: cleanUp
     };
 
     return mPublic;

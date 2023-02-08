@@ -27,13 +27,13 @@ function SimpleShader(vertexShaderPath, fragmentShaderPath) {
     // start of constructor code
     // 
     // Step A: load and compile vertex and fragment shaders
-    var vertexShader = this._compileShader(vertexShaderPath, gl.VERTEX_SHADER);
-    var fragmentShader = this._compileShader(fragmentShaderPath, gl.FRAGMENT_SHADER);
+    this.mVertexShader = this._compileShader(vertexShaderPath, gl.VERTEX_SHADER);
+    this.mFragmentShader = this._compileShader(fragmentShaderPath, gl.FRAGMENT_SHADER);
 
     // Step B: Create and link the shaders into a program.
     this.mCompiledShader = gl.createProgram();
-    gl.attachShader(this.mCompiledShader, vertexShader);
-    gl.attachShader(this.mCompiledShader, fragmentShader);
+    gl.attachShader(this.mCompiledShader, this.mVertexShader);
+    gl.attachShader(this.mCompiledShader, this.mFragmentShader);
     gl.linkProgram(this.mCompiledShader);
 
     // Step C: check for error
@@ -44,7 +44,9 @@ function SimpleShader(vertexShaderPath, fragmentShaderPath) {
 
     // Step D: Gets a reference to the aSquareVertexPosition attribute within the shaders.
     this.mShaderVertexPositionAttribute = gl.getAttribLocation(
-        this.mCompiledShader, "aSquareVertexPosition");
+        this.mCompiledShader,
+        "aSquareVertexPosition"
+    );
 
     // Step E: Activates the vertex buffer loaded in EngineCore_VertexBuffer.js
     gl.bindBuffer(gl.ARRAY_BUFFER, gEngine.VertexBuffer.getGLVertexRef());
@@ -71,10 +73,10 @@ function SimpleShader(vertexShaderPath, fragmentShaderPath) {
 SimpleShader.prototype.getShader = function () { return this.mCompiledShader; };
 
 // Activate the shader for rendering
-SimpleShader.prototype.activateShader = function (pixelColor, vpMatrix) {
+SimpleShader.prototype.activateShader = function (pixelColor, aCamera) {
     var gl = gEngine.Core.getGL();
     gl.useProgram(this.mCompiledShader);
-    gl.uniformMatrix4fv(this.mViewProjTransform, false, vpMatrix);
+    gl.uniformMatrix4fv(this.mViewProjTransform, false, aCamera.getVPMatrix());
     gl.bindBuffer(gl.ARRAY_BUFFER, gEngine.VertexBuffer.getGLVertexRef());
     gl.vertexAttribPointer(this.mShaderVertexPositionAttribute,
         3,              // each element is a 3-float (x,y.z)
@@ -93,6 +95,13 @@ SimpleShader.prototype.loadObjectTransform = function (modelTransform) {
     gl.uniformMatrix4fv(this.mModelTransform, false, modelTransform);
 };
 
+SimpleShader.prototype.cleanUp = function () {
+    var gl = gEngine.Core.getGL();
+    gl.detachShader(this.mCompiledShader, this.mVertexShader);
+    gl.detachShader(this.mCompiledShader, this.mFragmentShader);
+    gl.deleteShader(this.mVertexShader);
+    gl.deleteShader(this.mFragmentShader);
+};
 //-- end of public methods
 // </editor-fold>
 
