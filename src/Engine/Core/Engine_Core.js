@@ -3,7 +3,7 @@
  * The first iteration of what the core of our game engine would look like.
  */
 /*jslint node: true, vars: true, evil: true */
-/*global gEngine: false, document: false */
+/*global document */
 /* find out more about jslint: http://www.jslint.com/help.html */
 
 //  Global variable EngineCore
@@ -17,26 +17,27 @@ gEngine.Core = (function () {
     // instance variables
     // The graphical context to draw to
     var mGL = null;
-
     // initialize the WebGL, the vertex buffer and compile the shaders
     var _initializeWebGL = function (htmlCanvasID) {
         var canvas = document.getElementById(htmlCanvasID);
 
-        // Get standard webgl, or experimental
-        // binds webgl to the Canvas area on the web-page to the variable mGL
-        mGL = canvas.getContext("webgl", {alpha: false}) ||
-        canvas.getContext("experimental-webgl", {alpha: false});
+        // Get the standard or experimental webgl and binds to the Canvas area
+        // store the results to the instance variable mGL
+        mGL = canvas.getContext("webgl", {alpha: false}) || canvas.getContext("experimental-webgl", {alpha: false});
+
         // Allows transperency with textures.
         mGL.blendFunc(mGL.SRC_ALPHA, mGL.ONE_MINUS_SRC_ALPHA);
-        mGL.enable( mGL.BLEND ) ;
-        
-        // Set images to flip the y axis to match the texture coordinate space.
+        mGL.enable(mGL.BLEND);
+
+        // Set images to flip y axis to match the texture coordinate space.
         mGL.pixelStorei(mGL.UNPACK_FLIP_Y_WEBGL, true);
+
         if (mGL === null) {
             document.write("<br><b>WebGL is not supported!</b>");
+            return;
         }
     };
-    
+
     //**----------------------------
     // Public methods:
     //**-----------------------------
@@ -66,15 +67,15 @@ gEngine.Core = (function () {
         mGL.clear(mGL.COLOR_BUFFER_BIT);      // clear to the color previously set
     };
 
-    var cleanUp = function() {
-        gEngine.VertexBuffer.cleanUp();
-        gEngine.DefaultResources.cleanUp();
-    };
-
     var inheritPrototype = function (subClass, superClass) {
         var prototype = Object.create(superClass.prototype);
         prototype.constructor = subClass;
         subClass.prototype = prototype;
+    };
+
+    var cleanUp = function () {
+        gEngine.DefaultResources.cleanUp();
+        gEngine.VertexBuffer.cleanUp();
     };
     // -- end of public methods
 
