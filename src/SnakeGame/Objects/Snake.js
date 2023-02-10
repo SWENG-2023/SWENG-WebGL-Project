@@ -9,43 +9,68 @@ function Snake(spriteTexture) {
     this.mSnake.getXform().setPosition(35, 50);
     this.mSnake.getXform().setSize(3, 3);
     this.mLastLetter = "N/A";
+    this.mFrameCounter = 0; // To only update the snake at set intervals
+    this.mFrameUpdateInterval = 15;
     GameObject.call(this, this.mSnake);
 
-    this.setSpeed(0.1);
+    this.setSpeed(0.2);
 }
 gEngine.Core.inheritPrototype(Snake, GameObject);
 
-Snake.prototype.update = function () {
-    GameObject.prototype.update.call(this);  // default moving forward
+Snake.prototype.takeInput = function () {
     // control by WASD
     var xform = this.getXform();
-    var fdir = this.getCurrentFrontDir(); // A vec3
 
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.W)) {
         // Set the rotation of sprite and direction for movement
-        xform.setRotationInDegree(0);
-        vec2.set(fdir, 0, 1);
         this.mLastLetter = "W";
     }
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.S)) {
-        xform.setRotationInDegree(180);
-        vec2.set(fdir, 0, -1);
         this.mLastLetter = "S";
     }
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.A)) {
-        xform.setRotationInDegree(90);
-        vec2.set(fdir, -1, 0);
         this.mLastLetter = "A";
     }
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.D)) {
-        xform.setRotationInDegree(270);
-        vec2.set(fdir, 1, 0);
         this.mLastLetter = "D";
     }
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.R)) {
         xform.setPosition(35, 50);
         this.mLastLetter = "R";
     }
+};
 
+Snake.prototype.update = function () {
+    GameObject.prototype.update.call(this);  // default moving forward
 
+    this.takeInput();
+    this.mFrameCounter++;
+
+    if(this.mFrameCounter == this.mFrameUpdateInterval){
+        this.mFrameCounter = 0;
+        var xform = this.getXform();
+        var fdir = this.getCurrentFrontDir(); // A vec3
+
+        switch(this.mLastLetter){
+            case 'W':
+                xform.setRotationInDegree(0);
+                vec2.set(fdir, 0, 1);
+                break;
+
+            case 'S':
+                xform.setRotationInDegree(180);
+                vec2.set(fdir, 0, -1);
+                break;
+
+            case 'A':
+                xform.setRotationInDegree(90);
+                vec2.set(fdir, -1, 0);
+                break;
+
+            case 'D':
+                xform.setRotationInDegree(270);
+                vec2.set(fdir, 1, 0);
+                break;
+        }
+    }
 };

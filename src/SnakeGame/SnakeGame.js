@@ -19,6 +19,7 @@ function SnakeGame() {
 
     this.mMsg = null;
     this.mInputMsg = null;
+    this.mFPSMsg = null;
 
     // the hero and the support objects
     this.mSnake = null;
@@ -49,10 +50,16 @@ SnakeGame.prototype.initialize = function () {
     this.mMsg.setColor([0, 0, 0, 1]);
     this.mMsg.getXform().setPosition(1, 2);
     this.mMsg.setTextHeight(3);
+
     this.mInputMsg = new FontRenderable("Status Message");
     this.mInputMsg.setColor([0, 0, 0, 1]);
     this.mInputMsg.getXform().setPosition(50, 2);
     this.mInputMsg.setTextHeight(3);
+
+    this.mFPSMsg = new FontRenderable("FPS msg");
+    this.mFPSMsg.setColor([0, 0, 0, 1]);
+    this.mFPSMsg.getXform().setPosition(1, 10);
+    this.mFPSMsg.setTextHeight(3);
 };
 
 // This is the draw function, make sure to setup proper drawing environment, and more
@@ -68,12 +75,15 @@ SnakeGame.prototype.draw = function () {
     this.mSnake.draw(this.mCamera);
     this.mMsg.draw(this.mCamera);
     this.mInputMsg.draw(this.mCamera);
+    this.mFPSMsg.draw(this.mCamera);
 };
 
 // The update function, updates the application state. Make sure to _NOT_ draw
 // anything from this function!
 SnakeGame.prototype.update = function () {
     let msg = "Last pressed command: ";
+    let fpsMsg = "Frame Counter: ";
     this.mSnake.update();
     this.mInputMsg.setText(msg + this.mSnake.mLastLetter);
+    this.mFPSMsg.setText(fpsMsg + this.mSnake.mFrameCounter);
 };
