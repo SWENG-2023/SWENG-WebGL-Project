@@ -14,6 +14,7 @@
 function SnakeGame() {
     this.kSnakeSprite = "assets/snake_sprites/head_up.png";
     this.kSnakeSegmentSprite = "assets/snake_sprites/body_vertical.png"
+    this.kSnakeBgSprite = "assets/snake_sprites/snake_bg.png";
 
     // The camera to view the scene
     this.mCamera = null;
@@ -27,17 +28,22 @@ function SnakeGame() {
     this.mSegments = [];
     this.mTail = null;
     this.mNewAllowed = true;
+
+    // background
+    this.mBg = null;
 }
 gEngine.Core.inheritPrototype(SnakeGame, Scene);
 
 SnakeGame.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kSnakeSprite);
     gEngine.Textures.loadTexture(this.kSnakeSegmentSprite);
+    gEngine.Textures.loadTexture(this.kSnakeBgSprite);
 };
 
 SnakeGame.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kSnakeSprite);
     gEngine.Textures.unloadTexture(this.kSnakeSegmentSprite);
+    gEngine.Textures.unloadTexture(this.kSnakeBgSprite);
 };
 
 SnakeGame.prototype.initialize = function () {
@@ -53,6 +59,11 @@ SnakeGame.prototype.initialize = function () {
     this.mSnake = new Snake(this.kSnakeSprite);
     this.mTail = this.mSnake;
 
+    this.mBg = new TextureRenderable(this.kSnakeBgSprite);
+    this.mBg.setColor([1, 1, 1, 0]);
+    this.mBg.getXform().setSize(40, 40);
+    this.mBg.getXform().setPosition(35, 50);
+
     this.mMsg = new FontRenderable("Hello Snake! [R] to reset");
     this.mMsg.setColor([0, 0, 0, 1]);
     this.mMsg.getXform().setPosition(1, 2);
@@ -67,6 +78,8 @@ SnakeGame.prototype.initialize = function () {
     this.mFPSMsg.setColor([0, 0, 0, 1]);
     this.mFPSMsg.getXform().setPosition(1, 10);
     this.mFPSMsg.setTextHeight(3);
+
+    this.mSegments.push(this.mSnake);
 };
 
 SnakeGame.prototype.makeSegment = function() {
@@ -85,7 +98,8 @@ SnakeGame.prototype.draw = function () {
     this.mCamera.setupViewProjection();
 
     // Step  C: Draw everything
-    this.mSnake.draw(this.mCamera);
+    //this.mSnake.draw(this.mCamera);
+    this.mBg.draw(this.mCamera);
     this.mSegments.forEach(segment => segment.draw(this.mCamera));
 
     this.mMsg.draw(this.mCamera);
@@ -98,7 +112,7 @@ SnakeGame.prototype.draw = function () {
 SnakeGame.prototype.update = function () {
     let msg = "Last pressed command: ";
     let fpsMsg = "Frame Counter: ";
-    this.mSnake.update();
+    //this.mSnake.update();
     this.mSegments.forEach(segment => segment.update());
     this.mInputMsg.setText(msg + this.mSnake.mLastLetter);
     this.mFPSMsg.setText(fpsMsg + this.mSnake.mFrameCounter);
