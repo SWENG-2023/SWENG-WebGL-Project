@@ -49,9 +49,9 @@ SnakeGame.prototype.unloadScene = function () {
 SnakeGame.prototype.initialize = function () {
     // Step A: set up the cameras
     this.mCamera = new Camera(
-        vec2.fromValues(50, 37.5), // position of the camera
-        100,                       // width of camera
-        [0, 0, 640, 480]           // viewport (orgX, orgY, width, height)
+        vec2.fromValues(177.5, 177.5), // position of the camera
+        256,                       // width of camera
+        [0, 0, 500, 500]           // viewport (orgX, orgY, width, height)
     );
     this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
             // sets the background to gray
@@ -61,8 +61,8 @@ SnakeGame.prototype.initialize = function () {
 
     this.mBg = new TextureRenderable(this.kSnakeBgSprite);
     this.mBg.setColor([1, 1, 1, 0]);
-    this.mBg.getXform().setSize(40, 40);
-    this.mBg.getXform().setPosition(35, 50);
+    this.mBg.getXform().setSize(100, 100);
+    this.mBg.getXform().setPosition(177.5, 177.5);
 
     this.mMsg = new FontRenderable("Hello Snake! [R] to reset");
     this.mMsg.setColor([0, 0, 0, 1]);
