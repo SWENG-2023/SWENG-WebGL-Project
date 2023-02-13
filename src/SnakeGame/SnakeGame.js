@@ -49,7 +49,7 @@ SnakeGame.prototype.unloadScene = function () {
 SnakeGame.prototype.initialize = function () {
     // Step A: set up the cameras
     this.mCamera = new Camera(
-        vec2.fromValues(177.5, 177.5), // position of the camera
+        vec2.fromValues(128, 128), // position of the camera
         256,                       // width of camera
         [0, 0, 500, 500]           // viewport (orgX, orgY, width, height)
     );
@@ -61,23 +61,23 @@ SnakeGame.prototype.initialize = function () {
 
     this.mBg = new TextureRenderable(this.kSnakeBgSprite);
     this.mBg.setColor([1, 1, 1, 0]);
-    this.mBg.getXform().setSize(100, 100);
-    this.mBg.getXform().setPosition(177.5, 177.5);
+    this.mBg.getXform().setSize(256, 256);
+    this.mBg.getXform().setPosition(128, 128);
 
     this.mMsg = new FontRenderable("Hello Snake! [R] to reset");
     this.mMsg.setColor([0, 0, 0, 1]);
-    this.mMsg.getXform().setPosition(1, 2);
-    this.mMsg.setTextHeight(3);
+    this.mMsg.getXform().setPosition(10, 10);
+    this.mMsg.setTextHeight(10);
 
     this.mInputMsg = new FontRenderable("Status Message");
     this.mInputMsg.setColor([0, 0, 0, 1]);
-    this.mInputMsg.getXform().setPosition(50, 2);
-    this.mInputMsg.setTextHeight(3);
+    this.mInputMsg.getXform().setPosition(10, 20);
+    this.mInputMsg.setTextHeight(10);
 
     this.mFPSMsg = new FontRenderable("FPS msg");
     this.mFPSMsg.setColor([0, 0, 0, 1]);
-    this.mFPSMsg.getXform().setPosition(1, 10);
-    this.mFPSMsg.setTextHeight(3);
+    this.mFPSMsg.getXform().setPosition(10, 30);
+    this.mFPSMsg.setTextHeight(10);
 
     this.mSegments.push(this.mSnake);
 };

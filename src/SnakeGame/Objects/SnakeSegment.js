@@ -6,7 +6,7 @@ function SnakeSegment(spriteTexture, parentSegment) {
 
     this.mSegment= new TextureRenderable(spriteTexture);
     this.mSegment.setColor([1, 1, 1, 0]);
-    this.mSegment.getXform().setSize(3, 3);
+    this.mSegment.getXform().setSize(12, 12);
     GameObject.call(this, this.mSegment);
 
     this.mParent = parentSegment; // The segment/head it is following
@@ -17,7 +17,7 @@ function SnakeSegment(spriteTexture, parentSegment) {
     this.getXform().setRotationInDegree(nextDirection);
 
     this.mFrameCounter = 0;
-    this.mFrameUpdateInterval = 15;
+    this.mFrameUpdateInterval = 10;
 }
 gEngine.Core.inheritPrototype(SnakeSegment, GameObject);
 
@@ -28,7 +28,7 @@ SnakeSegment.prototype.update = function () {
     this.mFrameCounter++;
 
     if(this.mFrameCounter == this.mFrameUpdateInterval){
-        this.setSpeed(0.2);
+        this.setSpeed(16/10);
         this.mFrameCounter = 0;
         var xform = this.getXform();
         var fdir = this.getCurrentFrontDir();
