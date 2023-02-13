@@ -13,6 +13,7 @@
 
 function SnakeGame() {
     this.kSnakeSprite = "assets/snake_sprites/head_up.png";
+    this.kSnakeSegmentSprite = "assets/snake_sprites/body_vertical.png"
 
     // The camera to view the scene
     this.mCamera = null;
@@ -23,15 +24,20 @@ function SnakeGame() {
 
     // the hero and the support objects
     this.mSnake = null;
+    this.mSegments = [];
+    this.mTail = null;
+    this.mNewAllowed = true;
 }
 gEngine.Core.inheritPrototype(SnakeGame, Scene);
 
 SnakeGame.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kSnakeSprite);
+    gEngine.Textures.loadTexture(this.kSnakeSegmentSprite);
 };
 
 SnakeGame.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kSnakeSprite);
+    gEngine.Textures.unloadTexture(this.kSnakeSegmentSprite);
 };
 
 SnakeGame.prototype.initialize = function () {
@@ -45,6 +51,7 @@ SnakeGame.prototype.initialize = function () {
             // sets the background to gray
 
     this.mSnake = new Snake(this.kSnakeSprite);
+    this.mTail = this.mSnake;
 
     this.mMsg = new FontRenderable("Hello Snake! [R] to reset");
     this.mMsg.setColor([0, 0, 0, 1]);
@@ -62,6 +69,12 @@ SnakeGame.prototype.initialize = function () {
     this.mFPSMsg.setTextHeight(3);
 };
 
+SnakeGame.prototype.makeSegment = function() {
+    let newSegment = new SnakeSegment(this.kSnakeSegmentSprite, this.mTail);
+    this.mTail = newSegment;
+    this.mSegments.push(newSegment);
+}
+
 // This is the draw function, make sure to setup proper drawing environment, and more
 // importantly, make sure to _NOT_ change any state.
 SnakeGame.prototype.draw = function () {
@@ -73,6 +86,8 @@ SnakeGame.prototype.draw = function () {
 
     // Step  C: Draw everything
     this.mSnake.draw(this.mCamera);
+    this.mSegments.forEach(segment => segment.draw(this.mCamera));
+
     this.mMsg.draw(this.mCamera);
     this.mInputMsg.draw(this.mCamera);
     this.mFPSMsg.draw(this.mCamera);
@@ -84,6 +99,13 @@ SnakeGame.prototype.update = function () {
     let msg = "Last pressed command: ";
     let fpsMsg = "Frame Counter: ";
     this.mSnake.update();
+    this.mSegments.forEach(segment => segment.update());
     this.mInputMsg.setText(msg + this.mSnake.mLastLetter);
     this.mFPSMsg.setText(fpsMsg + this.mSnake.mFrameCounter);
+
+    if(this.mNewAllowed && this.mSnake.mLastLetter == "R"){
+        this.makeSegment();
+        //this.mNewAllowed = false;
+        this.mSnake.mLastLetter == "W";
+    } 
 };
