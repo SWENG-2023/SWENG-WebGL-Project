@@ -20,6 +20,7 @@ function SnakeGame() {
     this.mMsg = null;
     this.mInputMsg = null;
     this.mFPSMsg = null;
+    this.mScoreMsg = null;
 
     // the hero and the support objects
     this.mSnake = null;

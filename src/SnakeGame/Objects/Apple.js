@@ -8,9 +8,6 @@ function Apple(spriteTexture) {
     this.mApple.setColor([1,1,1,0]);
     this.mApple.getXform().setPosition(Math.random()*80, Math.random()*80);
     this.mApple.getXform().setSize(3,3);
-    this.mLastLetter = "N/A";
-    this.mFrameCounter = 0;
-    this.mFrameUpdateInterval = 15;
     GameObject.call(this,this.mApple);
 }
 gEngine.Core.inheritPrototype(Apple, GameObject);
@@ -40,6 +37,4 @@ Apple.prototype.takeInput = function () {
 Apple.prototype.update = function (){
     this.takeInput();
     GameObject.prototype.update.call(this);
-
-    this.mFrameCounter++;
 }
