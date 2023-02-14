@@ -13,6 +13,7 @@
 
 function SnakeGame() {
     this.kSnakeSprite = "assets/snake_sprites/head_up.png";
+    this.kAppleSprite = "assets/snake_sprites/apple.png";
     this.kSnakeSegmentSprite = "assets/snake_sprites/body_vertical.png"
     this.kSnakeBgSprite = "assets/snake_sprites/snake_bg.png";
 
@@ -22,9 +23,11 @@ function SnakeGame() {
     this.mMsg = null;
     this.mInputMsg = null;
     this.mFPSMsg = null;
+    this.mScoreMsg = null;
 
     // the hero and the support objects
     this.mSnake = null;
+    this.mApple = null;
     this.mSegments = [];
     this.mTail = null;
     this.mNewAllowed = true;
@@ -36,12 +39,14 @@ gEngine.Core.inheritPrototype(SnakeGame, Scene);
 
 SnakeGame.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kSnakeSprite);
+    gEngine.Textures.loadTexture(this.kAppleSprite);
     gEngine.Textures.loadTexture(this.kSnakeSegmentSprite);
     gEngine.Textures.loadTexture(this.kSnakeBgSprite);
 };
 
 SnakeGame.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kSnakeSprite);
+    gEngine.Textures.unloadTexture(this.kAppleSprite);
     gEngine.Textures.unloadTexture(this.kSnakeSegmentSprite);
     gEngine.Textures.unloadTexture(this.kSnakeBgSprite);
 };
@@ -57,6 +62,7 @@ SnakeGame.prototype.initialize = function () {
             // sets the background to gray
 
     this.mSnake = new Snake(this.kSnakeSprite);
+    this.mApple = new Apple(this.kAppleSprite);
     this.mTail = this.mSnake;
 
     this.mBg = new TextureRenderable(this.kSnakeBgSprite);
@@ -76,6 +82,14 @@ SnakeGame.prototype.initialize = function () {
 
     this.mFPSMsg = new FontRenderable("FPS msg");
     this.mFPSMsg.setColor([0, 0, 0, 1]);
+    this.mFPSMsg.getXform().setPosition(1, 10);
+    this.mFPSMsg.setTextHeight(3);
+
+    this.mScoreMsg = new FontRenderable("Score msg");
+    this.mScoreMsg.setColor([0, 0, 0, 1]);
+    this.mScoreMsg.getXform().setPosition(50, 10);
+    this.mScoreMsg.setTextHeight(3);
+    
     this.mFPSMsg.getXform().setPosition(10, 30);
     this.mFPSMsg.setTextHeight(10);
 
@@ -98,6 +112,10 @@ SnakeGame.prototype.draw = function () {
     this.mCamera.setupViewProjection();
 
     // Step  C: Draw everything
+    this.mSnake.draw(this.mCamera);
+    this.mApple.draw(this.mCamera);
+    this.mScoreMsg.draw(this.mCamera);
+    
     //this.mSnake.draw(this.mCamera);
     this.mBg.draw(this.mCamera);
     this.mSegments.forEach(segment => segment.draw(this.mCamera));
@@ -112,8 +130,16 @@ SnakeGame.prototype.draw = function () {
 SnakeGame.prototype.update = function () {
     let msg = "Last pressed command: ";
     let fpsMsg = "Frame Counter: ";
+
+    let scoreMsg = "Score: ";
+    this.mSnake.update();
+    this.mApple.getEaten(this.mSnake.getXform().getXPos(),this.mSnake.getXform().getYPos());
+    this.mApple.update();
+    this.mScoreMsg.setText(scoreMsg + this.mApple.score)
+
     //this.mSnake.update();
     this.mSegments.forEach(segment => segment.update());
+
     this.mInputMsg.setText(msg + this.mSnake.mLastLetter);
     this.mFPSMsg.setText(fpsMsg + this.mSnake.mFrameCounter);
 
