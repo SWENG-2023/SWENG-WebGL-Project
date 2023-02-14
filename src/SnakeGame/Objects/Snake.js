@@ -6,16 +6,28 @@ function Snake(spriteTexture) {
 
     this.mSnake= new TextureRenderable(spriteTexture);
     this.mSnake.setColor([1, 1, 1, 0]);
-    this.mSnake.getXform().setPosition(35, 50);
-    this.mSnake.getXform().setSize(3, 3);
+
+    let initCoords = this.getSquareCoords(5, 10);
+    this.mSnake.getXform().setPosition(initCoords[0], initCoords[1]);
+    this.mSnake.getXform().setSize(12, 12);
     this.mLastLetter = "N/A";
     this.mFrameCounter = 0; // To only update the snake at set intervals
-    this.mFrameUpdateInterval = 15;
+    this.mFrameUpdateInterval = 10;
     GameObject.call(this, this.mSnake);
 
-    this.setSpeed(0.2);
+    // Since 1 grid = 16px, 1 grid/10 frames
+    this.setSpeed(16/10);
 }
 gEngine.Core.inheritPrototype(Snake, GameObject);
+
+Snake.prototype.getSquareCoords = function (xSquare, ySquare){
+    let coordsArray = [];
+
+    // 1-indexed, 16 * 16 grid, gets the middle of squares
+    coordsArray.push((xSquare * 16) - 8);
+    coordsArray.push((ySquare * 16) - 8);
+    return coordsArray;
+}
 
 Snake.prototype.takeInput = function () {
     // control by WASD
@@ -35,7 +47,9 @@ Snake.prototype.takeInput = function () {
         this.mLastLetter = "D";
     }
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.R)) {
-        xform.setPosition(35, 50);
+        let coords = this.getSquareCoords(10, 10);
+        xform.setPosition(coords[0], coords[1]);
+        this.mFrameCounter = 0;
         this.mLastLetter = "R";
     }
 };
