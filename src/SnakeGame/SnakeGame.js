@@ -5,7 +5,7 @@
 
 /*jslint node: true, vars: true */
 /*global gEngine, Scene, GameObjectset, TextureObject, Camera, vec2,
-  FontRenderable, DyePack, Hero, Minion, Brain,
+  FontRenderable
   GameObject */
 /* find out more about jslint: http://www.jslint.com/help.html */
 
@@ -48,7 +48,10 @@ SnakeGame.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kSnakeSprite);
     gEngine.Textures.unloadTexture(this.kAppleSprite);
     gEngine.Textures.unloadTexture(this.kSnakeSegmentSprite);
-    gEngine.Textures.unloadTexture(this.kSnakeBgSprite);
+    //gEngine.Textures.unloadTexture(this.kSnakeBgSprite);
+
+    let loseLevel = new LoseGame();
+    gEngine.Core.startScene(loseLevel);
 };
 
 SnakeGame.prototype.initialize = function () {
@@ -94,6 +97,7 @@ SnakeGame.prototype.initialize = function () {
     this.mFPSMsg.setTextHeight(10);
 
     this.mSegments.push(this.mSnake);
+    this.mFrameCounter = 0;
 };
 
 SnakeGame.prototype.makeSegment = function() {
@@ -113,11 +117,7 @@ SnakeGame.prototype.draw = function () {
 
     // Step  C: Draw everything
     this.mBg.draw(this.mCamera);
-    //this.mSnake.draw(this.mCamera);
     this.mApple.draw(this.mCamera);
-    
-    
-    //this.mSnake.draw(this.mCamera);
     
     this.mSegments.forEach(segment => segment.draw(this.mCamera));
 
@@ -132,27 +132,41 @@ SnakeGame.prototype.draw = function () {
 SnakeGame.prototype.update = function () {
     let msg = "Last pressed command: ";
     let fpsMsg = "Frame Counter: ";
-
     let scoreMsg = "Score: ";
-    this.mSnake.update();
+
+    let snakeXPos = this.mSnake.getXform().getXPos();
+    let snakeYPos = this.mSnake.getXform().getYPos();
+
+    if(snakeXPos < 0 || snakeXPos > 256 || snakeYPos < 0 || snakeYPos > 256){
+        gEngine.GameLoop.stop();
+    }
+
     this.mApple.getEaten(this.mSnake.getXform().getXPos(),this.mSnake.getXform().getYPos());
     this.mApple.update();
-    this.mScoreMsg.setText(scoreMsg + this.mApple.score)
+    this.mScoreMsg.setText(scoreMsg + this.mApple.score);
 
-    //this.mSnake.update();
-    this.mSegments.forEach(segment => segment.update());
+    for (let i = this.mSegments.length-1; i >= 0; i--) {
+        this.mSegments[i].update();
+    }
+
+    this.mFrameCounter++;
+    if(this.mFrameCounter == 10){
+        this.mFrameCounter = 0;
+        if(this.mApple.mEaten){
+            this.makeSegment();
+            this.mApple.resetEaten();
+        }
+    }
+
+
+    //this.mSegments.forEach(segment => segment.update());
 
     this.mInputMsg.setText(msg + this.mSnake.mLastLetter);
     this.mFPSMsg.setText(fpsMsg + this.mSnake.mFrameCounter);
 
     //if(this.mNewAllowed && this.mSnake.mLastLetter == "R"){
-    //    this.makeSegment();
-        //this.mNewAllowed = false;
-    //    this.mSnake.mLastLetter == "W";
+    //    this.mSegments = [this.mSnake];
     //} 
 
-    if(this.mApple.mEaten){
-        this.makeSegment();
-        this.mApple.resetEaten();
-    }
+    
 };

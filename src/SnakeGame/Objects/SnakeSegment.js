@@ -6,7 +6,7 @@ function SnakeSegment(spriteTexture, parentSegment) {
 
     this.mSegment= new TextureRenderable(spriteTexture);
     this.mSegment.setColor([1, 1, 1, 0]);
-    this.mSegment.getXform().setSize(12, 12);
+    this.mSegment.getXform().setSize(15, 15);
     GameObject.call(this, this.mSegment);
 
     this.mParent = parentSegment; // The segment/head it is following
