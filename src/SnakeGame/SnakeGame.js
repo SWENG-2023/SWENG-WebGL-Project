@@ -83,12 +83,12 @@ SnakeGame.prototype.initialize = function () {
     this.mFPSMsg = new FontRenderable("FPS msg");
     this.mFPSMsg.setColor([0, 0, 0, 1]);
     this.mFPSMsg.getXform().setPosition(1, 10);
-    this.mFPSMsg.setTextHeight(3);
+    this.mFPSMsg.setTextHeight(10);
 
     this.mScoreMsg = new FontRenderable("Score msg");
     this.mScoreMsg.setColor([0, 0, 0, 1]);
-    this.mScoreMsg.getXform().setPosition(50, 10);
-    this.mScoreMsg.setTextHeight(3);
+    this.mScoreMsg.getXform().setPosition(10, 40);
+    this.mScoreMsg.setTextHeight(10);
     
     this.mFPSMsg.getXform().setPosition(10, 30);
     this.mFPSMsg.setTextHeight(10);
@@ -112,17 +112,19 @@ SnakeGame.prototype.draw = function () {
     this.mCamera.setupViewProjection();
 
     // Step  C: Draw everything
-    this.mSnake.draw(this.mCamera);
+    this.mBg.draw(this.mCamera);
+    //this.mSnake.draw(this.mCamera);
     this.mApple.draw(this.mCamera);
-    this.mScoreMsg.draw(this.mCamera);
+    
     
     //this.mSnake.draw(this.mCamera);
-    this.mBg.draw(this.mCamera);
+    
     this.mSegments.forEach(segment => segment.draw(this.mCamera));
 
     this.mMsg.draw(this.mCamera);
     this.mInputMsg.draw(this.mCamera);
     this.mFPSMsg.draw(this.mCamera);
+    this.mScoreMsg.draw(this.mCamera);
 };
 
 // The update function, updates the application state. Make sure to _NOT_ draw
@@ -143,9 +145,14 @@ SnakeGame.prototype.update = function () {
     this.mInputMsg.setText(msg + this.mSnake.mLastLetter);
     this.mFPSMsg.setText(fpsMsg + this.mSnake.mFrameCounter);
 
-    if(this.mNewAllowed && this.mSnake.mLastLetter == "R"){
-        this.makeSegment();
+    //if(this.mNewAllowed && this.mSnake.mLastLetter == "R"){
+    //    this.makeSegment();
         //this.mNewAllowed = false;
-        this.mSnake.mLastLetter == "W";
-    } 
+    //    this.mSnake.mLastLetter == "W";
+    //} 
+
+    if(this.mApple.mEaten){
+        this.makeSegment();
+        this.mApple.resetEaten();
+    }
 };
