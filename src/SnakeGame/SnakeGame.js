@@ -31,6 +31,7 @@ function SnakeGame() {
     this.mSegments = [];
     this.mTail = null;
     this.mNewAllowed = true;
+    this.mGridSegments = null;
 
     // background
     this.mBg = null;
@@ -98,6 +99,12 @@ SnakeGame.prototype.initialize = function () {
 
     this.mSegments.push(this.mSnake);
     this.mFrameCounter = 0;
+
+    this.mGridSegments = Array.from({length: 16}, () =>
+        Array.from({length: 16}, () => false)
+    );
+
+    this.mApple.moveApple(this.mSegments);
 };
 
 SnakeGame.prototype.makeSegment = function() {
@@ -141,12 +148,26 @@ SnakeGame.prototype.update = function () {
         gEngine.GameLoop.stop();
     }
 
-    this.mApple.getEaten(this.mSnake.getXform().getXPos(),this.mSnake.getXform().getYPos());
+    // Allows segments to eat apples
+    /*
+    this.mSegments.forEach(segment => {
+        this.mApple.getEaten(segment.getXform().getXPos(),segment.getXform().getYPos());
+    });
+    */
+    this.mApple.getEaten(this.mSnake.getXform().getXPos(),this.mSnake.getXform().getYPos(), this.mSegments);
     this.mApple.update();
     this.mScoreMsg.setText(scoreMsg + this.mApple.score);
 
     for (let i = this.mSegments.length-1; i >= 0; i--) {
         this.mSegments[i].update();
+    }
+
+    let h = [];
+
+    for (let i = 2; i < this.mSegments.length; i++) {
+        if(this.mSegments[i].pixelTouches(this.mSnake, h)){
+            gEngine.GameLoop.stop();
+        }
     }
 
     this.mFrameCounter++;
