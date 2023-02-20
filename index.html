@@ -22,10 +22,18 @@
         <script type="text/javascript" src="src/Engine/Core/Resources/Engine_AudioClips.js"></script>
         <script type="text/javascript" src="src/Engine/Core/Resources/Engine_Textures.js"></script>
         <script type="text/javascript" src="src/Engine/Core/Resources/Engine_Fonts.js"></script>
-        <script type="text/javascript" src="src/Engine/Transform.js"></script>
-        <script type="text/javascript" src="src/Engine/Camera.js"></script>
+        <script type="text/javascript" src="src/Engine/Utils/Transform.js"></script>
+        <script type="text/javascript" src="src/Engine/Utils/BoundingBox.js"></script>
+        <script type="text/javascript" src="src/Engine/Utils/Interpolate.js"></script>
+        <script type="text/javascript" src="src/Engine/Utils/InterpolateVec2.js"></script>
+        <script type="text/javascript" src="src/Engine/Utils/ShakePosition.js"></script>
         <script type="text/javascript" src="src/Engine/Scene.js"></script>
-        <script type="text/javascript" src="src/Engine/BoundingBox.js"></script>
+        <script type="text/javascript" src="src/Engine/Cameras/Camera.js"></script>
+        <script type="text/javascript" src="src/Engine/Cameras/Camera_Manipulation.js"></script>
+        <script type="text/javascript" src="src/Engine/Cameras/CameraState.js"></script>
+        <script type="text/javascript" src="src/Engine/Cameras/CameraShake.js"></script>
+        <script type="text/javascript" src="src/Engine/Cameras/Camera_Input.js"></script>
+
         <!-- Renderables -->
         <script type="text/javascript" src="src/Engine/Renderables/Renderable.js"></script>
         <script type="text/javascript" src="src/Engine/Renderables/TextureRenderable.js"></script>
@@ -62,6 +70,7 @@
 
     <body onload="
         var snakeGame = new SnakeGame();
+        //var testGame = new MyGame();
         gEngine.Core.initializeEngineCore('GLCanvas', snakeGame);
      ">
         <canvas id="GLCanvas" width="500" height="500">
