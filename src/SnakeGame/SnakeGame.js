@@ -51,7 +51,7 @@ SnakeGame.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kSnakeSegmentSprite);
     //gEngine.Textures.unloadTexture(this.kSnakeBgSprite);
 
-    let loseLevel = new LoseGame();
+    let loseLevel = new LoseGame(this.mApple.score);
     gEngine.Core.startScene(loseLevel);
 };
 
@@ -105,6 +105,9 @@ SnakeGame.prototype.initialize = function () {
     );
 
     this.mApple.moveApple(this.mSegments);
+
+    gEngine.DefaultResources.setGlobalAmbientIntensity(1);
+    gEngine.DefaultResources.setGlobalAmbientColor([1, 1, 1, 1]);
 };
 
 SnakeGame.prototype.makeSegment = function() {
