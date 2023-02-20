@@ -33,6 +33,7 @@
         <script type="text/javascript" src="src/Engine/Cameras/CameraState.js"></script>
         <script type="text/javascript" src="src/Engine/Cameras/CameraShake.js"></script>
         <script type="text/javascript" src="src/Engine/Cameras/Camera_Input.js"></script>
+        <script type="text/javascript" src="src/Engine/Cameras/Camera_Xform.js"></script>
 
         <!-- Renderables -->
         <script type="text/javascript" src="src/Engine/Renderables/Renderable.js"></script>
@@ -42,6 +43,7 @@
         <script type="text/javascript" src="src/Engine/Renderables/SpriteRenderable_PixelCollision.js"></script>
         <script type="text/javascript" src="src/Engine/Renderables/SpriteAnimateRenderable.js"></script>
         <script type="text/javascript" src="src/Engine/Renderables/FontRenderable.js"></script>
+        <script type="text/javascript" src="src/Engine/Renderables/LightRenderable.js"></script>
         <!-- GameObject -->
         <script type="text/javascript" src="src/Engine/GameObjects/GameObject.js"></script>
         <script type="text/javascript" src="src/Engine/GameObjects/GameObject_PixelCollision.js"></script>
@@ -50,6 +52,12 @@
         <script type="text/javascript" src="src/Engine/Shaders/SimpleShader.js"></script>
         <script type="text/javascript" src="src/Engine/Shaders/TextureShader.js"></script>
         <script type="text/javascript" src="src/Engine/Shaders/SpriteShader.js"></script>
+        <script type="text/javascript" src="src/Engine/Shaders/LightShader.js"></script>
+        <script type="text/javascript" src="src/Engine/Shaders/LineShader.js"></script>
+        <script type="text/javascript" src="src/Engine/Shaders/ShaderLightAtIndex.js"></script>
+        <!-- Lights -->
+        <script type="text/javascript" src="src/Engine/Lights/Light.js"></script>
+        <script type="text/javascript" src="src/Engine/Lights/LightSet.js"></script>
 
         <!-- Client game code for SnakeGame -->
         <script type="text/javascript" src="src/SnakeGame/SnakeGame.js"></script>
@@ -60,6 +68,8 @@
 
         <!-- Client game code for TestGame -->
         <script type="text/javascript" src="src/TestGame/MyGame.js"></script>
+        <script type="text/javascript" src="src/TestGame/MyGame_LightControl.js"></script>
+        <script type="text/javascript" src="src/TestGame/MyGame_Lights.js"></script>
         <script type="text/javascript" src="src/TestGame/Objects/DyePack.js"></script>
         <script type="text/javascript" src="src/TestGame/Objects/Hero.js"></script>
         <script type="text/javascript" src="src/TestGame/Objects/Brain.js"></script>
@@ -69,9 +79,10 @@
 </body>
 
     <body onload="
-        var snakeGame = new SnakeGame();
-        //var testGame = new MyGame();
-        gEngine.Core.initializeEngineCore('GLCanvas', snakeGame);
+        let testing = false;
+        let gameScene = testing ? new MyGame() : new SnakeGame();
+        
+        gEngine.Core.initializeEngineCore('GLCanvas', gameScene);
      ">
         <canvas id="GLCanvas" width="500" height="500">
             <!-- GLCanvas is the area we will draw in: a 640x480 area. -->

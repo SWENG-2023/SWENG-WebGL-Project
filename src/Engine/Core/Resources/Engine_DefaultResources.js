@@ -1,9 +1,8 @@
 /*
  * File: Engine_DefaultResources.js 
  */
-/*jslint node: true, vars: true, evil: true */
-/*global gEngine: false, SimpleShader: false, TextureShader: false,
-  SpriteShader: false */
+/*jslint node: true, vars: true, evil: true, white: true */
+/*global SimpleShader, TextureShader, SpriteShader, LineShader, LightShader, vec4 */
 /* find out more about jslint: http://www.jslint.com/help.html */
 
 
@@ -12,6 +11,14 @@
 var gEngine = gEngine || { };
 
 gEngine.DefaultResources = (function () {
+    // Global Ambient color
+    var mGlobalAmbientColor = [0.3, 0.3, 0.3, 1];
+    var mGlobalAmbientIntensity = 1;
+    var getGlobalAmbientIntensity = function () { return mGlobalAmbientIntensity; };
+    var setGlobalAmbientIntensity = function (v) { mGlobalAmbientIntensity = v; };
+    var getGlobalAmbientColor = function () { return mGlobalAmbientColor; };
+    var setGlobalAmbientColor = function (v) { mGlobalAmbientColor = vec4.fromValues(v[0], v[1], v[2], v[3]); };
+
     // Simple Shader
     var kSimpleVS = "src/GLSLShaders/SimpleVS.glsl";  // Path to the VertexShader 
     var kSimpleFS = "src/GLSLShaders/SimpleFS.glsl";  // Path to the simple FragmentShader
@@ -22,6 +29,12 @@ gEngine.DefaultResources = (function () {
     var kTextureFS = "src/GLSLShaders/TextureFS.glsl";  // Path to the texture FragmentShader
     var mTextureShader = null;
     var mSpriteShader = null;
+    var kLineFS = "src/GLSLShaders/LineFS.glsl";        // Path to the Line FragmentShader
+    var mLineShader = null;
+
+    // Light Shader
+    var kLightFS = "src/GLSLShaders/LightFS.glsl";  // Path to the Light FragmentShader
+    var mLightShader = null;
 
     // Default font
     var kDefaultFont = "assets/fonts/system-default-font";
@@ -32,12 +45,16 @@ gEngine.DefaultResources = (function () {
         mConstColorShader = new SimpleShader(kSimpleVS, kSimpleFS);
         mTextureShader = new TextureShader(kTextureVS, kTextureFS);
         mSpriteShader =  new SpriteShader(kTextureVS, kTextureFS);
+        mLineShader =  new LineShader(kSimpleVS, kLineFS);
+        mLightShader = new LightShader(kTextureVS, kLightFS);
         callBackFunction();
     };
 
     var getConstColorShader = function () { return mConstColorShader; };
     var getTextureShader = function () { return mTextureShader; };
     var getSpriteShader = function () { return mSpriteShader; };
+    var getLineShader = function () { return mLineShader; };
+    var getLightShader = function () { return mLightShader; };
 
     var initialize = function (callBackFunction) {
         // constant color shader: SimpleVS, and SimpleFS
@@ -47,6 +64,12 @@ gEngine.DefaultResources = (function () {
         // texture shader: 
         gEngine.TextFileLoader.loadTextFile(kTextureVS, gEngine.TextFileLoader.eTextFileType.eTextFile);
         gEngine.TextFileLoader.loadTextFile(kTextureFS, gEngine.TextFileLoader.eTextFileType.eTextFile);
+
+        // Line Shader:
+        gEngine.TextFileLoader.loadTextFile(kLineFS, gEngine.TextFileLoader.eTextFileType.eTextFile);
+
+        // Light Shader
+        gEngine.TextFileLoader.loadTextFile(kLightFS, gEngine.TextFileLoader.eTextFileType.eTextFile);
 
         // load default font
         gEngine.Fonts.loadFont(kDefaultFont);
@@ -59,6 +82,8 @@ gEngine.DefaultResources = (function () {
         mConstColorShader.cleanUp();
         mTextureShader.cleanUp();
         mSpriteShader.cleanUp();
+        mLineShader.cleanUp();
+        mLightShader.cleanUp();
 
         gEngine.TextFileLoader.unloadTextFile(kSimpleVS);
         gEngine.TextFileLoader.unloadTextFile(kSimpleFS);
@@ -66,6 +91,13 @@ gEngine.DefaultResources = (function () {
         // texture shader: 
         gEngine.TextFileLoader.unloadTextFile(kTextureVS);
         gEngine.TextFileLoader.unloadTextFile(kTextureFS);
+
+        // Line Shader:
+        gEngine.TextFileLoader.unloadTextFile(kLineFS);
+
+
+        // Light Shader
+        gEngine.TextFileLoader.unloadTextFile(kLightFS);
 
         // default font
         gEngine.Fonts.unloadFont(kDefaultFont);
@@ -78,7 +110,13 @@ gEngine.DefaultResources = (function () {
         getConstColorShader: getConstColorShader,
         getTextureShader: getTextureShader,
         getSpriteShader: getSpriteShader,
+        getLineShader: getLineShader,
+        getLightShader: getLightShader,
         getDefaultFont: getDefaultFont,
+        getGlobalAmbientColor: getGlobalAmbientColor,
+        setGlobalAmbientColor: setGlobalAmbientColor,
+        getGlobalAmbientIntensity: getGlobalAmbientIntensity,
+        setGlobalAmbientIntensity: setGlobalAmbientIntensity,
         cleanUp: cleanUp
     };
     return mPublic;

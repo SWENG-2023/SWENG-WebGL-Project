@@ -8,6 +8,15 @@
 /* find out more about jslint: http://www.jslint.com/help.html */
 "use strict";
 
+
+// Information to be updated once per render for efficiency concerns
+function PerRenderCache() {
+    this.mWCToPixelRatio = 1;  // WC to pixel transformation
+    this.mCameraOrgX = 1; // Lower-left corner of camera in WC 
+    this.mCameraOrgY = 1;
+}
+
+
 // wcCenter: is a vec2
 // wcWidth: is the width of the user defined WC
 //      Height of the user defined WC is implicitly defined by the viewport aspect ratio
@@ -41,6 +50,14 @@ function Camera(wcCenter, wcWidth, viewportArray, bound) {
 
     // background color
     this.mBgColor = [0.8, 0.8, 0.8, 1]; // RGB and Alpha
+
+    // per-rendering cached information
+    // needed for computing transforms for shaders
+    // updated each time in SetupViewProjection()
+    this.mRenderCache = new PerRenderCache();
+        // SHOULD NOT be used except 
+        // xform operations during the rendering
+        // Client game should not access this!
 }
 
 Camera.eViewport = Object.freeze({
@@ -84,7 +101,7 @@ Camera.prototype.getViewport = function () {
     out[1] = this.mScissorBound[1];
     out[2] = this.mScissorBound[2];
     out[3] = this.mScissorBound[3];
-    return out;
+    return out; 
 };
 //</editor-fold>
 
@@ -150,6 +167,11 @@ Camera.prototype.setupViewProjection = function () {
     // Step B3: concatenate view and project matrices
     mat4.multiply(this.mVPMatrix, this.mProjMatrix, this.mViewMatrix);
     //</editor-fold>
+
+    // Step B4: compute and cache per-rendering information
+    this.mRenderCache.mWCToPixelRatio = this.mViewport[Camera.eViewport.eWidth] / this.getWCWidth();
+    this.mRenderCache.mCameraOrgX = center[0] - (this.getWCWidth() / 2);
+    this.mRenderCache.mCameraOrgY = center[1] - (this.getWCHeight() / 2);
 };
 
 Camera.prototype.collideWCBound = function (aXform, zone) {
