@@ -1,9 +1,78 @@
-
-canvas{
+canvas {
     position: absolute;
-    top: 55%;
+    top: 56%;
     left: 50%;
-    transform: translate(-50%, -50%); 
-    border: 30px solid black;
-}    
+    transform: translate(-50%, -50%);
+    border: 10px solid black;
+    
+}
+#SettingsMenu{
+    width: 100%;
+  padding: 50px 0;
+  text-align: center;
+  background-color: grey;
+  margin-top: 20px;
+  display:none;
+}
+#MainMenu{
+    width: 100%;
+  padding: 50px 0;
+  text-align: center;
+  background-color: grey;
+  margin-top: 20px;
+  display:block;
+}
+.button {
+    border: none;
+    color: #6cbd30;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-family: 'Press Start 2P';
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
 
+.button1 {
+    background-color: black;
+    color: #6cbd30;
+    border: 2px solid #6cbd30;
+}
+
+.button1:hover {
+
+    cursor: pointer;
+    background-color: #6cbd30;
+    color: white;
+}
+
+.StartButton {
+
+    border: none;
+    color: #6cbd30;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-family: 'Press Start 2P';
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.StartButton1 {
+    background-color: black;
+    color: #6cbd30;
+    border: 2px solid #6cbd30;
+}
+
+.StartButton1:hover {
+
+    cursor: pointer;
+    background-color: #6cbd30;
+    color: white;
+}
