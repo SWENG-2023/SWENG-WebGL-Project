@@ -5,44 +5,50 @@
 
 /*jslint node: true, vars: true */
 /*global gEngine, Scene, GameObjectset, TextureObject, Camera, vec2,
-  FontRenderable, DyePack, Hero, Minion, Brain,
-  GameObject */
+  Renderable, FontRenderable, SpriteRenderable, LightRenderable, IllumRenderable,
+  GameObject, Hero, Minion, Dye, Light */
 /* find out more about jslint: http://www.jslint.com/help.html */
 
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
 function MyGame() {
     this.kMinionSprite = "assets/minion_sprite.png";
-    this.kMinionPortal = "assets/minion_portal.png";
+    this.kMinionSpriteNormal = "assets/minion_sprite_normal.png";
+    this.kBg = "assets/bg.png";
+    this.kBgNormal = "assets/bg_normal.png";
 
     // The camera to view the scene
     this.mCamera = null;
+    this.mBg = null;
 
     this.mMsg = null;
 
     // the hero and the support objects
     this.mHero = null;
-    this.mBrain = null;
-    this.mPortalHit = null;
-    this.mHeroHit = null;
-
-    this.mPortal = null;
     this.mLMinion = null;
     this.mRMinion = null;
 
-    this.mCollide = null;
-    this.mChoice = 'H';
+    this.mGlobalLightSet = null;
+
+    this.mBlock1 = null;   // to verify swiitching between shaders is fine
+    this.mBlock2 = null;
+
+    this.mLgtIndex = 0;    // the light to move
 }
 gEngine.Core.inheritPrototype(MyGame, Scene);
 
 MyGame.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kMinionSprite);
-    gEngine.Textures.loadTexture(this.kMinionPortal);
+    gEngine.Textures.loadTexture(this.kBg);
+    gEngine.Textures.loadTexture(this.kBgNormal);
+    gEngine.Textures.loadTexture(this.kMinionSpriteNormal);
 };
 
 MyGame.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kMinionSprite);
-    gEngine.Textures.unloadTexture(this.kMinionPortal);
+    gEngine.Textures.unloadTexture(this.kBg);
+    gEngine.Textures.unloadTexture(this.kBgNormal);
+    gEngine.Textures.unloadTexture(this.kMinionSpriteNormal);
 };
 
 MyGame.prototype.initialize = function () {
@@ -55,27 +61,65 @@ MyGame.prototype.initialize = function () {
     this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
             // sets the background to gray
 
-    this.mBrain = new Brain(this.kMinionSprite);
+    // the light
+    this._initializeLights();   // defined in MyGame_Lights.js
 
-    // Step D: Create the hero object with texture from the lower-left corner 
-    this.mHero = new Hero(this.kMinionSprite);
+    // the Background
+    var bgR = new IllumRenderable(this.kBg, this.kBgNormal);
+    bgR.setElementPixelPositions(0, 1024, 0, 1024);
+    bgR.getXform().setSize(100, 100);
+    bgR.getXform().setPosition(50, 35);
+    var i;
+    for (i = 0; i < 4; i++) {
+        bgR.addLight(this.mGlobalLightSet.getLightAt(i));   // all the lights
+    }
+    this.mBg = new GameObject(bgR);
 
-    this.mPortalHit = new DyePack(this.kMinionSprite);
-    this.mPortalHit.setVisibility(false);
-    this.mHeroHit = new DyePack(this.kMinionSprite);
-    this.mHeroHit.setVisibility(false);
+    // 
+    // the objects
+    this.mHero = new Hero(this.kMinionSprite, this.kMinionSpriteNormal);
+    this.mHero.getRenderable().addLight(this.mGlobalLightSet.getLightAt(0));   // hero light
+    this.mHero.getRenderable().addLight(this.mGlobalLightSet.getLightAt(3));   // center light
+    // Uncomment the following to see how light affects Dye
+    //      this.mHero.getRenderable().addLight(this.mGlobalLightSet.getLightAt(1)); 
+    //      this.mHero.getRenderable().addLight(this.mGlobalLightSet.getLightAt(2)); 
 
-    this.mPortal = new TextureObject(this.kMinionPortal, 50, 30, 10, 10);
+    this.mLMinion = new Minion(this.kMinionSprite, this.kMinionSpriteNormal, 17, 15);
+    this.mLMinion.getRenderable().addLight(this.mGlobalLightSet.getLightAt(1));   // LMinion light
+    this.mLMinion.getRenderable().addLight(this.mGlobalLightSet.getLightAt(3));   // center light
 
-    this.mLMinion = new Minion(this.kMinionSprite, 30, 30);
-    this.mRMinion = new Minion(this.kMinionSprite, 70, 30);
+    this.mRMinion = new Minion(this.kMinionSprite, null, 87, 15);
+    this.mRMinion.getRenderable().addLight(this.mGlobalLightSet.getLightAt(2));   // RMinion light
+    this.mRMinion.getRenderable().addLight(this.mGlobalLightSet.getLightAt(3));   // center light
 
     this.mMsg = new FontRenderable("Status Message");
-    this.mMsg.setColor([0, 0, 0, 1]);
+    this.mMsg.setColor([1, 1, 1, 1]);
     this.mMsg.getXform().setPosition(1, 2);
     this.mMsg.setTextHeight(3);
 
-    this.mCollide = this.mHero;
+    this.mBlock1 = new Renderable();
+    this.mBlock1.setColor([1, 0, 0, 1]);
+    this.mBlock1.getXform().setSize(5, 5);
+    this.mBlock1.getXform().setPosition(30, 50);
+
+    this.mBlock2 = new Renderable();
+    this.mBlock2.setColor([0, 1, 0, 1]);
+    this.mBlock2.getXform().setSize(5, 5);
+    this.mBlock2.getXform().setPosition(70, 50);
+
+};
+
+
+MyGame.prototype.drawCamera = function (camera) {
+    // Step A: set up the View Projection matrix
+    camera.setupViewProjection();
+    // Step B: Now draws each primitive
+    this.mBg.draw(camera);
+    this.mBlock1.draw(camera);
+    this.mLMinion.draw(camera);
+    this.mBlock2.draw(camera);
+    this.mHero.draw(camera);
+    this.mRMinion.draw(camera);
 };
 
 // This is the draw function, make sure to setup proper drawing environment, and more
@@ -84,71 +128,25 @@ MyGame.prototype.draw = function () {
     // Step A: clear the canvas
     gEngine.Core.clearCanvas([0.9, 0.9, 0.9, 1.0]); // clear to light gray
 
-    // Step  B: Activate the drawing Camera
-    this.mCamera.setupViewProjection();
-
-    // Step  C: Draw everything
-    this.mHero.draw(this.mCamera);
-    this.mBrain.draw(this.mCamera);
-    this.mPortal.draw(this.mCamera);
-    this.mLMinion.draw(this.mCamera);
-    this.mRMinion.draw(this.mCamera);
-    this.mPortalHit.draw(this.mCamera);
-    this.mHeroHit.draw(this.mCamera);
-    this.mMsg.draw(this.mCamera);
+    // Step  B: Draw with all three cameras
+    this.drawCamera(this.mCamera);
+    this.mMsg.draw(this.mCamera);   // only draw status in the main camera
 };
 
 // The update function, updates the application state. Make sure to _NOT_ draw
 // anything from this function!
 MyGame.prototype.update = function () {
-    var msg = "L/R: Left or Right Minion; H: Dye; B: Brain]: ";
+    var msg = "Light=" + this.mLgtIndex + " ";
 
-    this.mLMinion.update();
+    this.mCamera.update();  // to ensure proper interpolated movement effects
+
+    this.mLMinion.update(); // ensure sprite animation
     this.mRMinion.update();
 
-    this.mHero.update();
+    this.mHero.update();  // allow keyboard control to move
 
-    this.mPortal.update(gEngine.Input.keys.Up, gEngine.Input.keys.Down,
-        gEngine.Input.keys.Left, gEngine.Input.keys.Right, gEngine.Input.keys.P);
+    // control the selected light
+    msg += this._lightControl();
 
-    var h = [];
-
-    // Portal intersects with which ever is selected
-    if (this.mPortal.pixelTouches(this.mCollide, h)) {
-        this.mPortalHit.setVisibility(true);
-        this.mPortalHit.getXform().setXPos(h[0]);
-        this.mPortalHit.getXform().setYPos(h[1]);
-    } else {
-        this.mPortalHit.setVisibility(false);
-    }
-
-    // hero always collide with Brain (Brain chases hero)
-    if (!this.mHero.pixelTouches(this.mBrain, h)) {
-        this.mBrain.rotateObjPointTo(this.mHero.getXform().getPosition(), 0.05);
-        GameObject.prototype.update.call(this.mBrain);
-        this.mHeroHit.setVisibility(false);
-    } else {
-        this.mHeroHit.setVisibility(true);
-        this.mHeroHit.getXform().setPosition(h[0], h[1]);
-    }
-
-    // decide which to collide
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.L)) {
-        this.mCollide = this.mLMinion;
-        this.mChoice = 'L';
-    }
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.R)) {
-        this.mCollide = this.mRMinion;
-        this.mChoice = 'R';
-    }
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.B)) {
-        this.mCollide = this.mBrain;
-        this.mChoice = 'B';
-    }
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.H)) {
-        this.mCollide = this.mHero;
-        this.mChoice = 'H';
-    }
-
-    this.mMsg.setText(msg + this.mChoice);
+    this.mMsg.setText(msg);
 };

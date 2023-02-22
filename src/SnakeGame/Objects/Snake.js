@@ -4,7 +4,7 @@
 
 function Snake(spriteTexture) {
 
-    this.mSnake= new TextureRenderable(spriteTexture);
+    this.mSnake= new LightRenderable(spriteTexture);
     this.mSnake.setColor([1, 1, 1, 0]);
 
     let initCoords = this.getSquareCoords(5, 10);

@@ -18,9 +18,12 @@ function TextureShader(vertexShaderPath, fragmentShaderPath) {
 
     // reference to aTextureCoordinate within the shader
     this.mShaderTextureCoordAttribute = null;
+    this.mSamplerRef = null; // reference to the uSampler, when using only texture, 
+                             // this is not necessary, with NormalMap, we must do this.
 
-    // get the reference of aTextureCoordinate within the shader
+    // get the reference of uSampler and aTextureCoordinate within the shader
     var gl = gEngine.Core.getGL();
+    this.mSamplerRef = gl.getUniformLocation(this.mCompiledShader, "uSampler");
     this.mShaderTextureCoordAttribute = gl.getAttribLocation(this.mCompiledShader, "aTextureCoordinate");
 }
 
@@ -42,5 +45,6 @@ TextureShader.prototype.activateShader = function (pixelColor, aCamera) {
     gl.bindBuffer(gl.ARRAY_BUFFER, gEngine.VertexBuffer.getGLTexCoordRef());
     gl.enableVertexAttribArray(this.mShaderTextureCoordAttribute);
     gl.vertexAttribPointer(this.mShaderTextureCoordAttribute, 2, gl.FLOAT, false, 0, 0);
+    gl.uniform1i(this.mSamplerRef, 0); // <-- binds to texture unit 0
 };
 //</editor-fold>
