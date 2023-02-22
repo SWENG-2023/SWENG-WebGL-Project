@@ -12,6 +12,9 @@ function Apple(spriteTexture, snakeHead) {
     this.mEaten = false;
     GameObject.call(this,this.mApple);
 }
+
+const eatenSound =  new Audio("gulp.mp3");
+
 gEngine.Core.inheritPrototype(Apple, GameObject);
 
 Apple.prototype.moveApple = function (snakeSegments) {
@@ -43,6 +46,7 @@ Apple.prototype.getEaten = function (snakeX, snakeY, snakeSegments) {
     let appleY = this.mApple.getXform().getYPos();
     if((appleX>snakeX-7&&appleX<snakeX+7)&&(appleY>snakeY-7&&appleY<snakeY+7))
     {
+        eatenSound.play();
         this.moveApple(snakeSegments);
         this.score++;
         this.mEaten = true;
