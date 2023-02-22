@@ -102,17 +102,17 @@
 </head>
 </body>
 
-<body>
+<body style="background-color: black">
     <script>
         function StartGame() {
-            
+
             Hide("MainMenu");
             Hide("SettingsMenu");
             Hide("Settings");
             ShowCanvas();
 
         }
-        function ShowCanvas(){
+        function ShowCanvas() {
             let canvas = document.getElementById("GLCanvas");
             let hidden = canvas.getAttribute("hidden");
             if (hidden) {
@@ -123,7 +123,7 @@
             }
         }
 
-        function HideCanvas(){
+        function HideCanvas() {
             let canvas = document.getElementById("GLCanvas");
             let hidden = canvas.getAttribute("hidden");
             if (!hidden) {
@@ -141,13 +141,13 @@
         }
 
         function GetMainMenu() {
-           
+
             Show("MainMenu");
             Show("Settings");
             HideCanvas();
 
         }
-        function ShowHide(name){
+        function ShowHide(name) {
             var x = document.getElementById(name);
             if (x.style.display === "block") {
                 x.style.display = "none";
@@ -157,7 +157,7 @@
         }
         function SettingsPopUP() {
             ShowHide("SettingsMenu");
-            
+
         }
     </script>
 
@@ -167,7 +167,7 @@
     <nav class="navbar navbar-light" style="background-color: black;">
         <!-- Navbar content -->
 
-        <button class="button button1" onclick="GetMainMenu()">Main Menu</button>
+        <button class=" button button1" onclick="GetMainMenu()">Main Menu</button>
 
         <a style="color: #6cbd30; 
                     margin: auto;
