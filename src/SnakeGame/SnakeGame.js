@@ -36,6 +36,9 @@ function SnakeGame() {
     // background
     this.mBg = null;
 }
+
+const gameOverSound = new Audio("gameover.wav"); 
+
 gEngine.Core.inheritPrototype(SnakeGame, Scene);
 
 SnakeGame.prototype.loadScene = function () {
@@ -148,6 +151,7 @@ SnakeGame.prototype.update = function () {
     let snakeYPos = this.mSnake.getXform().getYPos();
 
     if(snakeXPos < 0 || snakeXPos > 256 || snakeYPos < 0 || snakeYPos > 256){
+        gameOverSound.play();
         gEngine.GameLoop.stop();
     }
 
@@ -169,6 +173,7 @@ SnakeGame.prototype.update = function () {
 
     for (let i = 2; i < this.mSegments.length; i++) {
         if(this.mSegments[i].pixelTouches(this.mSnake, h)){
+            gameOverSound.play();
             gEngine.GameLoop.stop();
         }
     }
