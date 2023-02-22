@@ -105,43 +105,59 @@
 <body>
     <script>
         function StartGame() {
+            
+            Hide("MainMenu");
+            Hide("SettingsMenu");
+            Hide("Settings");
+            ShowCanvas();
+
+        }
+        function ShowCanvas(){
             let canvas = document.getElementById("GLCanvas");
             let hidden = canvas.getAttribute("hidden");
-
             if (hidden) {
                 canvas.removeAttribute("hidden");
                 let testing = false;
                 let gameScene = testing ? new SnakeGame() : new SnakeGame();
                 gEngine.Core.initializeEngineCore('GLCanvas', gameScene);
             }
-
-            
-
-            
-
-
         }
-        function GetMainMenu() {
+
+        function HideCanvas(){
             let canvas = document.getElementById("GLCanvas");
             let hidden = canvas.getAttribute("hidden");
-
             if (!hidden) {
                 canvas.setAttribute("hidden", "hidden");
             }
-
-            
-
-            
-
+        }
+        function Hide(name) {
+            var x = document.getElementById(name);
+            x.style.display = "none";
         }
 
-        function SettingsPopUP() {
-            var x = document.getElementById("SettingsMenu");
-            if (x.style.display == "none") {
-                x.style.display = "block";
-            } else {
+        function Show(name) {
+            var x = document.getElementById(name);
+            x.style.display = "block";
+        }
+
+        function GetMainMenu() {
+           
+            Show("MainMenu");
+            Show("Settings");
+            HideCanvas();
+
+        }
+        function ShowHide(name){
+            var x = document.getElementById(name);
+            if (x.style.display === "block") {
                 x.style.display = "none";
+            } else {
+                x.style.display = "block";
             }
+        }
+        function SettingsPopUP() {
+            ShowHide("SettingsMenu");
+            
         }
     </script>
 
@@ -159,24 +175,25 @@
                     cursive;height: auto;
                     padding-top: auto;">SWENG Group 18 - WebGL Game Development</a>
 
-        <button class="button button1" onclick="SettingsPopUP()"> Settings</button>
+        <button id="Settings" class="button button1" onclick="SettingsPopUP()"> Settings</button>
 
 
     </nav>
     <div id="MainMenu">
-        <button class="StartButton StartButton1" onclick="StartGame()">Start Game</button>
+        <button class="button button1" onclick="StartGame()">Start Game</button>
     </div>
 
+    <div id="SettingsMenu">
+        <button class="button button1">Music on</button>
+        <button class="button button1">Sound on</button>
+    </div>
 
     <canvas hidden="hidden" id="GLCanvas" width="500" height="500">
         <!-- GLCanvas is the area we will draw in: a 640x480 area. -->
         Your browser does not support the HTML5 canvas.
         <!-- this message will show only if WebGL clearing failed -->
     </canvas>
-    <div id="SettingsMenu">
-        <button class="button button1">Music on</button>
-        <button class="button button1">Sound</button>
-    </div>
+
 
 
 </body>
