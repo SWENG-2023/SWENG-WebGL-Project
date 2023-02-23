@@ -117,25 +117,25 @@
             Show("StartViewSnake");
             Show("SettingsButton");
             Hide("TileView");
-        
+
 
         }
         function GetStartViewPong() {
             Show("StartViewPong");
             Show("SettingsButton");
             Hide("TileView");
-        
+
 
         }
 
-        function getTileView(){
+        function getTileView() {
             Show("TileView");
             Show("SettingsButton");
             Hide("StartViewSnake");
             Hide("StartViewPong");
             Hide("SettingsMenuView");
             HideCanvas();
-            
+
         }
         function SettingsPopUP() {
             ShowHide("SettingsMenuView");
@@ -146,11 +146,11 @@
             let hidden = canvas.getAttribute("hidden");
             if (hidden) {
                 canvas.removeAttribute("hidden");
-                if(gameScene=="SnakeGame"){
-                let gameScene = new SnakeGame();
-                gEngine.Core.initializeEngineCore('GLCanvas', gameScene);
+                if (gameScene == "SnakeGame") {
+                    let gameScene = new SnakeGame();
+                    gEngine.Core.initializeEngineCore('GLCanvas', gameScene);
                 }
-                
+
             }
         }
 
@@ -197,13 +197,16 @@
 
     </nav>
     <div id="TileView">
-        <button class="Tilebutton Tilebutton1" onclick="GetStartViewSnake()"><img id="icon" src="assets/snake_sprites/head_up.png"><br>Snake</button>
-        <button class="Tilebutton Tilebutton1" onclick="GetStartViewPong()"> <img id="icon" src="assets/snake_sprites/pong.png"><br> Pong </button>
+        <button class="Tilebutton Tilebutton1" onclick="GetStartViewSnake()"><img id="icon"
+                src="assets/snake_sprites/head_up.png"><br>Snake</button>
+        <button class="Tilebutton Tilebutton1" onclick="GetStartViewPong()"> <img id="icon"
+                src="assets/snake_sprites/pong.png"><br> Pong </button>
         <p id="retroText">More retro games coming soon...</p>
     </div>
 
     <div id="StartViewSnake">
-        <button id="StartGameButton" class="Tilebutton Tilebutton1" onclick="StartGame('SnakeGame')">Start Game Snake</button>
+        <button id="StartGameButton" class="Tilebutton Tilebutton1" onclick="StartGame('SnakeGame')">Start Game
+            Snake</button>
     </div>
 
     <div id="StartViewPong">
@@ -213,6 +216,11 @@
     <div id="SettingsMenuView">
         <button class="button button1">Music on</button>
         <button class="button button1">Sound on</button>
+    </div>
+
+    <div>
+        <a id="qualcomm" href="https://www.qualcomm.com/home"><img src="assets/snake_sprites/qualcomm_logo.png"></a>
+        <a id="github" href="https://github.com/SWENG-2023/SWENG-WebGL-Project">github</a>
     </div>
 
     <canvas hidden="hidden" id="GLCanvas" width="500" height="500">

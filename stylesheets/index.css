@@ -17,6 +17,18 @@ canvas {
 
 }
 
+#qualcomm{
+    position:absolute;
+    top:86%;
+    left:0%;
+}
+
+#github{
+    position:absolute;
+    top:95%;
+    left:95%;
+}
+
 #icon {
     width: 60px;
     height: 60px;
