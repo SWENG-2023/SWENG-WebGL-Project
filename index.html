@@ -191,18 +191,15 @@
 
         <button class=" button button1" onclick="getTileView()">Main Menu</button>
 
-        <a style="color: #6cbd30; 
-                    margin: auto;
-                    font-family: 'Press Start 2P', 
-                    cursive;height: auto;
-                    padding-top: auto;">SWENG Group 18 - WebGL Game Development</a>
+        <a id="retroText">SWENG Group 18 - WebGL Game Development</a>
 
         <button id="SettingsButton" class="button button1" onclick="SettingsPopUP()"> Settings</button>
 
     </nav>
     <div id="TileView">
-        <button class="Tilebutton Tilebutton1" onclick="GetStartViewSnake()"><img src="assets/snake_sprites/head_up.png"><br>Snake Game</button>
-        <button class="Tilebutton Tilebutton1" onclick="GetStartViewPong()"> Pong </button>
+        <button class="Tilebutton Tilebutton1" onclick="GetStartViewSnake()"><img id="icon" src="assets/snake_sprites/head_up.png"><br>Snake</button>
+        <button class="Tilebutton Tilebutton1" onclick="GetStartViewPong()"> <img id="icon" src="assets/snake_sprites/pong.png"><br> Pong </button>
+        <p id="retroText">More retro games coming soon...</p>
     </div>
 
     <div id="StartViewSnake">
