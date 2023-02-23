@@ -16,16 +16,15 @@ canvas {
     padding-top: auto;
     }
 
-#retroTextTitel {
+
+#retroflexTitle2{
     color: #6cbd30;
     margin: auto;
     font-family: 'Press Start 2P',
     cursive;
     height: auto;
     padding-top: auto;
-    position:fixed;
-    left: 25%;
-
+    position:center;
 }
 
 #qualcomm{
