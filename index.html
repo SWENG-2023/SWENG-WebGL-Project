@@ -101,7 +101,8 @@
 
     <body onload="
         let testing = false;
-        let gameScene = testing ? new MyGame() : new PongGame();        
+        let gameScene = testing ? new MyGame() : new PongGame();
+        gEngine.Core.initializeEngineCore('GLCanvas', gameScene);        
     ">
         <nav class="navbar navbar-light" style="background-color: black;">
         <!-- Navbar content -->

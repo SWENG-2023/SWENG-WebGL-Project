@@ -4,7 +4,7 @@
 
 function Ball(spriteTexture)
 {
-    this.mBall = new textureRenderable(spriteTexture);
+    this.mBall = new TextureRenderable(spriteTexture);
     this.mBall.setColor([1,1,1,0]);
     this.mBall.getXform().setSize(12,12);
     GameObject.call(this,this.mBall);

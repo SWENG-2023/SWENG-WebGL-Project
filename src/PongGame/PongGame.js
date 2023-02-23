@@ -56,7 +56,7 @@ PongGame.prototype.initialize = function () {
     this.mBg.getXform().setSize(256,256);
     this.mBg.getXform().setPosition(128,128);
 
-    this.mMsg = new FontRenderable("Hello Snake! [R] to reset");
+    this.mMsg = new FontRenderable("Hello Pong! [R] to reset");
     this.mMsg.setColor([0, 0, 0, 1]);
     this.mMsg.getXform().setPosition(10, 10);
     this.mMsg.setTextHeight(10);
@@ -89,7 +89,7 @@ PongGame.prototype.initialize = function () {
     gEngine.DefaultResources.setGlobalAmbientColor([1, 1, 1, 1]);
 };
 
-SnakeGame.prototype.draw = function () {
+PongGame.prototype.draw = function () {
     // Step A: clear the canvas
     gEngine.Core.clearCanvas([0.9, 0.9, 0.9, 1.0]); // clear to light gray
 
