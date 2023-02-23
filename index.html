@@ -104,22 +104,53 @@
 
 <body style="background-color: black">
     <script>
-        function StartGame() {
+        function StartGame(gameScene) {
 
-            Hide("MainMenu");
-            Hide("SettingsMenu");
-            Hide("Settings");
-            ShowCanvas();
+            Hide("StartViewSnake");
+            Hide("StartViewPong");
+            Hide("SettingsMenuView");
+            Hide("SettingsButton");
+            Hide("TileView");
+            ShowCanvas(gameScene);
+        }
+        function GetStartViewSnake() {
+            Show("StartViewSnake");
+            Show("SettingsButton");
+            Hide("TileView");
+        
 
         }
-        function ShowCanvas() {
+        function GetStartViewPong() {
+            Show("StartViewPong");
+            Show("SettingsButton");
+            Hide("TileView");
+        
+
+        }
+
+        function getTileView(){
+            Show("TileView");
+            Show("SettingsButton");
+            Hide("StartViewSnake");
+            Hide("StartViewPong");
+            Hide("SettingsMenuView");
+            HideCanvas();
+            
+        }
+        function SettingsPopUP() {
+            ShowHide("SettingsMenuView");
+
+        }
+        function ShowCanvas(gameScene) {
             let canvas = document.getElementById("GLCanvas");
             let hidden = canvas.getAttribute("hidden");
             if (hidden) {
                 canvas.removeAttribute("hidden");
-                let testing = false;
-                let gameScene = testing ? new SnakeGame() : new SnakeGame();
+                if(gameScene=="SnakeGame"){
+                let gameScene = new SnakeGame();
                 gEngine.Core.initializeEngineCore('GLCanvas', gameScene);
+                }
+                
             }
         }
 
@@ -140,13 +171,7 @@
             x.style.display = "block";
         }
 
-        function GetMainMenu() {
 
-            Show("MainMenu");
-            Show("Settings");
-            HideCanvas();
-
-        }
         function ShowHide(name) {
             var x = document.getElementById(name);
             if (x.style.display === "block") {
@@ -155,10 +180,7 @@
                 x.style.display = "block";
             }
         }
-        function SettingsPopUP() {
-            ShowHide("SettingsMenu");
 
-        }
     </script>
 
 
@@ -167,7 +189,7 @@
     <nav class="navbar navbar-light" style="background-color: black;">
         <!-- Navbar content -->
 
-        <button class=" button button1" onclick="GetMainMenu()">Main Menu</button>
+        <button class=" button button1" onclick="getTileView()">Main Menu</button>
 
         <a style="color: #6cbd30; 
                     margin: auto;
@@ -175,15 +197,23 @@
                     cursive;height: auto;
                     padding-top: auto;">SWENG Group 18 - WebGL Game Development</a>
 
-        <button id="Settings" class="button button1" onclick="SettingsPopUP()"> Settings</button>
-
+        <button id="SettingsButton" class="button button1" onclick="SettingsPopUP()"> Settings</button>
 
     </nav>
-    <div id="MainMenu">
-        <button class="button button1" onclick="StartGame()">Start Game</button>
+    <div id="TileView">
+        <button class="Tilebutton Tilebutton1" onclick="GetStartViewSnake()"><img src="assets/snake_sprites/head_up.png"><br>Snake Game</button>
+        <button class="Tilebutton Tilebutton1" onclick="GetStartViewPong()"> Pong </button>
     </div>
 
-    <div id="SettingsMenu">
+    <div id="StartViewSnake">
+        <button id="StartGameButton" class="Tilebutton Tilebutton1" onclick="StartGame('SnakeGame')">Start Game Snake</button>
+    </div>
+
+    <div id="StartViewPong">
+        <button id="StartGameButton" class="Tilebutton Tilebutton1" onclick="StartGame(Pong)">Start Game Pong</button>
+    </div>
+
+    <div id="SettingsMenuView">
         <button class="button button1">Music on</button>
         <button class="button button1">Sound on</button>
     </div>
