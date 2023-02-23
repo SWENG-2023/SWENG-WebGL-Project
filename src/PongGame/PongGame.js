@@ -6,7 +6,7 @@ function PongGame() {
     this.kBallSprite = "assets/snake_sprites/apple.png";
     this.kSnakeSprite = "assets/snake_sprites/head_up.png";
     this.kSnakeSegmentSprite = "assets/snake_sprites/body_vertical.png";
-    this.kSnakeBgSprite = "assets/snake_sprites/snake_bg.png";
+    this.kBgSprite = "assets/snake_sprites/snake_bg.png";
 
     this.mCamera = null;
 
@@ -30,9 +30,9 @@ PongGame.prototype.loadScene = function(){
     gEngine.Textures.loadTexture(this.kBallSprite);
     gEngine.Textures.loadTexture(this.kSnakeSegmentSprite);
     gEngine.Textures.loadTexture(this.kSnakeSprite);
-    gEngine.Textures.loadTexture(this.kSnakeBgSprite);
+    gEngine.Textures.loadTexture(this.kBgSprite);
 };
-PongGame.prototype.loadScene = function(){
+PongGame.prototype.unloadScene = function(){
     gEngine.Textures.unloadTexture(this.kBallSprite);
     gEngine.Textures.unloadTexture(this.kSnakeSegmentSprite);
     gEngine.Textures.unloadTexture(this.kSnakeSprite);
@@ -51,7 +51,7 @@ PongGame.prototype.initialize = function () {
     this.mBall = new Ball(this.kBallSprite);
     //MORE THINGS HERE
 
-    this.mBg = new TextureeRenderable(this.kSnakeBgSprite);
+    this.mBg = new TextureRenderable(this.kBgSprite);
     this.mBg.setColor([1,1,1,0]);
     this.mBg.getXform().setSize(256,256);
     this.mBg.getXform().setPosition(128,128);
@@ -116,6 +116,6 @@ PongGame.prototype.update = function(){
     if(this.mFrameCounter == 10){
         this.mFrameCounter = 0;
     }
-    this.mInputMsg.setText(msg + this.mSnake.mLastLetter);
-    this.mFPSMsg.setText(fpsMsg + this.mSnake.mFrameCounter);    
+    this.mInputMsg.setText(msg + this.mPaddle.mLastLetter);
+    this.mFPSMsg.setText(fpsMsg + this.mPaddle.mFrameCounter);    
 };
