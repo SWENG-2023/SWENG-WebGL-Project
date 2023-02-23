@@ -11,22 +11,39 @@ canvas {
     color: #6cbd30;
     margin: auto;
     font-family: 'Press Start 2P',
-        cursive;
+    cursive;
     height: auto;
     padding-top: auto;
+    }
+
+#retroTextTitel {
+    color: #6cbd30;
+    margin: auto;
+    font-family: 'Press Start 2P',
+    cursive;
+    height: auto;
+    padding-top: auto;
+    position:fixed;
+    left: 25%;
 
 }
 
 #qualcomm{
     position:absolute;
-    top:86%;
-    left:0%;
+    top:93%;
+    left:92%;    
+}
+#qualcommIMG{
+    width:92px;
+    height:22.4px;
 }
 
 #github{
     position:absolute;
-    top:95%;
+    top:88%;
     left:95%;
+    color:#0068b0;
+
 }
 
 #icon {
