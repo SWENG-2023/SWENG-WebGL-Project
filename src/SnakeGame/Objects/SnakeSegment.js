@@ -6,7 +6,7 @@ function SnakeSegment(spriteTexture, parentSegment) {
 
     this.mSegment= new TextureRenderable(spriteTexture);
     this.mSegment.setColor([1, 1, 1, 0]);
-    this.mSegment.getXform().setSize(15, 15);
+    this.mSegment.getXform().setSize(15, 17);
     GameObject.call(this, this.mSegment);
 
     this.mParent = parentSegment; // The segment/head it is following
@@ -26,6 +26,13 @@ SnakeSegment.prototype.update = function () {
     GameObject.prototype.update.call(this);  // default moving forward
 
     this.mFrameCounter++;
+    // Code to allow snakeSegments wrapping ()
+    /*
+    if(this.getXform().getXPos() < 0) this.getXform().setXPos(255);
+    if(this.getXform().getXPos() > 255) this.getXform().setXPos(0);
+    if(this.getXform().getYPos() < 0) this.getXform().setYPos(255);
+    if(this.getXform().getYPos() > 255) this.getXform().setYPos(0);
+    */
 
     if(this.mFrameCounter == this.mFrameUpdateInterval){
         this.setSpeed(16/10);

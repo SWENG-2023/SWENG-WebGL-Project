@@ -1,0 +1,164 @@
+canvas {
+    position: absolute;
+    top: 56%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+
+}
+
+#retroText {
+    color: #6cbd30;
+    margin: auto;
+    font-family: 'Press Start 2P',
+    cursive;
+    height: auto;
+    padding-top: auto;
+    }
+
+#retroTextTitel {
+    color: #6cbd30;
+    margin: auto;
+    font-family: 'Press Start 2P',
+    cursive;
+    height: auto;
+    padding-top: auto;
+    position:fixed;
+    left: 25%;
+
+}
+
+#qualcomm{
+    position:absolute;
+    top:93%;
+    left:92%;    
+}
+#qualcommIMG{
+    width:92px;
+    height:22.4px;
+}
+
+#github{
+    position:absolute;
+    top:88%;
+    left:95%;
+    color:#0068b0;
+
+}
+
+#icon {
+    width: 60px;
+    height: 60px;
+}
+
+#SettingsMenuView {
+    width: 50%;
+    position: absolute;
+    top: 50%;
+    left: 25%;
+    padding: 50px 0;
+    text-align: center;
+    background-color: grey;
+    margin-top: 20px;
+    display: none;
+    border-radius: 12px;
+    ;
+}
+
+#StartViewSnake {
+    width: 50%;
+    position: absolute;
+    left: 25%;
+    padding: 50px 0;
+    text-align: center;
+    background-color: grey;
+    margin-top: 20px;
+    display: none;
+    border-radius: 12px;
+
+}
+
+#StartViewPong {
+    width: 50%;
+    position: absolute;
+    left: 25%;
+    padding: 50px 0;
+    text-align: center;
+    background-color: grey;
+    margin-top: 20px;
+    display: none;
+    border-radius: 12px;
+    ;
+}
+
+#TileView {
+    width: 50%;
+    position: absolute;
+    left: 25%;
+    padding: 50px 0;
+    text-align: center;
+    background-color: black;
+    margin-top: 20px;
+    display: block;
+    border-radius: 12px;
+
+}
+
+.button {
+    border: none;
+    color: #6cbd30;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-family: 'Press Start 2P';
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 12px;
+}
+
+.button1 {
+    background-color: black;
+    color: #6cbd30;
+    border: 2px solid #6cbd30;
+}
+
+.button1:hover {
+
+    cursor: pointer;
+    background-color: #6cbd30;
+    color: white;
+}
+
+.Tilebutton {
+    border: none;
+    color: #6cbd30;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-family: 'Press Start 2P';
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 12px;
+    box-shadow: 1px 1px 3px 2px #383942;
+    -webkit-box-shadow: 1px 1px 3px 2px #383942;
+    -moz-box-shadow: 1px 1px 3px 2px #383942;
+}
+
+.Tilebutton1 {
+    background-color: black;
+    color: #6cbd30;
+    border: 2px solid #6cbd30;
+}
+
+.Tilebutton1:hover {
+
+    cursor: pointer;
+    background-color: #6cbd30;
+    color: white;
+}

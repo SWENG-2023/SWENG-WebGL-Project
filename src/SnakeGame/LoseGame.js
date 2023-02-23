@@ -11,7 +11,7 @@
 
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
-function LoseGame() {
+function LoseGame(score) {
     this.kSnakeBgSprite = "assets/snake_sprites/snake_bg.png";
 
     // The camera to view the scene
@@ -22,6 +22,9 @@ function LoseGame() {
 
     // background
     this.mBg = null;
+
+    // score
+    this.mScore = score;
 }
 gEngine.Core.inheritPrototype(LoseGame, Scene);
 
@@ -31,6 +34,8 @@ LoseGame.prototype.loadScene = function () {
 
 LoseGame.prototype.unloadScene = function () {
     //gEngine.Textures.unloadTexture(this.kSnakeBgSprite);
+    let snakeLevel = new SnakeGame();
+    gEngine.Core.startScene(snakeLevel);
 };
 
 LoseGame.prototype.initialize = function () {
@@ -54,7 +59,7 @@ LoseGame.prototype.initialize = function () {
     this.mLoseMsg.getXform().setPosition(10, 128);
     this.mLoseMsg.setTextHeight(20);
 
-    this.mScoreMsg = new FontRenderable("Score msg");
+    this.mScoreMsg = new FontRenderable("");
     this.mScoreMsg.setColor([0, 0, 0, 1]);
     this.mScoreMsg.getXform().setPosition(80, 60);
     this.mScoreMsg.setTextHeight(20);
@@ -82,6 +87,10 @@ LoseGame.prototype.draw = function () {
 LoseGame.prototype.update = function () {
     let scoreMsg = "Score: ";
 
-    this.mScoreMsg.setText(scoreMsg);
+    this.mScoreMsg.setText(scoreMsg + this.mScore);
+
+    if(gEngine.Input.isKeyPressed(gEngine.Input.keys.R)){
+        gEngine.GameLoop.stop();
+    }
 
 };
