@@ -7,6 +7,21 @@ canvas {
 
 }
 
+#retroText {
+    color: #6cbd30;
+    margin: auto;
+    font-family: 'Press Start 2P',
+        cursive;
+    height: auto;
+    padding-top: auto;
+
+}
+
+#icon {
+    width: 60px;
+    height: 60px;
+}
+
 #SettingsMenuView {
     width: 50%;
     position: absolute;
@@ -31,7 +46,7 @@ canvas {
     margin-top: 20px;
     display: none;
     border-radius: 12px;
-    
+
 }
 
 #StartViewPong {
@@ -53,7 +68,7 @@ canvas {
     left: 25%;
     padding: 50px 0;
     text-align: center;
-    background-color: grey;
+    background-color: black;
     margin-top: 20px;
     display: block;
     border-radius: 12px;
@@ -87,6 +102,7 @@ canvas {
     background-color: #6cbd30;
     color: white;
 }
+
 .Tilebutton {
     border: none;
     color: #6cbd30;
