@@ -115,6 +115,7 @@ PongGame.prototype.update = function(){
 
     this.mBall.update();
     this.mPaddle.update();
+    //this.mScoreMsg.setText(scoreMsg + this.mPaddle.getXform().getXPos());
     this.mFrameCounter++;
     if(this.mFrameCounter == 10){
         this.mFrameCounter = 0;

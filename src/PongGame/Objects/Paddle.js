@@ -6,13 +6,11 @@
 function Paddle(spriteTexture){
     this.mPaddle = new TextureRenderable(spriteTexture);
     this.mPaddle.setColor([1,1,1,0]);
-    // let initCoords = this.getSquareCoords(128,0);
-    // this.mPaddle.getXform().setPosition(initCoords[0],initCoords[1]);
-    
-    this.mPaddle.getXform().setPosition(120,8);
+    let initCoords = this.getSquareCoords(8,1);
+    this.mPaddle.getXform().setPosition(initCoords[0],initCoords[1]);
     this.mPaddle.getXform().setSize(14,14);
     
-    this.mLastLetter="N/A";
+    this.mLastLetter="A";
     this.mFrameCounter = 0;
     this.mFrameUpdateInterval = 10;
     GameObject.call(this, this.mPaddle)
@@ -40,18 +38,33 @@ Paddle.prototype.takeInput = function () {
     }
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.D)) {
         this.mLastLetter = "D";
+
     }
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.R)) {
-        let coords = this.getSquareCoords(10, 10);
+        let coords = this.getSquareCoords(8, 1);
         xform.setPosition(coords[0], coords[1]);
         this.mFrameCounter = 0;
         this.mLastLetter = "R";
+        this.setSpeed(16/10);
+
     }
 };
 
 Paddle.prototype.update = function(){
     GameObject.prototype.update.call(this);
 
+
+    if(this.mPaddle.getXform().getXPos() <= 8 && this.mLastLetter == 'A')
+    {
+        this.setSpeed(0);
+    }
+   else  if(this.mPaddle.getXform().getXPos() >= 248 && this.mLastLetter == 'D')
+    {
+        this.setSpeed(0);
+    }
+    else{
+        this.setSpeed(16/10);
+    }
     this.takeInput();
     this.mFrameCounter++;
     if(this.mFrameCounter == this.mFrameUpdateInterval){
