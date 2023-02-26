@@ -113,6 +113,7 @@
             Hide("SettingsMenuView");
             Hide("SettingsButton");
             Hide("TileView");
+            Hide("informationContainer");
             ShowCanvas(gameScene);
             var backgroundMusic = new Audio("assets/sounds/BGWaltz.mp3");
             backgroundMusic.loop = true;
@@ -122,6 +123,7 @@
             Show("StartViewSnake");
             Show("SettingsButton");
             Hide("TileView");
+            Hide("informationContainer");
 
 
         }
@@ -129,6 +131,7 @@
             Show("StartViewPong");
             Show("SettingsButton");
             Hide("TileView");
+            Hide("informationContainer");
 
 
         }
@@ -139,12 +142,16 @@
             Hide("StartViewSnake");
             Hide("StartViewPong");
             Hide("SettingsMenuView");
+            Hide("informationContainer");
             HideCanvas();
 
         }
         function SettingsPopUP() {
             ShowHide("SettingsMenuView");
 
+        }
+        function informationPopUp(){
+            ShowHide("informationContainer");
         }
         function ShowCanvas(gameScene) {
             let canvas = document.getElementById("GLCanvas");
@@ -227,9 +234,15 @@
         <button class="button button1">Sound on</button>
     </div>
 
-    <div>
-        <a id="qualcomm" href="https://www.qualcomm.com/home"><img id="qualcommIMG" src="assets/snake_sprites/Qualcomm_logo.png"></a>
+    <div id="informationContainer">
+        <a>version 2.0</a><br>
+        <a id="qualcomm" href="https://www.qualcomm.com/home"><img id="qualcommIMG" src="assets/snake_sprites/Qualcomm_logo.png"></a><br>
         <a id="github" href="https://github.com/SWENG-2023/SWENG-WebGL-Project">github</a>
+        
+    </div>
+
+    <div id="informationButton">
+        <button class="roundbutton roundbutton1" onclick="informationPopUp()">i</button>
     </div>
 
     <canvas hidden="hidden" id="GLCanvas" width="500" height="500">
