@@ -49,6 +49,7 @@ PongGame.prototype.initialize = function () {
             // sets the background to gray
 
     this.mBall = new Ball(this.kBallSprite);
+    this.mPaddle = new Paddle(this.kSnakeSprite);
     //MORE THINGS HERE
 
     this.mBg = new TextureRenderable(this.kBgSprite);
@@ -99,6 +100,7 @@ PongGame.prototype.draw = function () {
     // Step  C: Draw everything
     this.mBg.draw(this.mCamera);
     this.mBall.draw(this.mCamera);
+    this.mPaddle.draw(this.mCamera);
     
     this.mMsg.draw(this.mCamera);
     this.mInputMsg.draw(this.mCamera);
@@ -112,6 +114,7 @@ PongGame.prototype.update = function(){
     let scoreMsg = "Score: ";
 
     this.mBall.update();
+    this.mPaddle.update();
     this.mFrameCounter++;
     if(this.mFrameCounter == 10){
         this.mFrameCounter = 0;

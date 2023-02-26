@@ -6,17 +6,31 @@
 function Paddle(spriteTexture){
     this.mPaddle = new TextureRenderable(spriteTexture);
     this.mPaddle.setColor([1,1,1,0]);
-    let initCoords = this.getSquareCoords(128,256);
-    this.mPaddle.getXform().setPosition(initCoords[0].initCoords[1]);
+    // let initCoords = this.getSquareCoords(128,0);
+    // this.mPaddle.getXform().setPosition(initCoords[0],initCoords[1]);
+    
+    this.mPaddle.getXform().setPosition(120,8);
     this.mPaddle.getXform().setSize(14,14);
+    
     this.mLastLetter="N/A";
     this.mFrameCounter = 0;
     this.mFrameUpdateInterval = 10;
-    gameObject.call(this, this.mPaddle)
+    GameObject.call(this, this.mPaddle)
 
     this.setSpeed(16/10);
+    this.mPaddle.getXform().setRotationInDegree(90);
+    vec2.set(this.getCurrentFrontDir(), -1, 0);
 }
 gEngine.Core.inheritPrototype(Paddle, GameObject);
+
+Paddle.prototype.getSquareCoords = function (xSquare, ySquare){
+    let coordsArray = [];
+
+    // 1-indexed, 16 * 16 grid, gets the middle of squares
+    coordsArray.push((xSquare * 16) - 8);
+    coordsArray.push((ySquare * 16) - 8);
+    return coordsArray;
+}
 
 Paddle.prototype.takeInput = function () {
     var xform = this.getXform();
@@ -42,19 +56,22 @@ Paddle.prototype.update = function(){
     this.mFrameCounter++;
     if(this.mFrameCounter == this.mFrameUpdateInterval){
         this.mFrameCounter = 0;
+        // if(xform.getXPos()>=248 || xform.getXpos()<=8)
+        // {
+        //     vec2.set(fdir, 0,0);
+        // }
         var xform = this.getXform();
         var fdir = this.getCurrentFrontDir();
-
-        switch(this.mLastLetter){
-            case 'A':
-                xform.setRotationInDegree(90);
-                vec2.set(fdir, -1, 0);
-                break;
-            case 'S':
-                xform.setRotationInDegree(180);
-                vec2.set(fdir, 0, -1);
-                break;
-                
+        
+            switch(this.mLastLetter){
+                case 'A':
+                    xform.setRotationInDegree(90);
+                    vec2.set(fdir, -1, 0);
+                    break;
+                case 'D':
+                    xform.setRotationInDegree(270);
+                    vec2.set(fdir, 1, 0);
+                    break;
         }
     }
 };
