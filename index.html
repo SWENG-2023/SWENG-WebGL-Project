@@ -72,6 +72,8 @@
     <script type="text/javascript" src="src/Engine/Lights/Light.js"></script>
     <script type="text/javascript" src="src/Engine/Lights/LightSet.js"></script>
 
+    <!-- Music -->
+    <script type="text/javascript" src="src/Audio/music.js"></script>
     <!-- Client game code for SnakeGame -->
     <script type="text/javascript" src="src/SnakeGame/SnakeGame.js"></script>
     <script type="text/javascript" src="src/SnakeGame/LoseGame.js"></script>
@@ -112,6 +114,9 @@
             Hide("SettingsButton");
             Hide("TileView");
             ShowCanvas(gameScene);
+            var backgroundMusic = new Audio("assets/sounds/BGWaltz.mp3");
+            backgroundMusic.loop = true;
+            backgroundMusic.play();
         }
         function GetStartViewSnake() {
             Show("StartViewSnake");
