@@ -7,6 +7,7 @@ function PongGame() {
     this.kSnakeSprite = "assets/snake_sprites/head_up.png";
     this.kSnakeSegmentSprite = "assets/snake_sprites/body_vertical.png";
     this.kBgSprite = "assets/snake_sprites/snake_bg.png";
+    this.kEnemySnake = "assets/snake_sprites/Red_Snake.png";
 
     this.mCamera = null;
 
@@ -16,6 +17,7 @@ function PongGame() {
     this.mScoreMsg = null;
 
     this.mPaddle = null;
+    this.mEnemyPaddle = null;
     this.mBall = null;
     this.mSegments = [];
     this.mTail = null;
@@ -30,12 +32,14 @@ PongGame.prototype.loadScene = function(){
     gEngine.Textures.loadTexture(this.kBallSprite);
     gEngine.Textures.loadTexture(this.kSnakeSegmentSprite);
     gEngine.Textures.loadTexture(this.kSnakeSprite);
+    gEngine.Textures.loadTexture(this.kEnemySnake);
     gEngine.Textures.loadTexture(this.kBgSprite);
 };
 PongGame.prototype.unloadScene = function(){
     gEngine.Textures.unloadTexture(this.kBallSprite);
     gEngine.Textures.unloadTexture(this.kSnakeSegmentSprite);
     gEngine.Textures.unloadTexture(this.kSnakeSprite);
+    gEngine.Textures.unloadTexture(this.kEnemySnake);
 };
 
 PongGame.prototype.initialize = function () {
@@ -50,6 +54,7 @@ PongGame.prototype.initialize = function () {
 
     this.mBall = new Ball(this.kBallSprite);
     this.mPaddle = new Paddle(this.kSnakeSprite);
+    this.mEnemyPaddle = new EnemyPaddle(this.kEnemySnake, this.mBall)
     //MORE THINGS HERE
 
     this.mBg = new TextureRenderable(this.kBgSprite);
@@ -101,6 +106,7 @@ PongGame.prototype.draw = function () {
     this.mBg.draw(this.mCamera);
     this.mBall.draw(this.mCamera);
     this.mPaddle.draw(this.mCamera);
+    this.mEnemyPaddle.draw(this.mCamera);
     
     this.mMsg.draw(this.mCamera);
     this.mInputMsg.draw(this.mCamera);
@@ -114,7 +120,9 @@ PongGame.prototype.update = function(){
     let scoreMsg = "Score: ";
 
     this.mBall.update();
+    this.mBall.collide(this.mPaddle, this.mEnemyPaddle)
     this.mPaddle.update();
+    this.mEnemyPaddle.update();
     //this.mScoreMsg.setText(scoreMsg + this.mPaddle.getXform().getXPos());
     this.mFrameCounter++;
     if(this.mFrameCounter == 10){
