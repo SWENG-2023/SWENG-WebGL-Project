@@ -101,6 +101,13 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+        <style>
+            kbd {
+              border-radius: 2px;
+              padding: 2px;
+              border: 1px solid #6cbd30;
+            }
+            </style>
 </head>
 </body>
 
@@ -241,7 +248,7 @@
         </flex>
 
         <button id="SettingsButton" class="button button1" onclick="SettingsPopUP()"> Settings</button>
-        <button id="PauseButton" class="button button1" onclick="PausePopUP()">Pause</button>;
+        <button id="PauseButton" class="button button1" onclick="PausePopUP()">Pause <kbd>P</kbd></button>;
     </nav>
     <div id="TileView">
         <button class="Tilebutton Tilebutton1" onclick="GetStartViewSnake()"><img id="icon"
@@ -258,7 +265,6 @@
             Snake</button><br>
         <button class="roundbutton roundbutton1" onclick="instructionsSnakePopUp()">?</button>
     </div>
-
     <div id="StartViewPong">
         <button id="StartGameButton" class="Tilebutton Tilebutton1" onclick="StartGame(Pong)">Start Game Pong</button>
     </div>
@@ -279,9 +285,26 @@
     <div id="informationButton">
         <button class="roundbutton roundbutton1" onclick="informationPopUp()">i</button>
     </div>
-
+    <div id="Pause">
+        <script>
+            document.addEventListener('keydown', function(event) {
+    if(event.keyCode == 80) {
+        PausePopUP();
+        }
+       } 
+      );  
+        </script><br>
+    </div>
     <div id="PauseMenu">
-        <button class="button button1" onclick="ResumeGame()">Resume Game</button><br>
+        <script>
+            document.addEventListener('keydown', function(event) {
+    if(event.keyCode == 81) {
+        ResumeGame();
+        }
+       } 
+      );  
+        </script><br>
+        <button class="button button1"  onclick="ResumeGame()">Resume Game <kbd>Q</kbd></button><br>
         <button class="button button1">Music on</button><br>
         <button class="button button1">Sound on</button><br>
         <button class="roundbutton roundbutton1" onclick="instructionsSnakePopUp()">?</button>
@@ -289,7 +312,7 @@
 
     <div id="InstructionsSnake">
         <a>How to play?</a><br>
-        <a>Use <strong>ASDF</strong> keys or <strong>UP/DOWN/LEFT/RIGHT</strong> arrow keys. </a>
+        <a>Use <strong>WASD</strong> keys or <strong>UP/DOWN/LEFT/RIGHT</strong> arrow keys. </a>
         <a>Your goal is to eat as many apples as you can. Eating an apple increases your snake's length!</a>
     </div>
 
