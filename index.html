@@ -114,6 +114,9 @@
             Hide("SettingsButton");
             Hide("TileView");
             Hide("informationContainer");
+            Hide("PauseMenu");
+            Hide("InstructionsSnake");
+            Show("PauseButton");
             ShowCanvas(gameScene);
             var backgroundMusic = new Audio("assets/sounds/BGWaltz.mp3");
             backgroundMusic.loop = true;
@@ -122,16 +125,22 @@
         function GetStartViewSnake() {
             Show("StartViewSnake");
             Show("SettingsButton");
+            Hide("PauseButton");
             Hide("TileView");
             Hide("informationContainer");
+            Hide("PauseMenu");
+            Hide("InstructionsSnake");
 
 
         }
         function GetStartViewPong() {
             Show("StartViewPong");
             Show("SettingsButton");
+            Hide("PauseButton");
             Hide("TileView");
             Hide("informationContainer");
+            Hide("PauseMenu");
+            Hide("InstructionsSnake");
 
 
         }
@@ -143,16 +152,36 @@
             Hide("StartViewPong");
             Hide("SettingsMenuView");
             Hide("informationContainer");
+            Hide("PauseButton");
+            Hide("PauseMenu");
+            Hide("InstructionsSnake");
             HideCanvas();
 
         }
+        function PausePopUP() {
+            Show("PauseMenu");
+            Hide("PauseButton");
+
+        }
+
+        function ResumeGame() {
+            Show("PauseButton");
+            Hide("PauseMenu");
+            Hide("InstructionsSnake");
+        }
+
         function SettingsPopUP() {
             ShowHide("SettingsMenuView");
 
         }
-        function informationPopUp(){
+        function informationPopUp() {
             ShowHide("informationContainer");
         }
+
+        function instructionsSnakePopUp() {
+            ShowHide("InstructionsSnake");
+        }
+
         function ShowCanvas(gameScene) {
             let canvas = document.getElementById("GLCanvas");
             let hidden = canvas.getAttribute("hidden");
@@ -197,7 +226,11 @@
 
 
 
-
+    <canvas hidden="hidden" id="GLCanvas" width="500" height="500">
+        <!-- GLCanvas is the area we will draw in: a 640x480 area. -->
+        Your browser does not support the HTML5 canvas.
+        <!-- this message will show only if WebGL clearing failed -->
+    </canvas>
     <nav class="navbar navbar-light" style="background-color: black;">
         <!-- Navbar content -->
 
@@ -208,21 +241,22 @@
         </flex>
 
         <button id="SettingsButton" class="button button1" onclick="SettingsPopUP()"> Settings</button>
-
+        <button id="PauseButton" class="button button1" onclick="PausePopUP()">Pause</button>;
     </nav>
     <div id="TileView">
         <button class="Tilebutton Tilebutton1" onclick="GetStartViewSnake()"><img id="icon"
                 src="assets/snake_sprites/head_up.png"><br>Snake</button>
         <button class="Tilebutton Tilebutton1" onclick="GetStartViewPong()"> <img id="icon"
                 src="assets/snake_sprites/pong.png"><br> Pong </button>
-        
+
         <p></p>
         <p id="retroText">More retro games coming soon...</p>
     </div>
 
     <div id="StartViewSnake">
         <button id="StartGameButton" class="Tilebutton Tilebutton1" onclick="StartGame('SnakeGame')">Start Game
-            Snake</button>
+            Snake</button><br>
+        <button class="roundbutton roundbutton1" onclick="instructionsSnakePopUp()">?</button>
     </div>
 
     <div id="StartViewPong">
@@ -236,20 +270,27 @@
 
     <div id="informationContainer">
         <a>version 2.0</a><br>
-        <a id="qualcomm" href="https://www.qualcomm.com/home"><img id="qualcommIMG" src="assets/snake_sprites/Qualcomm_logo.png"></a><br>
+        <a id="qualcomm" href="https://www.qualcomm.com/home"><img id="qualcommIMG"
+                src="assets/snake_sprites/Qualcomm_logo.png"></a><br>
         <a id="github" href="https://github.com/SWENG-2023/SWENG-WebGL-Project">github</a>
-        
+
     </div>
 
     <div id="informationButton">
         <button class="roundbutton roundbutton1" onclick="informationPopUp()">i</button>
     </div>
 
-    <canvas hidden="hidden" id="GLCanvas" width="500" height="500">
-        <!-- GLCanvas is the area we will draw in: a 640x480 area. -->
-        Your browser does not support the HTML5 canvas.
-        <!-- this message will show only if WebGL clearing failed -->
-    </canvas>
+    <div id="PauseMenu">
+        <button class="button button1" onclick="ResumeGame()">Resume Game</button><br>
+        <button class="button button1">Music on</button><br>
+        <button class="button button1">Sound on</button><br>
+        <button class="roundbutton roundbutton1" onclick="instructionsSnakePopUp()">?</button>
+    </div>
+
+    <div id="InstructionsSnake">
+        <a>How to play?</a><br>
+        <a>Instrucitons have yet to be added!</a>
+    </div>
 
 
 
