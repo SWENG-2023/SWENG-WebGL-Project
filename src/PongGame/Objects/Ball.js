@@ -12,13 +12,14 @@ function Ball(spriteTexture)
     // this.mBall.getXform().setRotationInDegree(this.rotation);
     GameObject.call(this,this.mBall);
     this.setSpeed(16/10);
-    vec2.set(this.getCurrentFrontDir(), 1, 0);
+    this.angleToVector(135+Math.random()*90)
 
 }
 gEngine.Core.inheritPrototype(Ball,GameObject);
 
 Ball.prototype.angleToVector = function(angle){
-    vec2.set(this.getCurrentFrontDir(),Math.cos(angle),Math.sin(angle))
+    let radians = angle * (Math.PI / 180);
+    vec2.set(this.getCurrentFrontDir(),Math.cos(radians),Math.sin(radians))
 }
 
 Ball.prototype.collide = function(paddle, enemyPaddle){
@@ -29,16 +30,13 @@ Ball.prototype.collide = function(paddle, enemyPaddle){
     let ballX = this.mBall.getXform().getXPos();
     let ballY = this.mBall.getXform().getYPos();
     if(paddleX-7<ballX && paddleX+7 > ballX && paddleY-7 < ballY && paddleY+7>ballY){
-        this.angleToVector(90);
+        vec2.set(this.getCurrentFrontDir(),this.getCurrentFrontDir()[0],-this.getCurrentFrontDir()[1])
     }
     if(enemyPaddleX-7<ballX && enemyPaddleX+7 > ballX && enemyPaddleY-7 < ballY && enemyPaddleY+7>ballY){
-        this.angleToVector(270);
+        vec2.set(this.getCurrentFrontDir(),this.getCurrentFrontDir()[0],-this.getCurrentFrontDir()[1])
     }
-    if(ballX>=256){
-        this.angleToVector(180);
-    }
-    if(ballX<=0){
-        this.angleToVector(0);
+    if(ballX>=256||ballX<=0){
+        vec2.set(this.getCurrentFrontDir(),-this.getCurrentFrontDir()[0],this.getCurrentFrontDir()[1])
     }
 };
 
@@ -47,13 +45,12 @@ Ball.prototype.takeInput = function (){
         // this.rotation = 315+Math.random()*90;
         // this.mBall.getXform().setRotationInDegree(this.rotation);
         this.mBall.getXform().setPosition(128,128);
+        this.angleToVector(225+Math.random()*90);
     }
 };
 
 Ball.prototype.update = function(){
     GameObject.prototype.update.call(this);
     this.mBall.getXform().setRotationInDegree(this.mBall.getXform().getRotationInDegree()+2);
-    var fdir = this.getCurrentFrontDir();
-    var xform = this.getXform();
     this.takeInput();
 }
