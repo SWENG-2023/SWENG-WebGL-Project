@@ -6,7 +6,17 @@ canvas {
 
 
 }
+#SettingsButton{
+    position: absolute;
+    right:2%;
+    display:block;
+}
 
+#PauseButton{
+    position: absolute;
+    right:2%;
+    display:none;
+}
 #retroText {
     color: #6cbd30;
     margin: auto;
@@ -24,13 +34,12 @@ canvas {
     cursive;
     height: auto;
     padding-top: auto;
-    position:center;
+    position:fixed;
+    left: 25%;
 }
 
 #qualcomm{
-    position:absolute;
-    top:93%;
-    left:92%;    
+    border:#383942;   
 }
 #qualcommIMG{
     width:92px;
@@ -38,9 +47,7 @@ canvas {
 }
 
 #github{
-    position:absolute;
-    top:88%;
-    left:95%;
+   
     color:#0068b0;
 
 }
@@ -61,7 +68,56 @@ canvas {
     margin-top: 20px;
     display: none;
     border-radius: 12px;
-    ;
+}
+#InstructionsSnake{
+    position: absolute;
+    top: 30%;
+    left: 80%;
+    
+    text-align: center;
+    background-color: grey;
+    margin-top: 20px;
+    display: none;
+    padding: 10px;
+    
+    box-shadow: 1px 1px 3px 2px #383942;
+    -webkit-box-shadow: 1px 1px 3px 2px #383942;
+    -moz-box-shadow: 1px 1px 3px 2px #383942;
+}
+#PauseMenu {
+    width: 30%;
+    position: absolute;
+    top: 25%;
+    left: 35%;
+    padding: 50px 0;
+    text-align: center;
+    background-color: grey;
+    margin-top: 20px;
+    display: none;
+    border-radius: 12px;
+    
+}
+#informationButton{
+position: fixed;
+    top:94%;
+    left:97%;
+}
+#informationContainer {
+    
+    position: absolute;
+    top: 78%;
+    left: 87%;
+    
+    text-align: center;
+    background-color: grey;
+    margin-top: 20px;
+    display: none;
+    padding: 10px;
+    
+    box-shadow: 1px 1px 3px 2px #383942;
+    -webkit-box-shadow: 1px 1px 3px 2px #383942;
+    -moz-box-shadow: 1px 1px 3px 2px #383942;
+    
 }
 
 #StartViewSnake {
@@ -116,6 +172,7 @@ canvas {
     transition-duration: 0.4s;
     cursor: pointer;
     border-radius: 12px;
+    
 }
 
 .button1 {
@@ -130,6 +187,7 @@ canvas {
     background-color: #6cbd30;
     color: white;
 }
+
 
 .Tilebutton {
     border: none;
@@ -156,6 +214,33 @@ canvas {
 }
 
 .Tilebutton1:hover {
+
+    cursor: pointer;
+    background-color: #6cbd30;
+    color: white;
+}
+.roundbutton {
+    border: none;
+    color: #6cbd30;  
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-family: 'Press Start 2P';
+    font-size: 14px;
+    margin: 2px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 500%;
+    
+}
+
+.roundbutton1 {
+    background-color: black;
+    color: #6cbd30;
+    border: 2px solid #6cbd30;
+}
+
+.roundbutton1:hover {
 
     cursor: pointer;
     background-color: #6cbd30;

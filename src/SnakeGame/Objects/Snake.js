@@ -46,6 +46,18 @@ Snake.prototype.takeInput = function () {
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.D) && this.mLastLetter != "A") {
         this.mLastLetter = "D";
     }
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Down) && this.mLastLetter != "Up") {
+        this.mLastLetter = "Down";
+    }
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Up) && this.mLastLetter != "Down") {
+        this.mLastLetter = "Up";
+    }
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Left) && this.mLastLetter != "Right") {
+        this.mLastLetter = "Left";
+    }
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Right) && this.mLastLetter != "Left") {
+        this.mLastLetter = "Right";
+    }
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.R)) {
         let coords = this.getSquareCoords(10, 10);
         xform.setPosition(coords[0], coords[1]);
@@ -88,6 +100,30 @@ Snake.prototype.update = function () {
                 }
 
             case 'D':
+                if(xform.getRotationInDegree() != 90){ 
+                    xform.setRotationInDegree(270);
+                    vec2.set(fdir, 1, 0);
+                    break;
+                }
+                case 'Up':
+                    if(xform.getRotationInDegree() != 180){
+                        xform.setRotationInDegree(0);
+                        vec2.set(fdir, 0, 1);
+                        break;
+                    }
+                    case 'Down':
+                if(xform.getRotationInDegree() != 0){
+                    xform.setRotationInDegree(180);
+                    vec2.set(fdir, 0, -1);
+                    break;
+                }  
+                case 'Left':
+                if(xform.getRotationInDegree() != 270){
+                    xform.setRotationInDegree(90);
+                    vec2.set(fdir, -1, 0);
+                    break;
+                } 
+                case 'Right':
                 if(xform.getRotationInDegree() != 90){ 
                     xform.setRotationInDegree(270);
                     vec2.set(fdir, 1, 0);
