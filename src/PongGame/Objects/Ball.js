@@ -17,6 +17,10 @@ function Ball(spriteTexture)
 }
 gEngine.Core.inheritPrototype(Ball,GameObject);
 
+Ball.prototype.angleToVector = function(angle){
+    vec2.set(this.getCurrentFrontDir(),Math.cos(angle),Math.sin(angle))
+}
+
 Ball.prototype.collide = function(paddle, enemyPaddle){
     let paddleX = paddle.getXform().getXPos();
     let paddleY = paddle.getXform().getYPos();
@@ -25,16 +29,16 @@ Ball.prototype.collide = function(paddle, enemyPaddle){
     let ballX = this.mBall.getXform().getXPos();
     let ballY = this.mBall.getXform().getYPos();
     if(paddleX-7<ballX && paddleX+7 > ballX && paddleY-7 < ballY && paddleY+7>ballY){
-        vec2.set(this.getCurrentFrontDir(), 0, 1);
+        this.angleToVector(90);
     }
     if(enemyPaddleX-7<ballX && enemyPaddleX+7 > ballX && enemyPaddleY-7 < ballY && enemyPaddleY+7>ballY){
-        vec2.set(this.getCurrentFrontDir(), 0, -1);
+        this.angleToVector(270);
     }
     if(ballX>=256){
-        vec2.set(this.getCurrentFrontDir(), -1, 0);
+        this.angleToVector(180);
     }
     if(ballX<=0){
-        vec2.set(this.getCurrentFrontDir(), 1, 0);
+        this.angleToVector(0);
     }
 };
 
