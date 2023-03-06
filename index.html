@@ -101,18 +101,19 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-        <style>
-            kbd {
-              border-radius: 2px;
-              padding: 2px;
-              border: 1px solid #6cbd30;
-            }
-            </style>
+    <style>
+        kbd {
+            border-radius: 2px;
+            padding: 2px;
+            border: 1px solid #6cbd30;
+        }
+    </style>
 </head>
 </body>
 
 <body style="background-color: black">
     <script>
+
         function StartGame(gameScene) {
 
             Hide("StartViewSnake");
@@ -124,6 +125,8 @@
             Hide("PauseMenu");
             Hide("InstructionsSnake");
             Show("PauseButton");
+            Show("GiveUpGame");
+
             ShowCanvas(gameScene);
             var backgroundMusic = new Audio("assets/sounds/BGWaltz.mp3");
             backgroundMusic.loop = true;
@@ -162,7 +165,11 @@
             Hide("PauseButton");
             Hide("PauseMenu");
             Hide("InstructionsSnake");
+
+
             HideCanvas();
+
+
 
         }
         function PausePopUP() {
@@ -208,6 +215,7 @@
             if (!hidden) {
                 canvas.setAttribute("hidden", "hidden");
             }
+
         }
         function Hide(name) {
             var x = document.getElementById(name);
@@ -228,6 +236,35 @@
                 x.style.display = "block";
             }
         }
+
+        function GiveUpGame() {
+            gEngine.GameLoop.stop();
+            Show("PlayAgain");
+            Hide("GiveUpGame");
+        }
+        function PlayAgain() {
+            gEngine.GameLoop.stop();
+            Show("GiveUpGame");
+            Hide("PlayAgain");
+        }
+
+        document.addEventListener('keydown', function (event) {
+            if (event.keyCode == 80) {
+                PausePopUP();
+            }
+        }
+        );
+
+
+
+        document.addEventListener('keydown', function (event) {
+            if (event.keyCode == 81) {
+                ResumeGame();
+            }
+        }
+        );
+
+
 
     </script>
 
@@ -256,7 +293,7 @@
         <button class="Tilebutton Tilebutton1" onclick="GetStartViewPong()"> <img id="icon"
                 src="assets/snake_sprites/pong.png"><br> Pong </button>
 
-        <p></p>
+        <br><br>
         <p id="retroText">More retro games coming soon...</p>
     </div>
 
@@ -285,30 +322,25 @@
     <div id="informationButton">
         <button class="roundbutton roundbutton1" onclick="informationPopUp()">i</button>
     </div>
-    <div id="Pause">
-        <script>
-            document.addEventListener('keydown', function(event) {
-    if(event.keyCode == 80) {
-        PausePopUP();
-        }
-       } 
-      );  
-        </script><br>
-    </div>
+
+
     <div id="PauseMenu">
-        <script>
-            document.addEventListener('keydown', function(event) {
-    if(event.keyCode == 81) {
-        ResumeGame();
-        }
-       } 
-      );  
-        </script><br>
-        <button class="button button1"  onclick="ResumeGame()">Resume Game <kbd>Q</kbd></button><br>
+        <br>
+        <button class="button button1" onclick="ResumeGame()">Resume Game <kbd>Q</kbd></button><br>
         <button class="button button1">Music on</button><br>
         <button class="button button1">Sound on</button><br>
         <button class="roundbutton roundbutton1" onclick="instructionsSnakePopUp()">?</button>
     </div>
+
+    <div id="GiveUpGame">
+        <button class="button button1" onclick="GiveUpGame()">Give up!</button>
+    </div>
+
+    <div id="PlayAgain">
+        <button class="button button1" onclick="PlayAgain()">Play again</button>
+    </div>
+
+
 
     <div id="InstructionsSnake">
         <a>How to play?</a><br>
