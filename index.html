@@ -210,6 +210,10 @@
                     let gameScene = new SnakeGame();
                     gEngine.Core.initializeEngineCore('GLCanvas', gameScene);
                 }
+                if (gameScene== "PongGame"){
+                    let gameScene = new PongGame();
+                    gEngine.Core.initializeEngineCore('GLCanvas', gameScene);
+                }
 
             }
         }
@@ -309,7 +313,7 @@
         <button class="roundbutton roundbutton1" onclick="instructionsSnakePopUp()">?</button>
     </div>
     <div id="StartViewPong">
-        <button id="StartGameButton" class="Tilebutton Tilebutton1" onclick="StartGame(Pong)">Start Game Pong</button>
+        <button id="StartGameButton" class="Tilebutton Tilebutton1" onclick="StartGame('PongGame')">Start Game Pong</button>
     </div>
 
     <div id="SettingsMenuView">
