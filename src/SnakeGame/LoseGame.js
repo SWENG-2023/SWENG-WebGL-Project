@@ -34,6 +34,8 @@ LoseGame.prototype.loadScene = function () {
 
 LoseGame.prototype.unloadScene = function () {
     //gEngine.Textures.unloadTexture(this.kSnakeBgSprite);
+    let snakeLevel = new SnakeGame();
+    gEngine.Core.startScene(snakeLevel);
 };
 
 LoseGame.prototype.initialize = function () {
@@ -86,5 +88,9 @@ LoseGame.prototype.update = function () {
     let scoreMsg = "Score: ";
 
     this.mScoreMsg.setText(scoreMsg + this.mScore);
+
+    if(gEngine.Input.isKeyPressed(gEngine.Input.keys.R)){
+        gEngine.GameLoop.stop();
+    }
 
 };
