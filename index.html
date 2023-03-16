@@ -15,8 +15,7 @@
 
 
     <!-- the following says there are javascript source code contained in 
-             the external source files
-        -->
+             the external source files-->
     <!-- external library -->
     <script type="text/javascript" src="src/lib/gl-matrix.js"></script>
 
@@ -80,6 +79,12 @@
     <script type="text/javascript" src="src/SnakeGame/Objects/Snake.js"></script>
     <script type="text/javascript" src="src/SnakeGame/Objects/Apple.js"></script>
     <script type="text/javascript" src="src/SnakeGame/Objects/SnakeSegment.js"></script>
+          
+     <!-- Client game code for PongGame -->
+     <script type="text/javascript" src="src/PongGame/PongGame.js"></script>
+     <script type="text/javascript" src="src/PongGame/Objects/Ball.js"></script>
+     <script type="text/javascript" src="src/PongGame/Objects/Paddle.js"></script>
+     <script type="text/javascript" src="src/PongGame/Objects/EnemyPaddle.js"></script>
 
     <!-- Client game code for TestGame -->
     <script type="text/javascript" src="src/TestGame/MyGame.js"></script>
@@ -276,6 +281,7 @@
         <!-- this message will show only if WebGL clearing failed -->
     </canvas>
     <nav class="navbar navbar-light" style="background-color: black;">
+
         <!-- Navbar content -->
 
         <button class=" button button1" onclick="getTileView()">Main Menu</button>
