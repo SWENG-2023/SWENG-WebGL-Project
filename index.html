@@ -133,10 +133,10 @@
             Show("GiveUpGame");
 
             ShowCanvas(gameScene);
-            var backgroundMusic = new Audio("assets/sounds/BGWaltz.mp3");
-            backgroundMusic.loop = true;
+            backgroundMusic.currentTime=0;
             backgroundMusic.play();
         }
+        
         function GetStartViewSnake() {
             Show("StartViewSnake");
             Show("SettingsButton");
@@ -161,6 +161,7 @@
         }
 
         function getTileView() {
+            backgroundMusic.pause();
             Show("TileView");
             Show("SettingsButton");
             Hide("StartViewSnake");
