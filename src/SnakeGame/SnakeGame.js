@@ -14,7 +14,7 @@
 function SnakeGame() {
     this.kSnakeSprite = "assets/snake_sprites/head_up.png";
     this.kAppleSprite = "assets/snake_sprites/apple.png";
-    this.kSnakeSegmentSprite = "assets/snake_sprites/body_vertical.png"
+    this.kSnakeSegmentSprite = "assets/snake_sprites/body_vertical.png";
     this.kSnakeBgSprite = "assets/snake_sprites/snake_bg.png";
 
     // The camera to view the scene
