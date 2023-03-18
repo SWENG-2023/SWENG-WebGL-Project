@@ -179,12 +179,14 @@
 
         }
         function PausePopUP() {
+            backgroundMusic.pause();
             Show("PauseMenu");
             Hide("PauseButton");
 
         }
 
         function ResumeGame() {
+            backgroundMusic.play();
             Show("PauseButton");
             Hide("PauseMenu");
             Hide("InstructionsSnake");
