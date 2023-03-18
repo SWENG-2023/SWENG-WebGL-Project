@@ -8,6 +8,7 @@ function PongGame() {
     this.kSnakeSegmentSprite = "assets/snake_sprites/body_vertical.png";
     this.kBgSprite = "assets/snake_sprites/snake_bg.png";
     this.kEnemySnake = "assets/snake_sprites/Red_Snake.png";
+    this.kEnemySnakeSegmentSprite = "assets/snake_sprites/red_body_vertical.png";
 
     this.mCamera = null;
 
@@ -31,6 +32,7 @@ gEngine.Core.inheritPrototype(PongGame, Scene)
 PongGame.prototype.loadScene = function(){
     gEngine.Textures.loadTexture(this.kBallSprite);
     gEngine.Textures.loadTexture(this.kSnakeSegmentSprite);
+    gEngine.Textures.loadTexture(this.kEnemySnakeSegmentSprite);
     gEngine.Textures.loadTexture(this.kSnakeSprite);
     gEngine.Textures.loadTexture(this.kEnemySnake);
     gEngine.Textures.loadTexture(this.kBgSprite);
@@ -38,6 +40,7 @@ PongGame.prototype.loadScene = function(){
 PongGame.prototype.unloadScene = function(){
     gEngine.Textures.unloadTexture(this.kBallSprite);
     gEngine.Textures.unloadTexture(this.kSnakeSegmentSprite);
+    gEngine.Textures.unloadTexture(this.kEnemySnakeSegmentSprite);
     gEngine.Textures.unloadTexture(this.kSnakeSprite);
     gEngine.Textures.unloadTexture(this.kEnemySnake);
 };
@@ -55,6 +58,7 @@ PongGame.prototype.initialize = function () {
     this.mBall = new Ball(this.kBallSprite);
     this.mPaddle = new Paddle(this.kSnakeSprite);
     this.mEnemyPaddle = new EnemyPaddle(this.kEnemySnake, this.mBall)
+    this.mTail = this.mPaddle;
     //MORE THINGS HERE
 
     this.mBg = new TextureRenderable(this.kBgSprite);
@@ -85,6 +89,7 @@ PongGame.prototype.initialize = function () {
     this.mFPSMsg.getXform().setPosition(10, 30);
     this.mFPSMsg.setTextHeight(10);
 
+    this.mSegments.push(this.mPaddle);
     this.mFrameCounter = 0;
 
     this.mGridSegments = Array.from({length: 16}, () =>
@@ -94,6 +99,12 @@ PongGame.prototype.initialize = function () {
     gEngine.DefaultResources.setGlobalAmbientIntensity(1);
     gEngine.DefaultResources.setGlobalAmbientColor([1, 1, 1, 1]);
 };
+
+PongGame.prototype.makeSegment = function(){
+    let newSegment = new PaddleSegment(this.kSnakeSegmentSprite, this.mTail);
+    this.mTail = newSegment;
+    this.mSegments.push(newSegment);
+}
 
 PongGame.prototype.draw = function () {
     // Step A: clear the canvas
@@ -108,6 +119,8 @@ PongGame.prototype.draw = function () {
     this.mPaddle.draw(this.mCamera);
     this.mEnemyPaddle.draw(this.mCamera);
     
+    this.mSegments.forEach(segment => segment.draw(this.mCamera));
+
     this.mMsg.draw(this.mCamera);
     this.mInputMsg.draw(this.mCamera);
     this.mFPSMsg.draw(this.mCamera);
@@ -123,10 +136,19 @@ PongGame.prototype.update = function(){
     this.mBall.collide(this.mPaddle, this.mEnemyPaddle)
     this.mPaddle.update();
     this.mEnemyPaddle.update();
-    //this.mScoreMsg.setText(scoreMsg + this.mPaddle.getXform().getXPos());
+
+    for (let i = this.mSegments.length-1; i >= 0; i--) {
+        this.mSegments[i].update();
+    }
+
+    let h = [];
     this.mFrameCounter++;
     if(this.mFrameCounter == 10){
         this.mFrameCounter = 0;
+        if(this.mSegments.length <3)
+        {
+            this.makeSegment();
+        }
     }
     this.mInputMsg.setText(msg + this.mPaddle.mLastLetter);
     this.mFPSMsg.setText(fpsMsg + this.mPaddle.mFrameCounter);    
