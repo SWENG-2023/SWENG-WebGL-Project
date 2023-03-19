@@ -159,6 +159,17 @@
 
 
         }
+        function GetStartViewHardSnake() {
+            Show("StartViewHardSnake");
+            Show("SettingsButton");
+            Hide("PauseButton");
+            Hide("TileView");
+            Hide("informationContainer");
+            Hide("PauseMenu");
+            Hide("InstructionsSnake");
+
+
+        }
 
         function getTileView() {
             backgroundMusic.pause();
@@ -166,6 +177,7 @@
             Show("SettingsButton");
             Hide("StartViewSnake");
             Hide("StartViewPong");
+            Hide("StartViewHardSnake");
             Hide("SettingsMenuView");
             Hide("informationContainer");
             Hide("PauseButton");
@@ -177,14 +189,14 @@
         }
 
         function PausePopUP() {
-            
+
             Show("PauseMenu");
             Hide("PauseButton");
 
         }
 
         function ResumeGame() {
-            
+
             Show("PauseButton");
             Hide("PauseMenu");
             Hide("InstructionsSnake");
@@ -266,7 +278,7 @@
             Hide("MusicOFF");
             Show("SettingsMusicON");
             Hide("SettingsMusicOFF");
-            backgroundMusic.muted=true;
+            backgroundMusic.muted = true;
 
         }
 
@@ -275,24 +287,24 @@
             Hide("MusicON");
             Show("SettingsMusicOFF");
             Hide("SettingsMusicON");
-            backgroundMusic.muted=false;
+            backgroundMusic.muted = false;
         }
         function SoundFXON() {
             Show("SoundFXON");
             Hide("SoundFXOFF");
             Show("SettingsSoundFXON");
             Hide("SettingsSoundFXOFF");
-            eatenSound.muted=true;
-            gameOverSound.muted=true;
+            eatenSound.muted = true;
+            gameOverSound.muted = true;
 
         }
-        function SoundFXOFF(){
+        function SoundFXOFF() {
             Show("SoundFXOFF");
             Hide("SoundFXON");
             Show("SettingsSoundFXOFF");
             Hide("SettingsSoundFXON");
-            eatenSound.muted=false;
-            gameOverSound.muted=false;
+            eatenSound.muted = false;
+            gameOverSound.muted = false;
         }
 
         document.addEventListener('keydown', function (event) {
@@ -342,6 +354,8 @@
                 src="assets/snake_sprites/head_up.png"><br>Snake</button>
         <button class="Tilebutton Tilebutton1" onclick="GetStartViewPong()"> <img id="icon"
                 src="assets/snake_sprites/pong.png"><br> Pong </button>
+        <button class="Tilebutton Tilebutton1" onclick="GetStartViewHardSnake()"> <img id="icon"
+                src="assets/snake_sprites/head_down.png"><br> Snake 2.0 </button>
 
         <br><br>
         <p id="retroText">More retro games coming soon...</p>
@@ -355,6 +369,10 @@
     <div id="StartViewPong">
         <button id="StartGameButton" class="Tilebutton Tilebutton1" onclick="StartGame('PongGame')">Start Game
             Pong</button>
+    </div>
+    <div id="StartViewHardSnake">
+        <button id="StartGameButton" class="Tilebutton Tilebutton1" >Start Game
+            Snake 2.0</button>
     </div>
 
     <div id="SettingsMenuView">
@@ -370,7 +388,7 @@
         <div id="SettingsSoundFXON">
             <button id="MenuButtons" onclick="SoundFXOFF()" class="button button1">Turn SoundFX on</button>
         </div>
-        
+
     </div>
 
     <div id="informationContainer">
