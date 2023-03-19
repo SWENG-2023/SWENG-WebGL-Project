@@ -170,11 +170,19 @@
 
 
         }
+        function GetStartViewOurTeam(){
+            Show("SettingsButton");
+            Hide("PauseButton");
+            Hide("TileView");
+            Hide("informationContainer");
+            Hide("PauseMenu");
+            Hide("InstructionsSnake");
+        }
 
         function getTileView() {
             backgroundMusic.pause();
             Show("TileView");
-            Show("SettingsButton");
+            Hide("SettingsButton");
             Hide("StartViewSnake");
             Hide("StartViewPong");
             Hide("StartViewHardSnake");
@@ -350,12 +358,14 @@
         <button id="PauseButton" class="button button1" onclick="PausePopUP()">Pause <kbd>P</kbd></button>;
     </nav>
     <div id="TileView">
-        <button class="Tilebutton Tilebutton1" onclick="GetStartViewSnake()"><img id="icon"
-                src="assets/snake_sprites/head_up.png"><br>Snake</button>
-        <button class="Tilebutton Tilebutton1" onclick="GetStartViewPong()"> <img id="icon"
-                src="assets/snake_sprites/pong.png"><br> Pong </button>
-        <button class="Tilebutton Tilebutton1" onclick="GetStartViewHardSnake()"> <img id="icon"
-                src="assets/snake_sprites/head_down.png"><br> Snake 2.0 </button>
+        <button class="Tilebuttons Tilebuttons1" onclick="GetStartViewSnake()"><img id="icon"
+                src="assets/snake_sprites/head_up.png"><br>Snake Easy</button>
+        <button class="Tilebuttons Tilebuttons1" onclick="GetStartViewPong()"> <img id="icon"
+                src="assets/snake_sprites/pong.png"><br>Pong 1.0</button>
+        <button class="Tilebuttons Tilebuttons1" onclick="GetStartViewHardSnake()"> <img id="icon"
+                src="assets/snake_sprites/head_down.png"><br>Snake 2.0</button>
+        <button class="Tilebuttons Tilebuttons1" onclick="GetStartViewOurTeam()"> <img id="icon"
+                src="assets/snake_sprites/Red_Snake.png"><br>Our Team</button>
 
         <br><br>
         <p id="retroText">More retro games coming soon...</p>
@@ -371,9 +381,10 @@
             Pong</button>
     </div>
     <div id="StartViewHardSnake">
-        <button id="StartGameButton" class="Tilebutton Tilebutton1" >Start Game
+        <button id="StartGameButton" class="Tilebutton Tilebutton1">Start Game
             Snake 2.0</button>
     </div>
+
 
     <div id="SettingsMenuView">
         <div id="SettingsMusicOFF">
