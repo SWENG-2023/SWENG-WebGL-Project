@@ -264,6 +264,8 @@
         function MusicON() {
             Show("MusicON");
             Hide("MusicOFF");
+            Show("SettingsMusicON");
+            Hide("SettingsMusicOFF");
             backgroundMusic.muted=true;
 
         }
@@ -271,11 +273,15 @@
         function MusicOFF() {
             Show("MusicOFF");
             Hide("MusicON");
+            Show("SettingsMusicOFF");
+            Hide("SettingsMusicON");
             backgroundMusic.muted=false;
         }
         function SoundFXON() {
             Show("SoundFXON");
             Hide("SoundFXOFF");
+            Show("SettingsSoundFXON");
+            Hide("SettingsSoundFXOFF");
             eatenSound.muted=true;
             gameOverSound.muted=true;
 
@@ -283,6 +289,8 @@
         function SoundFXOFF(){
             Show("SoundFXOFF");
             Hide("SoundFXON");
+            Show("SettingsSoundFXOFF");
+            Hide("SettingsSoundFXON");
             eatenSound.muted=false;
             gameOverSound.muted=false;
         }
@@ -350,12 +358,19 @@
     </div>
 
     <div id="SettingsMenuView">
-        <div>
-            <button id="MenuButtons" onclick="MusicON()" class="button button1">Turn Music off</button>
+        <div id="SettingsMusicOFF">
+            <button id="MenuButtons" onclick="MusicON()" class="button button1">Turn music off</button>
         </div>
-        <div>
-            <button id="MenuButtons" onclick="MusicOFF()" class="button button1">Turn Music on </button>
+        <div id="SettingsMusicON">
+            <button id="MenuButtons" onclick="MusicOFF()" class="button button1">Turn music on</button>
         </div>
+        <div id="SettingsSoundFXOFF">
+            <button id="MenuButtons" onclick="SoundFXON()" class="button button1">Turn SoundFX off</button>
+        </div>
+        <div id="SettingsSoundFXON">
+            <button id="MenuButtons" onclick="SoundFXOFF()" class="button button1">Turn SoundFX on</button>
+        </div>
+        
     </div>
 
     <div id="informationContainer">

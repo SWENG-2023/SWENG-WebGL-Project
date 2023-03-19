@@ -21,15 +21,19 @@ canvas {
 }
 
 #MusicOFF{ 
-    
-       
     display: block;
 }
 
-#MusicON{
-    
-    
+#MusicON{ 
     display: none;
+}
+
+#SettingsMusicON{
+    display: none;
+}
+
+#SettingsMusicOFF{ 
+    display: block;
 }
 
 #SoundFXOFF{
@@ -37,6 +41,14 @@ canvas {
 }
 
 #SoundFXON{
+    display: none;
+}
+
+#SettingsSoundFXOFF{
+    display: block;
+}
+
+#SettingsSoundFXON{
     display: none;
 }
 
