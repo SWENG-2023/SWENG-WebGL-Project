@@ -79,12 +79,12 @@
     <script type="text/javascript" src="src/SnakeGame/Objects/Snake.js"></script>
     <script type="text/javascript" src="src/SnakeGame/Objects/Apple.js"></script>
     <script type="text/javascript" src="src/SnakeGame/Objects/SnakeSegment.js"></script>
-          
-     <!-- Client game code for PongGame -->
-     <script type="text/javascript" src="src/PongGame/PongGame.js"></script>
-     <script type="text/javascript" src="src/PongGame/Objects/Ball.js"></script>
-     <script type="text/javascript" src="src/PongGame/Objects/Paddle.js"></script>
-     <script type="text/javascript" src="src/PongGame/Objects/EnemyPaddle.js"></script>
+
+    <!-- Client game code for PongGame -->
+    <script type="text/javascript" src="src/PongGame/PongGame.js"></script>
+    <script type="text/javascript" src="src/PongGame/Objects/Ball.js"></script>
+    <script type="text/javascript" src="src/PongGame/Objects/Paddle.js"></script>
+    <script type="text/javascript" src="src/PongGame/Objects/EnemyPaddle.js"></script>
 
     <!-- Client game code for TestGame -->
     <script type="text/javascript" src="src/TestGame/MyGame.js"></script>
@@ -133,10 +133,10 @@
             Show("GiveUpGame");
 
             ShowCanvas(gameScene);
-            backgroundMusic.currentTime=0;
+            backgroundMusic.currentTime = 0;
             backgroundMusic.play();
         }
-        
+
         function GetStartViewSnake() {
             Show("StartViewSnake");
             Show("SettingsButton");
@@ -171,22 +171,20 @@
             Hide("PauseButton");
             Hide("PauseMenu");
             Hide("InstructionsSnake");
-
-
+            Hide("GiveUpGame");
+            Hide("PlayAgain");
             HideCanvas();
-
-
-
         }
+
         function PausePopUP() {
-            backgroundMusic.pause();
+            
             Show("PauseMenu");
             Hide("PauseButton");
 
         }
 
         function ResumeGame() {
-            backgroundMusic.play();
+            
             Show("PauseButton");
             Hide("PauseMenu");
             Hide("InstructionsSnake");
@@ -213,7 +211,7 @@
                     let gameScene = new SnakeGame();
                     gEngine.Core.initializeEngineCore('GLCanvas', gameScene);
                 }
-                if (gameScene== "PongGame"){
+                if (gameScene == "PongGame") {
                     let gameScene = new PongGame();
                     gEngine.Core.initializeEngineCore('GLCanvas', gameScene);
                 }
@@ -229,6 +227,7 @@
             }
 
         }
+
         function Hide(name) {
             var x = document.getElementById(name);
             x.style.display = "none";
@@ -254,10 +253,38 @@
             Show("PlayAgain");
             Hide("GiveUpGame");
         }
+
+
         function PlayAgain() {
             gEngine.GameLoop.stop();
             Show("GiveUpGame");
             Hide("PlayAgain");
+        }
+
+        function MusicON() {
+            Show("MusicON");
+            Hide("MusicOFF");
+            backgroundMusic.muted=true;
+
+        }
+
+        function MusicOFF() {
+            Show("MusicOFF");
+            Hide("MusicON");
+            backgroundMusic.muted=false;
+        }
+        function SoundFXON() {
+            Show("SoundFXON");
+            Hide("SoundFXOFF");
+            eatenSound.muted=true;
+            gameOverSound.muted=true;
+
+        }
+        function SoundFXOFF(){
+            Show("SoundFXOFF");
+            Hide("SoundFXON");
+            eatenSound.muted=false;
+            gameOverSound.muted=false;
         }
 
         document.addEventListener('keydown', function (event) {
@@ -274,6 +301,8 @@
                 ResumeGame();
             }
         }
+
+
         );
 
 
@@ -316,12 +345,17 @@
         <button class="roundbutton roundbutton1" onclick="instructionsSnakePopUp()">?</button>
     </div>
     <div id="StartViewPong">
-        <button id="StartGameButton" class="Tilebutton Tilebutton1" onclick="StartGame('PongGame')">Start Game Pong</button>
+        <button id="StartGameButton" class="Tilebutton Tilebutton1" onclick="StartGame('PongGame')">Start Game
+            Pong</button>
     </div>
 
     <div id="SettingsMenuView">
-        <button class="button button1">Music on</button>
-        <button class="button button1">Sound on</button>
+        <div>
+            <button id="MenuButtons" onclick="MusicON()" class="button button1">Turn Music off</button>
+        </div>
+        <div>
+            <button id="MenuButtons" onclick="MusicOFF()" class="button button1">Turn Music on </button>
+        </div>
     </div>
 
     <div id="informationContainer">
@@ -339,9 +373,20 @@
 
     <div id="PauseMenu">
         <br>
-        <button class="button button1" onclick="ResumeGame()">Resume Game <kbd>Q</kbd></button><br>
-        <button class="button button1">Music on</button><br>
-        <button class="button button1">Sound on</button><br>
+        <button id="MenuButtons" class="button button1" onclick="ResumeGame()">Resume Game <kbd>Q</kbd></button><br>
+        <div id="MusicOFF">
+            <button id="MenuButtons" onclick="MusicON()" class="button button1">Turn Music off</button>
+        </div>
+        <div id="MusicON">
+            <button id="MenuButtons" onclick="MusicOFF()" class="button button1">Turn Music on </button>
+        </div>
+        <div id="SoundFXOFF">
+            <button id="MenuButtons" onclick="SoundFXON()" class="button button1">Turn SoundFX off</button>
+        </div>
+        <div id="SoundFXON">
+            <button id="MenuButtons" onclick="SoundFXOFF()" class="button button1">Turn SoundFX on </button>
+        </div>
+
         <button class="roundbutton roundbutton1" onclick="instructionsSnakePopUp()">?</button>
     </div>
 

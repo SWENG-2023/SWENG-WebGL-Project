@@ -16,6 +16,35 @@ canvas {
     left: 16px;
     display: none;
 }
+#MenuButtons {
+    width:80%;
+}
+
+#MusicOFF{ 
+    
+       
+    display: block;
+}
+
+#MusicON{
+    
+    
+    display: none;
+}
+
+#SoundFXOFF{
+    display: block;
+}
+
+#SoundFXON{
+    display: none;
+}
+
+
+
+
+
+
 
 #PlayAgain {
     position: fixed;
