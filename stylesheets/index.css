@@ -16,6 +16,47 @@ canvas {
     left: 16px;
     display: none;
 }
+#MenuButtons {
+    width:80%;
+}
+
+#MusicOFF{ 
+    display: block;
+}
+
+#MusicON{ 
+    display: none;
+}
+
+#SettingsMusicON{
+    display: none;
+}
+
+#SettingsMusicOFF{ 
+    display: block;
+}
+
+#SoundFXOFF{
+    display: block;
+}
+
+#SoundFXON{
+    display: none;
+}
+
+#SettingsSoundFXOFF{
+    display: block;
+}
+
+#SettingsSoundFXON{
+    display: none;
+}
+
+
+
+
+
+
 
 #PlayAgain {
     position: fixed;
@@ -145,6 +186,18 @@ canvas {
 }
 
 #StartViewSnake {
+    width: 50%;
+    position: absolute;
+    left: 25%;
+    padding: 50px 0;
+    text-align: center;
+    background-color: grey;
+    margin-top: 20px;
+    display: none;
+    border-radius: 12px;
+
+}
+#StartViewHardSnake {
     width: 50%;
     position: absolute;
     left: 25%;
