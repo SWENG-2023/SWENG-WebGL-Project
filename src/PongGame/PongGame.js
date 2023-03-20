@@ -134,7 +134,6 @@ PongGame.prototype.update = function(){
 
     this.mBall.update();
     this.mBall.collide(this.mPaddle, this.mEnemyPaddle)
-    this.mPaddle.update();
     this.mEnemyPaddle.update();
 
     for (let i = this.mSegments.length-1; i >= 0; i--) {
@@ -145,10 +144,7 @@ PongGame.prototype.update = function(){
     this.mFrameCounter++;
     if(this.mFrameCounter == 10){
         this.mFrameCounter = 0;
-        if(this.mSegments.length <3)
-        {
-            this.makeSegment();
-        }
+        this.makeSegment();
     }
     this.mInputMsg.setText(msg + this.mPaddle.mLastLetter);
     this.mFPSMsg.setText(fpsMsg + this.mPaddle.mFrameCounter);    
