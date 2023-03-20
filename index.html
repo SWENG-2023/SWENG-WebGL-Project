@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <title>SnakeGame version 0.1 </title>
@@ -96,6 +96,17 @@
     <script type="text/javascript" src="src/TestGame/Objects/Minion.js"></script>
     <script type="text/javascript" src="src/TestGame/Objects/TextureObject.js"></script>
 
+    <!-- carousel-->
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <script src="application/three.min.js"></script>
+    <script src="application/Tween.js"></script>
+    <script src="assets/helvetiker_regular.typeface.js"></script>
+    <script src="application/Carousel.js"></script>
+    <script src="application/CarouselApplication.js"></script>
+
+
     <!-- bootstrap js requirements -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -170,7 +181,8 @@
 
 
         }
-        function GetStartViewOurTeam(){
+        function GetStartViewOurTeam() {
+            Show("CarouselView");
             Show("SettingsButton");
             Hide("PauseButton");
             Hide("TileView");
@@ -187,6 +199,7 @@
             Hide("StartViewPong");
             Hide("StartViewHardSnake");
             Hide("SettingsMenuView");
+            Hide("CarouselView");
             Hide("informationContainer");
             Hide("PauseButton");
             Hide("PauseMenu");
@@ -449,6 +462,31 @@
         <a>Use <strong>WASD</strong> keys or <strong>UP/DOWN/LEFT/RIGHT</strong> arrow keys. </a>
         <a>Your goal is to eat as many apples as you can. Eating an apple increases your snake's length!</a>
     </div>
+
+
+    <div id="CarouselView">
+        <div id="aside" style="position:absolute;z-index:100;width:200px;">
+            <ul id="retroText">
+                <li>Drag Mouse left-right to rotate Carousel</li>
+                <li>Drag Mouse up-down to zoom out/in</li>
+                <li>Double Click on item to bring to front</li>
+            </ul>
+        </div>
+
+        <div id="container" style="margin:0 auto;padding:0;cursor:pointer"></div>
+    </div>
+
+    <script type="text/javascript">
+        //<![CDATA[
+
+        CarouselApplication.init([
+            { url: 'assets/1.jpg', caption: 'Karthik', width: 200, height: 150 },
+            { url: 'assets/2.jpg', caption: 'Diarmuid', width: 200, height: 150 },
+
+        ]);
+
+    //]]>
+    </script>
 
 
 

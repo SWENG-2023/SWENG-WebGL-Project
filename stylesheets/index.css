@@ -56,7 +56,9 @@ canvas {
 
 
 
-
+#CarouselView{
+    display:none;
+}
 
 #PlayAgain {
     position: fixed;
