@@ -63,12 +63,14 @@
     
     function onDocumentMouseDown( e ) 
     {
+        
         e.preventDefault();
 
         container.addEventListener( 'mousemove', onDocumentMouseMove, false );
         container.addEventListener( 'mouseup', onDocumentMouseUp, false );
         container.addEventListener( 'mouseout', onDocumentMouseOut, false );
 
+        
         mouse.x = ( e.clientX / window.innerWidth ) * 2 - 1;
         mouse.y = - ( e.clientY / window.innerHeight ) * 2 + 1;
         prevmouse={x:mouse.x,y:mouse.y};
@@ -76,15 +78,16 @@
         mouseYOnMouseDown = e.clientY - windowHalfY;
         targetRotationOnMouseDownY = targetRotationY;
         targetRotationOnMouseDownX = targetRotationX;
+        
     }
     
     function onDocumentMouseMove( e ) 
     {
         
         mouseX = e.clientX - windowHalfX;
-        mouseY = e.clientY - windowHalfY;
+        //mouseY = e.clientY - windowHalfY;
         mouse.x = ( e.clientX / window.innerWidth ) * 2 - 1;
-        mouse.y = - ( e.clientY / window.innerHeight ) * 2 + 1;
+        //mouse.y = - ( e.clientY / window.innerHeight ) * 2 + 1;
 
         targetRotationY = targetRotationOnMouseDownY + ( mouseX - mouseXOnMouseDown ) * 0.02;
         targetRotationX = targetRotationOnMouseDownX + ( mouseY - mouseYOnMouseDown ) * 0.02;
@@ -97,6 +100,7 @@
         container.removeEventListener( 'mousemove', onDocumentMouseMove, false );
         container.removeEventListener( 'mouseup', onDocumentMouseUp, false );
         container.removeEventListener( 'mouseout', onDocumentMouseOut, false );
+        
     }
 
     function onDocumentMouseOut( e ) 
@@ -105,6 +109,7 @@
         container.removeEventListener( 'mousemove', onDocumentMouseMove, false );
         container.removeEventListener( 'mouseup', onDocumentMouseUp, false );
         container.removeEventListener( 'mouseout', onDocumentMouseOut, false );
+        
     }
 
     function onDocumentTouchStart( e ) 
@@ -116,11 +121,11 @@
             e.preventDefault();
 
             mouse.x = ( e.touches[ 0 ].pageX / window.innerWidth ) * 2 - 1;
-            mouse.y = - ( e.touches[ 0 ].pageY / window.innerHeight ) * 2 + 1;
+            //mouse.y = - ( e.touches[ 0 ].pageY / window.innerHeight ) * 2 + 1;
             prevmouse={x:mouse.x,y:mouse.y};
             mouseXOnMouseDown = e.clientX - windowHalfX;
-            mouseYOnMouseDown = e.clientY - windowHalfY;
-            targetRotationOnMouseDownY = targetRotationY;
+            //mouseYOnMouseDown = e.clientY - windowHalfY;
+            //targetRotationOnMouseDownY = targetRotationY;
             targetRotationOnMouseDownX = targetRotationX;
 
         }
@@ -135,14 +140,15 @@
             e.preventDefault();
 
             mouse.x = ( e.touches[ 0 ].pageX / window.innerWidth ) * 2 - 1;
-            mouse.y = - ( e.touches[ 0 ].pageY / window.innerHeight ) * 2 + 1;
+            //mouse.y = - ( e.touches[ 0 ].pageY / window.innerHeight ) * 2 + 1;
             prevmouse={x:mouse.x,y:mouse.y};
             mouseXOnMouseDown = e.clientX - windowHalfX;
-            mouseYOnMouseDown = e.clientY - windowHalfY;
-            targetRotationOnMouseDownY = targetRotationY;
+            //mouseYOnMouseDown = e.clientY - windowHalfY;
+            //targetRotationOnMouseDownY = targetRotationY;
             targetRotationOnMouseDownX = targetRotationX;
             updatecamera=true;
         }
+        
     }
 
     //
