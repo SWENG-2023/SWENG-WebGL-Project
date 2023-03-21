@@ -187,7 +187,7 @@
             
             scene = new THREE.Scene();
             camera = new THREE.PerspectiveCamera( 70, w / h, 1, 1000 );
-            camera.position.z = 500;
+            camera.position.z = 330;
             scene.add( camera );
             projector = new THREE.Projector();
             renderer = new THREE.CanvasRenderer();
