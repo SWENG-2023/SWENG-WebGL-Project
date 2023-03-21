@@ -12,7 +12,7 @@
   <p align="center">
     in collaboration with Qualcomm
     <br />
-    <a href="sweng2023.herokuapp.com/"><strong>Play »</strong></a>
+    <a href="https://sweng2023.herokuapp.com"><strong>Play »</strong></a>
   </p>
 </div>
 
@@ -29,9 +29,9 @@
       </ul>
     </li>
     <li><a href="#getting-started">Getting Started</a></li>
-    <li><a href="#product-backlog">Product Backlog</a></li>
+    <li><a href="#basic-product-backlog">Basic Product Backlog</a></li>
     <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#team">The Team</a></li>
+    <li><a href="#the-team">The Team</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
@@ -41,8 +41,12 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://sweng2023.herokuapp.com/)
-
+<div align="center">
+  <a href="https://github.com/SWENG-2023/SWENG-WebGL-Project">
+    <img src="assets/snake_sprites/head_up.png" alt="Logo" width="80" height="80">
+  </a>
+</div>
+<br />
 Welcome to SWENG Group 18's 2D WebGL Game Library repository! This project is a collaboration between a group of 9 Computer Science students from Trinity College and the telecommunications company, Qualcomm. We have created a collection of 2d WebGL games that run smoothly in your browser, featuring our own game engine.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
