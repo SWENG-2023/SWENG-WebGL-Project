@@ -143,6 +143,14 @@ SnakeGame.prototype.draw = function () {
 // The update function, updates the application state. Make sure to _NOT_ draw
 // anything from this function!
 SnakeGame.prototype.update = function () {
+
+    if(gEngine.Input.keys.Esc) {
+        this.mSnake.mLastLetter = "Paused";
+        while(!gEngine.Input.keys.Esc) {
+            ;
+        }
+    }
+    
     let msg = "Last pressed command: ";
     let fpsMsg = "Frame Counter: ";
     let scoreMsg = "Score: ";
