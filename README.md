@@ -131,10 +131,10 @@ As this is a SWENG project, it is not open source. However, we are always open t
 
 [Seán Lawlor][sean-url]: 2nd Year Integrated Computer Science Student
 
-[Isioma Anonyai][isioma-url]: nd Year Computer Science & Business Student
+[Isioma Anonyai][isioma-url]: 2nd Year Computer Science & Business Student
 
 <br />
-Project Link: [https://github.com/SWENG-2023/SWENG-WebGL-Project](https://github.com/SWENG-2023/SWENG-WebGL-Project)
+Project Link: https://github.com/SWENG-2023/SWENG-WebGL-Project
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -167,3 +167,4 @@ We hope you enjoy our games! Happy gaming! 🎮
 [isioma-url]: https://github.com/anonyaii
 [jason-url]: https://github.com/jathonderulo
 [sean-url]: https://github.com/seanl14
+
