@@ -11,14 +11,17 @@
 
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
-function SnakeGame() {
+function SnakeGameHard() {
     this.kSnakeSprite = "assets/snake_sprites/head_up.png";
     this.kAppleSprite = "assets/snake_sprites/apple.png";
-    this.kSnakeSegmentSprite = "assets/snake_sprites/body_vertical.png";
+    this.kSnakeSegmentSprite = "assets/snake_sprites/body_vertical.png"
     this.kSnakeBgSprite = "assets/snake_sprites/snake_bg.png";
+
+    this.kEatCue = "gulp.mp3";
 
     // The camera to view the scene
     this.mCamera = null;
+    this.mInfoCamera = null;
 
     this.mMsg = null;
     this.mInputMsg = null;
@@ -33,72 +36,94 @@ function SnakeGame() {
     this.mNewAllowed = true;
     this.mGridSegments = null;
 
+    // lighting
+    this.mGlobalLightSet = null;
+
     // background
     this.mBg = null;
 }
+gEngine.Core.inheritPrototype(SnakeGameHard, Scene);
 
-const gameOverSound = new Audio("gameover.wav"); 
-
-gEngine.Core.inheritPrototype(SnakeGame, Scene);
-
-SnakeGame.prototype.loadScene = function () {
+SnakeGameHard.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kSnakeSprite);
     gEngine.Textures.loadTexture(this.kAppleSprite);
     gEngine.Textures.loadTexture(this.kSnakeSegmentSprite);
     gEngine.Textures.loadTexture(this.kSnakeBgSprite);
+
+    gEngine.AudioClips.loadAudio(this.kEatCue);
 };
 
-SnakeGame.prototype.unloadScene = function () {
+SnakeGameHard.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kSnakeSprite);
     gEngine.Textures.unloadTexture(this.kAppleSprite);
     gEngine.Textures.unloadTexture(this.kSnakeSegmentSprite);
     //gEngine.Textures.unloadTexture(this.kSnakeBgSprite);
+    gEngine.AudioClips.unloadAudio(this.kEatCue);
 
     let loseLevel = new LoseGame(this.mApple.score);
     gEngine.Core.startScene(loseLevel);
 };
 
-SnakeGame.prototype.initialize = function () {
+SnakeGameHard.prototype.initialize = function () {
     // Step A: set up the cameras
     this.mCamera = new Camera(
         vec2.fromValues(128, 128), // position of the camera
         256,                       // width of camera
         [0, 150, 500, 500]           // viewport (orgX, orgY, width, height)
     );
-    this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
-            // sets the background to gray
 
+    
+    this.mInfoCamera = new Camera(
+        vec2.fromValues(0, 0),
+        500,
+        [0, 0, 500, 150],
+        0 // bound
+    );
+    
+
+    // sets the background to black
+    this.mCamera.setBackgroundColor([1, 1, 1, 1]);
+
+    this.mInfoCamera.setBackgroundColor([0.5, 0.5, 0.5, 1]);
+
+    // Light init
+    this._initializeLights();   // defined in SnakeGame_Lights.js
+
+    // SnakeHead init
     this.mSnake = new Snake(this.kSnakeSprite);
-    this.mApple = new Apple(this.kAppleSprite);
+    this.mSnake.getRenderable().addLight(this.mGlobalLightSet.getLightAt(0));
     this.mTail = this.mSnake;
 
-    this.mBg = new TextureRenderable(this.kSnakeBgSprite);
+    this.mApple = new Apple(this.kAppleSprite);
+    this.mApple.getRenderable().addLight(this.mGlobalLightSet.getLightAt(1)); // AppleLight should illuminate Apple
+
+    this.mBg = new LightRenderable(this.kSnakeBgSprite);
     this.mBg.setColor([1, 1, 1, 0]);
     this.mBg.getXform().setSize(256, 256);
     this.mBg.getXform().setPosition(128, 128);
+    this.mBg.addLight(this.mGlobalLightSet.getLightAt(0)); // SnakeHead light
+    this.mBg.addLight(this.mGlobalLightSet.getLightAt(1)); // apple light
 
-    this.mMsg = new FontRenderable("Hello Snake! [R] to reset");
-    this.mMsg.setColor([0, 0, 0, 1]);
-    this.mMsg.getXform().setPosition(10, 10);
-    this.mMsg.setTextHeight(10);
+    this.mMsg = new FontRenderable("Hello Dark Snake!");
+    this.mMsg.setColor([1, 1, 1, 1]);
+    this.mMsg.getXform().setPosition(-230, 60);
+    this.mMsg.setTextHeight(25);
 
     this.mInputMsg = new FontRenderable("Status Message");
-    this.mInputMsg.setColor([0, 0, 0, 1]);
-    this.mInputMsg.getXform().setPosition(10, 20);
-    this.mInputMsg.setTextHeight(10);
+    this.mInputMsg.setColor([1, 1, 1, 1]);
+    this.mInputMsg.getXform().setPosition(-230, 30);
+    this.mInputMsg.setTextHeight(25);
 
     this.mFPSMsg = new FontRenderable("FPS msg");
-    this.mFPSMsg.setColor([0, 0, 0, 1]);
-    this.mFPSMsg.getXform().setPosition(1, 10);
-    this.mFPSMsg.setTextHeight(10);
+    this.mFPSMsg.setColor([1, 1, 1, 1]);
+    this.mFPSMsg.getXform().setPosition(-230, 0);
+    this.mFPSMsg.setTextHeight(25);
 
     this.mScoreMsg = new FontRenderable("Score msg");
-    this.mScoreMsg.setColor([0, 0, 0, 1]);
-    this.mScoreMsg.getXform().setPosition(10, 40);
-    this.mScoreMsg.setTextHeight(10);
+    this.mScoreMsg.setColor([1, 1, 1, 1]);
+    this.mScoreMsg.getXform().setPosition(-230, -30);
+    this.mScoreMsg.setTextHeight(25);
     
-    this.mFPSMsg.getXform().setPosition(10, 30);
-    this.mFPSMsg.setTextHeight(10);
 
     this.mSegments.push(this.mSnake);
     this.mFrameCounter = 0;
@@ -110,39 +135,54 @@ SnakeGame.prototype.initialize = function () {
     this.mApple.moveApple(this.mSegments);
 
     gEngine.DefaultResources.setGlobalAmbientIntensity(1);
-    gEngine.DefaultResources.setGlobalAmbientColor([1, 1, 1, 1]);
+    gEngine.DefaultResources.setGlobalAmbientColor([0, 0, 0, 1]);
 };
 
-SnakeGame.prototype.makeSegment = function() {
+SnakeGameHard.prototype.makeSegment = function() {
     let newSegment = new SnakeSegment(this.kSnakeSegmentSprite, this.mTail);
+    // Add light
+    newSegment.getRenderable().addLight(this.mGlobalLightSet.getLightAt(0)); 
+
     this.mTail = newSegment;
     this.mSegments.push(newSegment);
 }
 
 // This is the draw function, make sure to setup proper drawing environment, and more
 // importantly, make sure to _NOT_ change any state.
-SnakeGame.prototype.draw = function () {
+SnakeGameHard.prototype.draw = function () {
     // Step A: clear the canvas
-    gEngine.Core.clearCanvas([0, 0, 0, 1.0]); // clear to light gray
+    gEngine.Core.clearCanvas([0, 0, 0, 1.0]); // clear to black
 
     // Step  B: Activate the drawing Camera
-    this.mCamera.setupViewProjection();
+    this.drawGameCamera();
+    this.drawUICamera();
 
     // Step  C: Draw everything
-    this.mBg.draw(this.mCamera);
-    this.mApple.draw(this.mCamera);
-    
-    this.mSegments.forEach(segment => segment.draw(this.mCamera));
 
-    this.mMsg.draw(this.mCamera);
-    this.mInputMsg.draw(this.mCamera);
-    this.mFPSMsg.draw(this.mCamera);
-    this.mScoreMsg.draw(this.mCamera);
+
+
 };
+
+SnakeGameHard.prototype.drawGameCamera = function () {
+    let camera = this.mCamera;
+    camera.setupViewProjection();
+    this.mBg.draw(camera);
+    this.mApple.draw(camera);
+    this.mSegments.forEach(segment => segment.draw(camera));
+}
+
+SnakeGameHard.prototype.drawUICamera = function () {
+    let camera = this.mInfoCamera;
+    camera.setupViewProjection();
+    this.mMsg.draw(camera);
+    this.mInputMsg.draw(camera);
+    this.mFPSMsg.draw(camera);
+    this.mScoreMsg.draw(camera);
+}
 
 // The update function, updates the application state. Make sure to _NOT_ draw
 // anything from this function!
-SnakeGame.prototype.update = function () {
+SnakeGameHard.prototype.update = function () {
     let msg = "Last pressed command: ";
     let fpsMsg = "Frame Counter: ";
     let scoreMsg = "Score: ";
@@ -182,20 +222,18 @@ SnakeGame.prototype.update = function () {
     if(this.mFrameCounter == 10){
         this.mFrameCounter = 0;
         if(this.mApple.mEaten){
+            //gEngine.AudioClips.playACue(this.kEatCue);
             this.makeSegment();
             this.mApple.resetEaten();
         }
     }
 
+    this._moveSnakeLight(this.mSnake);
+    this._moveAppleLight(this.mApple);
 
-    //this.mSegments.forEach(segment => segment.update());
 
     this.mInputMsg.setText(msg + this.mSnake.mLastLetter);
     this.mFPSMsg.setText(fpsMsg + this.mSnake.mFrameCounter);
 
-    //if(this.mNewAllowed && this.mSnake.mLastLetter == "R"){
-    //    this.mSegments = [this.mSnake];
-    //} 
 
-    
 };

@@ -4,7 +4,7 @@
 
 function SnakeSegment(spriteTexture, parentSegment) {
 
-    this.mSegment= new TextureRenderable(spriteTexture);
+    this.mSegment= new LightRenderable(spriteTexture);
     this.mSegment.setColor([1, 1, 1, 0]);
     this.mSegment.getXform().setSize(15, 17);
     GameObject.call(this, this.mSegment);

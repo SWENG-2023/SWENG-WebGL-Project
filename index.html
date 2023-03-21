@@ -80,6 +80,11 @@
     <script type="text/javascript" src="src/SnakeGame/Objects/Apple.js"></script>
     <script type="text/javascript" src="src/SnakeGame/Objects/SnakeSegment.js"></script>
 
+    <!-- Client game code for SnakeGameHard -->
+    <script type="text/javascript" src="src/SnakeGame/SnakeGameHard.js"></script>
+    <script type="text/javascript" src="src/SnakeGame/SnakeGameHardLights.js"></script>
+
+
     <!-- Client game code for PongGame -->
     <script type="text/javascript" src="src/PongGame/PongGame.js"></script>
     <script type="text/javascript" src="src/PongGame/Objects/Ball.js"></script>
@@ -133,6 +138,7 @@
         function StartGame(gameScene) {
 
             Hide("StartViewSnake");
+            Hide("StartViewHardSnake");
             Hide("StartViewPong");
             Hide("SettingsMenuView");
             Hide("SettingsButton");
@@ -248,6 +254,10 @@
                     let gameScene = new PongGame();
                     gEngine.Core.initializeEngineCore('GLCanvas', gameScene);
                 }
+                if (gameScene == "SnakeGameHard") {
+                    let gameScene = new SnakeGameHard();
+                    gEngine.Core.initializeEngineCore('GLCanvas', gameScene);
+                }
 
             }
         }
@@ -358,7 +368,7 @@
 
 
 
-    <canvas hidden="hidden" id="GLCanvas" width="500" height="500">
+    <canvas hidden="hidden" id="GLCanvas" width="500" height="650">
         <!-- GLCanvas is the area we will draw in: a 640x480 area. -->
         Your browser does not support the HTML5 canvas.
         <!-- this message will show only if WebGL clearing failed -->
@@ -400,7 +410,7 @@
             Pong</button>
     </div>
     <div id="StartViewHardSnake">
-        <button id="StartGameButton" class="Tilebutton Tilebutton1">Start Game
+        <button id="StartGameButton" class="Tilebutton Tilebutton1" onclick ="StartGame('SnakeGameHard')"> Start Game
             Snake 2.0</button>
     </div>
 
