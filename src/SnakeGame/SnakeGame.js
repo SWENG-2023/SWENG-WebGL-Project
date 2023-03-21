@@ -122,6 +122,7 @@ SnakeGame.prototype.makeSegment = function() {
 // This is the draw function, make sure to setup proper drawing environment, and more
 // importantly, make sure to _NOT_ change any state.
 SnakeGame.prototype.draw = function () {
+
     // Step A: clear the canvas
     gEngine.Core.clearCanvas([0.9, 0.9, 0.9, 1.0]); // clear to light gray
 
@@ -140,22 +141,18 @@ SnakeGame.prototype.draw = function () {
     this.mScoreMsg.draw(this.mCamera);
 };
 
+var booleanPause = 0;
+
+
 // The update function, updates the application state. Make sure to _NOT_ draw
 // anything from this function!
 SnakeGame.prototype.update = function () {
-
-    if(gEngine.Input.keys.Esc) {
-        this.mSnake.mLastLetter = "Paused";
-        while(!gEngine.Input.keys.Esc) {
-            ;
-        }
-    }
     
     let msg = "Last pressed command: ";
     let fpsMsg = "Frame Counter: ";
     let scoreMsg = "Score: ";
-
     let snakeXPos = this.mSnake.getXform().getXPos();
+
     let snakeYPos = this.mSnake.getXform().getYPos();
 
     if(snakeXPos < 0 || snakeXPos > 256 || snakeYPos < 0 || snakeYPos > 256){
@@ -173,28 +170,35 @@ SnakeGame.prototype.update = function () {
     this.mApple.update();
     this.mScoreMsg.setText(scoreMsg + this.mApple.score);
 
-    for (let i = this.mSegments.length-1; i >= 0; i--) {
-        this.mSegments[i].update();
-    }
+    if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Escape)) { 
+        booleanPause ^= 1;
+    } 
 
-    let h = [];
+    if(booleanPause == 0) {
 
-    for (let i = 2; i < this.mSegments.length; i++) {
-        if(this.mSegments[i].pixelTouches(this.mSnake, h)){
-            gameOverSound.play();
-            gEngine.GameLoop.stop();
+        for (let i = this.mSegments.length-1; i >= 0; i--) {
+            this.mSegments[i].update();
+        }
+
+        let h = [];
+
+        for (let i = 2; i < this.mSegments.length; i++) {
+            if(this.mSegments[i].pixelTouches(this.mSnake, h)){
+                gameOverSound.play();
+                gEngine.GameLoop.stop();
+            }
+        }
+
+    
+        this.mFrameCounter++;
+        if(this.mFrameCounter == 10){
+            this.mFrameCounter = 0;
+            if(this.mApple.mEaten){
+                this.makeSegment();
+                this.mApple.resetEaten();
+            }
         }
     }
-
-    this.mFrameCounter++;
-    if(this.mFrameCounter == 10){
-        this.mFrameCounter = 0;
-        if(this.mApple.mEaten){
-            this.makeSegment();
-            this.mApple.resetEaten();
-        }
-    }
-
 
     //this.mSegments.forEach(segment => segment.update());
 
