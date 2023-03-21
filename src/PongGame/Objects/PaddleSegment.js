@@ -9,7 +9,7 @@ function PaddleSegment(spriteTexture, parentSegment) {
     GameObject.call(this, this.mSegment);
 
     this.mParent = parentSegment; 
-    this.mSegment.getXform().setPosition(parentSegment.getXform().getXPos(), parentSegment.getXform().getYPos());
+    this.getXform().setPosition(parentSegment.getXform().getXPos(), parentSegment.getXform().getYPos());
 
     this.setSpeed(0);
     let nextDirection = parentSegment.getXform().getRotationInDegree();

@@ -11,8 +11,9 @@ function Ball(spriteTexture)
     // this.rotation = 315+Math.random()*90;
     // this.mBall.getXform().setRotationInDegree(this.rotation);
     GameObject.call(this,this.mBall);
-    this.setSpeed(16/10);
+    this.setSpeed(1);
     this.angleToVector(135+Math.random()*90)
+    this.collideCount = 0;
 
 }
 gEngine.Core.inheritPrototype(Ball,GameObject);
@@ -31,13 +32,16 @@ Ball.prototype.collide = function(paddle, enemyPaddle){
     let ballY = this.mBall.getXform().getYPos();
     if(paddleX-7<ballX && paddleX+7 > ballX && paddleY-7 < ballY && paddleY+7>ballY){
         vec2.set(this.getCurrentFrontDir(),this.getCurrentFrontDir()[0],-this.getCurrentFrontDir()[1])
+        this.collideCount++;
     }
     if(enemyPaddleX-7<ballX && enemyPaddleX+7 > ballX && enemyPaddleY-7 < ballY && enemyPaddleY+7>ballY){
         vec2.set(this.getCurrentFrontDir(),this.getCurrentFrontDir()[0],-this.getCurrentFrontDir()[1])
+        this.collideCount++;
     }
     if(ballX>=256||ballX<=0){
         vec2.set(this.getCurrentFrontDir(),-this.getCurrentFrontDir()[0],this.getCurrentFrontDir()[1])
     }
+    
 };
 
 Ball.prototype.takeInput = function (){
@@ -53,4 +57,5 @@ Ball.prototype.update = function(){
     GameObject.prototype.update.call(this);
     this.mBall.getXform().setRotationInDegree(this.mBall.getXform().getRotationInDegree()+2);
     this.takeInput();
+    this.setSpeed(1+(this.collideCount/20));
 }

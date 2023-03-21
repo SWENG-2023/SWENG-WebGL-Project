@@ -81,7 +81,7 @@ PongGame.prototype.initialize = function () {
     this.mFPSMsg.getXform().setPosition(1, 10);
     this.mFPSMsg.setTextHeight(10);
 
-    this.mScoreMsg = new FontRenderable("Score msg");
+    this.mScoreMsg = new FontRenderable("1");
     this.mScoreMsg.setColor([0, 0, 0, 1]);
     this.mScoreMsg.getXform().setPosition(10, 40);
     this.mScoreMsg.setTextHeight(10);
@@ -130,7 +130,7 @@ PongGame.prototype.draw = function () {
 PongGame.prototype.update = function(){
     let msg = "Last pressed command: ";
     let fpsMsg = "Frame Counter: ";
-    let scoreMsg = "Score: ";
+    let scoreMsg = "Collisions: ";
 
     this.mBall.update();
     this.mBall.collide(this.mPaddle, this.mEnemyPaddle)
@@ -139,8 +139,8 @@ PongGame.prototype.update = function(){
     for (let i = this.mSegments.length-1; i >= 0; i--) {
         this.mSegments[i].update();
     }
+    this.mScoreMsg.setText(scoreMsg + this.mBall.collideCount);
 
-    let h = [];
     this.mFrameCounter++;
     if(this.mFrameCounter == 10){
         this.mFrameCounter = 0;
