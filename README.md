@@ -1,7 +1,6 @@
 <a name="readme-top"></a>
 
 <!-- PROJECT LOGO -->
-<br />
 <div align="center">
   <a href="https://github.com/SWENG-2023/SWENG-WebGL-Project">
     <img src="assets/snake_sprites/head_up.png" alt="Logo" width="80" height="80">
@@ -37,17 +36,16 @@
 </details>
 
 
-
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
 <div align="center">
   <a href="https://github.com/SWENG-2023/SWENG-WebGL-Project">
-    <img src="assets/snake_sprites/head_up.png" alt="Logo" width="80" height="80">
+    <img src="demo/mainmenu.png" alt="main-menu">
   </a>
 </div>
 <br />
-Welcome to SWENG Group 18's 2D WebGL Game Library repository! This project is a collaboration between a group of 9 Computer Science students from Trinity College and the telecommunications company, Qualcomm. We have created a collection of 2d WebGL games that run smoothly in your browser, featuring our own game engine.
+Welcome to SWENG Group 18's 2D WebGL Game Library repository! This project is a collaboration between a group of 9 Computer Science students from Trinity College and the telecommunications company, Qualcomm. We have created a collection of 2d WebGL games that run smoothly in your browser, featuring our game engine.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -60,16 +58,11 @@ Welcome to SWENG Group 18's 2D WebGL Game Library repository! This project is a 
 * [![HTML5][HTML5.html]][html5-url]
 * [![CSS5][CSS.css]][css-url]
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 ### Development Process
 
-Throughout the development process, we've followed the sprint methodology, with weekly meetings with John O' Shea the Principal Software Engineer of Qualcomm, as well as our demonstrator. Our team also held weekly meetings to ensure smooth progress. We employed a Kanban board using Github Projects to stay organised. Over the course of four sprints, we re-created two classic games.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
+Throughout the development process, we've followed the sprint methodology, with weekly meetings with John O'Shea the Principal Software Engineer of Qualcomm, as well as our demonstrator. Our team also held weekly meetings to ensure smooth progress. We employed a Kanban board using GitHub Projects to stay organised. Throughout four sprints, we re-created two classic games.
 
 
 ### Games
@@ -80,15 +73,10 @@ Throughout the development process, we've followed the sprint methodology, with 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-
-
 <!-- GETTING STARTED -->
 ## Getting Started
 
-No need for prerequisites and installation! To dive into our game library, simply click the logo above or visit our live game by clicking [here](https://sweng2023.herokuapp.com/)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
+No need for prerequisites and installation! To dive into our game library, simply click the logo above, click 'play' below the logo or visit our live game by clicking [here](https://sweng2023.herokuapp.com/)
 
 
 <!-- PRODUCT BACKLOG -->
@@ -100,7 +88,7 @@ No need for prerequisites and installation! To dive into our game library, simpl
 - [ ] Implement scoreboard
 - [ ] Implement 3d graphics
 - [ ] Implement sound effects/sound control
-- [ ] Implement settings, pause and main menu
+- [ ] Implement settings, pause and the main menu
 - [ ] Implement 2d tranformations
 - [ ] Implement core game logic
 
@@ -113,10 +101,7 @@ See the [kanban board](https://github.com/orgs/SWENG-2023/projects/1) for a list
 <!-- CONTRIBUTING -->
 ## Contributing
 
-As this is a SWENG project, it is not open source. However, we are always open to feedback in order to improve our work. Any feedback you give is **greatly appreciated**.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
+As this is a SWENG project, it is not open source. However, we are always open to feedback to improve our work. Any feedback you give is **greatly appreciated**.
 
 
 <!-- THE TEAM -->
@@ -148,8 +133,7 @@ As this is a SWENG project, it is not open source. However, we are always open t
 
 [Isioma Anonyai][isioma-url]: nd Year Computer Science & Business Student
 
-
-
+<br />
 Project Link: [https://github.com/SWENG-2023/SWENG-WebGL-Project](https://github.com/SWENG-2023/SWENG-WebGL-Project)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -159,12 +143,9 @@ Project Link: [https://github.com/SWENG-2023/SWENG-WebGL-Project](https://github
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-We would like to extend our gratitude to John O' Shea and the rest of Qualcom for their support and guidance throughout the development process. Additionallu, we would like to thank our Software Engineering lecturer and demonstrators for their valuable input and encouragment.
+We would like to extend our gratitude to John O'Shea and the rest of Qualcomm for their support and guidance throughout the development process. Additionally, we would like to thank our Software Engineering lecturer and demonstrators for their valuable input and encouragement.
 
 We hope you enjoy our games! Happy gaming! 🎮
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
@@ -186,4 +167,3 @@ We hope you enjoy our games! Happy gaming! 🎮
 [isioma-url]: https://github.com/anonyaii
 [jason-url]: https://github.com/jathonderulo
 [sean-url]: https://github.com/seanl14
-
