@@ -63,6 +63,9 @@ gEngine.Input = (function () {
         Y : 89,
         Z : 90,
 
+        // Escape key for pause
+        Escape: 27,
+
         LastKeyCode: 222
     };
 
