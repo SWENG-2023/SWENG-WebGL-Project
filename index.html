@@ -327,6 +327,12 @@
             eatenSound.muted = false;
             gameOverSound.muted = false;
         }
+        function RestartSnake() {
+            gEngine.GameLoop.stop();
+            Hide("PauseMenu");
+            
+        }
+        
 
         document.addEventListener('keydown', function (event) {
             if (event.keyCode == 80) {
@@ -443,10 +449,12 @@
         <div id="SoundFXON">
             <button id="MenuButtons" onclick="SoundFXOFF()" class="button button1">Turn SoundFX on </button>
         </div>
-
+        <div id="Restart">
+             <buttom id="Restart" onclick="RestartSnake()" class="button button1">Restart</buttom>
+         </div>
         <button class="roundbutton roundbutton1" onclick="instructionsSnakePopUp()">?</button>
     </div>
-
+     
     <div id="GiveUpGame">
         <button class="button button1" onclick="GiveUpGame()">Give up!</button>
     </div>
