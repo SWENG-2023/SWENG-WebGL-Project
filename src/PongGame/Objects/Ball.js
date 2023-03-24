@@ -12,11 +12,23 @@ function Ball(spriteTexture)
     // this.mBall.getXform().setRotationInDegree(this.rotation);
     GameObject.call(this,this.mBall);
     this.setSpeed(1);
-    this.angleToVector(135+Math.random()*90)
+    if(this.coinFlip() == 1)
+    {this.angleToVector(110+Math.random()*45);}
+    else
+    {this.angleToVector(250-Math.random()*45)}
     this.collideCount = 0;
     this.cooldown = 10;
 }
 gEngine.Core.inheritPrototype(Ball,GameObject);
+
+Ball.prototype.coinFlip = function(){
+    if (Math.random() > .5){
+        return 1;   
+    }   
+    else{
+        return 0;
+    }
+}
 
 Ball.prototype.angleToVector = function(angle){
     let radians = angle * (Math.PI / 180);
@@ -30,12 +42,12 @@ Ball.prototype.collide = function(paddle, enemyPaddle){
     let enemyPaddleY = enemyPaddle.getXform().getYPos();
     let ballX = this.mBall.getXform().getXPos();
     let ballY = this.mBall.getXform().getYPos();
-    if(paddleX-7<ballX && paddleX+7 > ballX && paddleY-7 < ballY && paddleY+7>ballY&& this.cooldown >=(50-(int)(this.collideCount/5))){
+    if(paddleX-7<ballX && paddleX+7 > ballX && paddleY-7 < ballY && paddleY+7>ballY&& this.cooldown >=(50-(this.collideCount/5))){
         vec2.set(this.getCurrentFrontDir(),this.getCurrentFrontDir()[0],-this.getCurrentFrontDir()[1])
         this.collideCount++;
         this.cooldown = 0;
     }
-    if(enemyPaddleX-7<ballX && enemyPaddleX+7 > ballX && enemyPaddleY-7 < ballY && enemyPaddleY+7>ballY&&this.cooldown>=(50-(int)(this.collideCount/5))){
+    if(enemyPaddleX-7<ballX && enemyPaddleX+7 > ballX && enemyPaddleY-7 < ballY && enemyPaddleY+7>ballY&&this.cooldown>=(50-(this.collideCount/5))){
         vec2.set(this.getCurrentFrontDir(),this.getCurrentFrontDir()[0],-this.getCurrentFrontDir()[1])
         this.collideCount++;
         this.cooldown = 0;
