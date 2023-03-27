@@ -87,12 +87,12 @@ PongGame.prototype.initialize = function () {
 
     this.mPlayerScoreMsg = new FontRenderable("Player score msg");
     // this.mPlayerScoreMsg.setColor([0, 0, 0, 0]);
-    this.mPlayerScoreMsg.getXform().setPosition(50, 50);
+    this.mPlayerScoreMsg.getXform().setPosition(80, 56);
     this.mPlayerScoreMsg.setTextHeight(10);
     
     this.mEnemyScoreMsg = new FontRenderable("Enemy score msg");
     // this.mEnemyScoreMsg.setColor([0, 0, 0, 0]);
-    this.mEnemyScoreMsg.getXform().setPosition(50, 200);
+    this.mEnemyScoreMsg.getXform().setPosition(82, 204);
     this.mEnemyScoreMsg.setTextHeight(10);
     
     this.mRoundOverMsg = new FontRenderable("Round over msg");
@@ -102,7 +102,7 @@ PongGame.prototype.initialize = function () {
     
     this.mPausedMsg = new FontRenderable("Paused game msg");
     // this.mPausedMsg.setColor([0, 0, 0, 0]);
-    this.mPausedMsg.getXform().setPosition(50, 140);
+    this.mPausedMsg.getXform().setPosition(90, 137);
     this.mPausedMsg.setTextHeight(10);
 
 
@@ -141,7 +141,7 @@ PongGame.prototype.draw = function () {
     
     this.mSegments.forEach(segment => segment.draw(this.mCamera));
 
-    this.mMsg.draw(this.mCamera);
+    // this.mMsg.draw(this.mCamera);
     // this.mInputMsg.draw(this.mCamera);
     // this.mFPSMsg.draw(this.mCamera);
     // this.mScoreMsg.draw(this.mCamera);
@@ -155,8 +155,8 @@ PongGame.prototype.update = function(){
     let msg = "Last pressed command: ";
     let fpsMsg = "Frame Counter: ";
     let scoreMsg = "Collisions: ";
-    let playerScoreMsg = "The player's score is: ";
-    let enemyScoreMsg = "The enemy's score is: ";
+    let playerScoreMsg = "Player score: ";
+    let enemyScoreMsg = "Enemy score: ";
     let roundOverMsg = "Round over. Press A or D to continue.";
     let pausedGameMsg = "Game is Paused.";
     this.mBall.update();
@@ -170,7 +170,7 @@ PongGame.prototype.update = function(){
         for (let i = this.mSegments.length-1; i >= 0; i--) {
             this.mSegments[i].update();
         }
-        this.mScoreMsg.setText(scoreMsg + this.mBall.collideCount);
+        // this.mScoreMsg.setText(scoreMsg + this.mBall.collideCount);
 
         this.mFrameCounter++;
         if(this.mFrameCounter == 10){
