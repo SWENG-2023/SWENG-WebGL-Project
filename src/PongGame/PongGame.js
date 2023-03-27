@@ -24,7 +24,6 @@ function PongGame() {
     this.mTail = null;
     this.mNewAllowed = true;
     this.mGridSegments = null;
-
     this.mBg = null;
 }
 gEngine.Core.inheritPrototype(PongGame, Scene)
@@ -85,7 +84,28 @@ PongGame.prototype.initialize = function () {
     this.mScoreMsg.setColor([0, 0, 0, 1]);
     this.mScoreMsg.getXform().setPosition(10, 40);
     this.mScoreMsg.setTextHeight(10);
+
+    this.mPlayerScoreMsg = new FontRenderable("Player score msg");
+    // this.mPlayerScoreMsg.setColor([0, 0, 0, 0]);
+    this.mPlayerScoreMsg.getXform().setPosition(87, 57);
+    this.mPlayerScoreMsg.setTextHeight(10);
     
+    this.mEnemyScoreMsg = new FontRenderable("Enemy score msg");
+    // this.mEnemyScoreMsg.setColor([0, 0, 0, 0]);
+    this.mEnemyScoreMsg.getXform().setPosition(90, 203);
+    this.mEnemyScoreMsg.setTextHeight(10);
+    
+    this.mRoundOverMsg = new FontRenderable("Round over msg");
+    // this.mRoundOverMsg.setColor([0, 0, 0, 0]);
+    this.mRoundOverMsg.getXform().setPosition(20, 140);
+    this.mRoundOverMsg.setTextHeight(10);
+    
+    this.mPausedMsg = new FontRenderable("Paused game msg");
+    // this.mPausedMsg.setColor([0, 0, 0, 0]);
+    this.mPausedMsg.getXform().setPosition(88, 137);
+    this.mPausedMsg.setTextHeight(10);
+
+
     this.mFPSMsg.getXform().setPosition(10, 30);
     this.mFPSMsg.setTextHeight(10);
 
@@ -121,32 +141,57 @@ PongGame.prototype.draw = function () {
     
    // this.mSegments.forEach(segment => segment.draw(this.mCamera));
 
-    this.mMsg.draw(this.mCamera);
-    this.mInputMsg.draw(this.mCamera);
-    this.mFPSMsg.draw(this.mCamera);
-    this.mScoreMsg.draw(this.mCamera);
+    // this.mMsg.draw(this.mCamera);
+    // this.mInputMsg.draw(this.mCamera);
+    // this.mFPSMsg.draw(this.mCamera);
+    // this.mScoreMsg.draw(this.mCamera);
+    this.mPlayerScoreMsg.draw(this.mCamera);
+    this.mEnemyScoreMsg.draw(this.mCamera);
+    this.mRoundOverMsg.draw(this.mCamera);
+    this.mPausedMsg.draw(this.mCamera);
 };
 
 PongGame.prototype.update = function(){
     let msg = "Last pressed command: ";
     let fpsMsg = "Frame Counter: ";
     let scoreMsg = "Collisions: ";
-
+    let playerScoreMsg = "Player score: ";
+    let enemyScoreMsg = "Enemy score: ";
+    let roundOverMsg = "Round over. Press A or D to continue.";
+    let pausedGameMsg = "Game is Paused.";
     this.mBall.update();
     this.mBall.collide(this.mPaddle, this.mEnemyPaddle)
     this.mEnemyPaddle.update();
     this.mPaddle.update();
 
-    // for (let i = this.mSegments.length-1; i >= 0; i--) {
-    //     this.mSegments[i].update();
-    // }
-    this.mScoreMsg.setText(scoreMsg + this.mBall.collideCount);
+    if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Escape)) { 
+        this.mBall.pauseGame ^= 1;
+    } 
+    if(this.mBall.pauseGame == 0) {
+        for (let i = this.mSegments.length-1; i >= 0; i--) {
+            this.mSegments[i].update();
+        }
+        // this.mScoreMsg.setText(scoreMsg + this.mBall.collideCount);
 
-    this.mFrameCounter++;
-    if(this.mFrameCounter == 10){
-        this.mFrameCounter = 0;
-        // this.makeSegment();
+        this.mFrameCounter++;
+        if(this.mFrameCounter == 10){
+            this.mFrameCounter = 0;
+            this.makeSegment();
+        }   
     }
-    this.mInputMsg.setText(msg + this.mPaddle.mLastLetter);
-    this.mFPSMsg.setText(fpsMsg + this.mPaddle.mFrameCounter);    
+    this.mEnemyScoreMsg.setText(enemyScoreMsg + this.mBall.enemyScore);
+    this.mPlayerScoreMsg.setText(playerScoreMsg + this.mBall.playerScore);
+    // this.mInputMsg.setText(msg + this.mPaddle.mLastLetter);
+    // this.mFPSMsg.setText(fpsMsg + this.mPaddle.mFrameCounter);    
+    if(this.mBall.roundOver == 1) {
+        this.mRoundOverMsg.setText(roundOverMsg);
+    } else {
+        this.mRoundOverMsg.setText("");
+    }
+    if(this.mBall.pauseGame == 1 && this.mBall.roundOver == 0) {
+        this.mPausedMsg.setText(pausedGameMsg);
+    } else {
+        this.mPausedMsg.setText("");
+    }
+    
 };
