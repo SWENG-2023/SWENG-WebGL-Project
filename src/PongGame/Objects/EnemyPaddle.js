@@ -9,7 +9,7 @@ function EnemyPaddle(spriteTexture, ball){
     this.mEnemyPaddle.setColor([1,1,1,0]);
     let initCoords = this.getSquareCoords(8,16);
     this.mEnemyPaddle.getXform().setPosition(initCoords[0],initCoords[1]);
-    this.mEnemyPaddle.getXform().setSize(14,14);
+    this.mEnemyPaddle.getXform().setSize(14,58);
     
     this.mLastLetter="A";
     this.mFrameCounter = 0;
@@ -19,6 +19,7 @@ function EnemyPaddle(spriteTexture, ball){
     this.setSpeed(16/10);
     this.mEnemyPaddle.getXform().setRotationInDegree(90);
     vec2.set(this.getCurrentFrontDir(), -1, 0);
+    this.wiggleTimer = 0;
 }
 gEngine.Core.inheritPrototype(EnemyPaddle, GameObject);
 
@@ -53,20 +54,23 @@ EnemyPaddle.prototype.getSquareCoords = function (xSquare, ySquare){
 
 EnemyPaddle.prototype.update = function(){
     GameObject.prototype.update.call(this);
-    if(this.mBall.getXform().getXPos() < this.mEnemyPaddle.getXform().getXPos())
+    this.wiggleTimer++
+    if(this.mBall.getXform().getXPos() < this.mEnemyPaddle.getXform().getXPos()+16 && this.wiggleTimer >=10)
     {
         this.mLastLetter = "A";
+        this.wiggleTimer = 0;
     }
-    if(this.mBall.getXform().getXPos() > this.mEnemyPaddle.getXform().getXPos())
+    if(this.mBall.getXform().getXPos() > this.mEnemyPaddle.getXform().getXPos()-16 && this.wiggleTimer >=10)
     {
         this.mLastLetter = "D";
+        this.wiggleTimer = 0;
     }
 
-    if(this.mEnemyPaddle.getXform().getXPos() <= 8 && this.mLastLetter == 'A')
+    if(this.mEnemyPaddle.getXform().getXPos() <= 28 && this.mLastLetter == 'A')
     {
         this.setSpeed(0);
     }
-   else  if(this.mEnemyPaddle.getXform().getXPos() >= 248 && this.mLastLetter == 'D')
+   else  if(this.mEnemyPaddle.getXform().getXPos() >= 228 && this.mLastLetter == 'D')
     {
         this.setSpeed(0);
     }

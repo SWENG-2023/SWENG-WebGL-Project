@@ -4,10 +4,10 @@
 
 function PongGame() {
     this.kBallSprite = "assets/snake_sprites/apple.png";
-    this.kSnakeSprite = "assets/snake_sprites/head_up.png";
+    this.kSnakeSprite = "assets/snake_sprites/paddle.png";
     this.kSnakeSegmentSprite = "assets/snake_sprites/body_vertical.png";
     this.kBgSprite = "assets/snake_sprites/snake_bg.png";
-    this.kEnemySnake = "assets/snake_sprites/Red_Snake.png";
+    this.kEnemySnake = "assets/snake_sprites/enemyPaddle.png";
     this.kEnemySnakeSegmentSprite = "assets/snake_sprites/red_body_vertical.png";
 
     this.mCamera = null;
@@ -89,8 +89,8 @@ PongGame.prototype.initialize = function () {
     this.mFPSMsg.getXform().setPosition(10, 30);
     this.mFPSMsg.setTextHeight(10);
 
-    this.mSegments.push(this.mPaddle);
-    this.mFrameCounter = 0;
+    // this.mSegments.push(this.mPaddle);
+    // this.mFrameCounter = 0;
 
     this.mGridSegments = Array.from({length: 16}, () =>
         Array.from({length: 16}, () => false)
@@ -100,11 +100,11 @@ PongGame.prototype.initialize = function () {
     gEngine.DefaultResources.setGlobalAmbientColor([1, 1, 1, 1]);
 };
 
-PongGame.prototype.makeSegment = function(){
-    let newSegment = new PaddleSegment(this.kSnakeSegmentSprite, this.mTail);
-    this.mTail = newSegment;
-    this.mSegments.push(newSegment);
-}
+// PongGame.prototype.makeSegment = function(){
+//     let newSegment = new PaddleSegment(this.kSnakeSegmentSprite, this.mTail);
+//     this.mTail = newSegment;
+//     this.mSegments.push(newSegment);
+// }
 
 PongGame.prototype.draw = function () {
     // Step A: clear the canvas
@@ -119,7 +119,7 @@ PongGame.prototype.draw = function () {
     this.mPaddle.draw(this.mCamera);
     this.mEnemyPaddle.draw(this.mCamera);
     
-    this.mSegments.forEach(segment => segment.draw(this.mCamera));
+   // this.mSegments.forEach(segment => segment.draw(this.mCamera));
 
     this.mMsg.draw(this.mCamera);
     this.mInputMsg.draw(this.mCamera);
@@ -135,16 +135,17 @@ PongGame.prototype.update = function(){
     this.mBall.update();
     this.mBall.collide(this.mPaddle, this.mEnemyPaddle)
     this.mEnemyPaddle.update();
+    this.mPaddle.update();
 
-    for (let i = this.mSegments.length-1; i >= 0; i--) {
-        this.mSegments[i].update();
-    }
+    // for (let i = this.mSegments.length-1; i >= 0; i--) {
+    //     this.mSegments[i].update();
+    // }
     this.mScoreMsg.setText(scoreMsg + this.mBall.collideCount);
 
     this.mFrameCounter++;
     if(this.mFrameCounter == 10){
         this.mFrameCounter = 0;
-        this.makeSegment();
+        // this.makeSegment();
     }
     this.mInputMsg.setText(msg + this.mPaddle.mLastLetter);
     this.mFPSMsg.setText(fpsMsg + this.mPaddle.mFrameCounter);    

@@ -8,7 +8,7 @@ function Paddle(spriteTexture){
     this.mPaddle.setColor([1,1,1,0]);
     let initCoords = this.getSquareCoords(8,1);
     this.mPaddle.getXform().setPosition(initCoords[0],initCoords[1]);
-    this.mPaddle.getXform().setSize(14,14);
+    this.mPaddle.getXform().setSize(14,58);
     
     this.mLastLetter="A";
     this.mFrameCounter = 0;
@@ -54,11 +54,11 @@ Paddle.prototype.update = function(){
     GameObject.prototype.update.call(this);
 
 
-    if(this.mPaddle.getXform().getXPos() <= 8 && this.mLastLetter == 'A')
+    if(this.mPaddle.getXform().getXPos() <= 28 && this.mLastLetter == 'A')
     {
         this.setSpeed(0);
     }
-   else  if(this.mPaddle.getXform().getXPos() >= 248 && this.mLastLetter == 'D')
+   else  if(this.mPaddle.getXform().getXPos() >= 228 && this.mLastLetter == 'D')
     {
         this.setSpeed(0);
     }
