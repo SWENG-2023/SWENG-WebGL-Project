@@ -87,12 +87,12 @@ PongGame.prototype.initialize = function () {
 
     this.mPlayerScoreMsg = new FontRenderable("Player score msg");
     // this.mPlayerScoreMsg.setColor([0, 0, 0, 0]);
-    this.mPlayerScoreMsg.getXform().setPosition(80, 56);
+    this.mPlayerScoreMsg.getXform().setPosition(87, 57);
     this.mPlayerScoreMsg.setTextHeight(10);
     
     this.mEnemyScoreMsg = new FontRenderable("Enemy score msg");
     // this.mEnemyScoreMsg.setColor([0, 0, 0, 0]);
-    this.mEnemyScoreMsg.getXform().setPosition(82, 204);
+    this.mEnemyScoreMsg.getXform().setPosition(90, 203);
     this.mEnemyScoreMsg.setTextHeight(10);
     
     this.mRoundOverMsg = new FontRenderable("Round over msg");
@@ -102,7 +102,7 @@ PongGame.prototype.initialize = function () {
     
     this.mPausedMsg = new FontRenderable("Paused game msg");
     // this.mPausedMsg.setColor([0, 0, 0, 0]);
-    this.mPausedMsg.getXform().setPosition(90, 137);
+    this.mPausedMsg.getXform().setPosition(88, 137);
     this.mPausedMsg.setTextHeight(10);
 
 
