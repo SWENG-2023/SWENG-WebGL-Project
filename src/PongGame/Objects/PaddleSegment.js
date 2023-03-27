@@ -18,7 +18,7 @@ function PaddleSegment(spriteTexture, parentSegment) {
     this.mFrameCounter = 0;
     this.mFrameUpdateInterval = 10;
 }
-gEngine.Core.inheritPrototype(SnakeSegment, GameObject);
+gEngine.Core.inheritPrototype(PaddleSegment, GameObject);
 
 
 SnakeSegment.prototype.update = function () {

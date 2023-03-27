@@ -4,10 +4,10 @@
 
 function PongGame() {
     this.kBallSprite = "assets/snake_sprites/apple.png";
-    this.kSnakeSprite = "assets/snake_sprites/head_up.png";
+    this.kSnakeSprite = "assets/snake_sprites/paddle.png";
     this.kSnakeSegmentSprite = "assets/snake_sprites/body_vertical.png";
     this.kBgSprite = "assets/snake_sprites/snake_bg.png";
-    this.kEnemySnake = "assets/snake_sprites/Red_Snake.png";
+    this.kEnemySnake = "assets/snake_sprites/enemyPaddle.png";
     this.kEnemySnakeSegmentSprite = "assets/snake_sprites/red_body_vertical.png";
 
     this.mCamera = null;
@@ -109,8 +109,8 @@ PongGame.prototype.initialize = function () {
     this.mFPSMsg.getXform().setPosition(10, 30);
     this.mFPSMsg.setTextHeight(10);
 
-    this.mSegments.push(this.mPaddle);
-    this.mFrameCounter = 0;
+    // this.mSegments.push(this.mPaddle);
+    // this.mFrameCounter = 0;
 
     this.mGridSegments = Array.from({length: 16}, () =>
         Array.from({length: 16}, () => false)
@@ -120,11 +120,11 @@ PongGame.prototype.initialize = function () {
     gEngine.DefaultResources.setGlobalAmbientColor([1, 1, 1, 1]);
 };
 
-PongGame.prototype.makeSegment = function(){
-    let newSegment = new PaddleSegment(this.kSnakeSegmentSprite, this.mTail);
-    this.mTail = newSegment;
-    this.mSegments.push(newSegment);
-}
+// PongGame.prototype.makeSegment = function(){
+//     let newSegment = new PaddleSegment(this.kSnakeSegmentSprite, this.mTail);
+//     this.mTail = newSegment;
+//     this.mSegments.push(newSegment);
+// }
 
 PongGame.prototype.draw = function () {
     // Step A: clear the canvas
@@ -139,7 +139,7 @@ PongGame.prototype.draw = function () {
     this.mPaddle.draw(this.mCamera);
     this.mEnemyPaddle.draw(this.mCamera);
     
-    this.mSegments.forEach(segment => segment.draw(this.mCamera));
+   // this.mSegments.forEach(segment => segment.draw(this.mCamera));
 
     // this.mMsg.draw(this.mCamera);
     // this.mInputMsg.draw(this.mCamera);
@@ -162,6 +162,7 @@ PongGame.prototype.update = function(){
     this.mBall.update();
     this.mBall.collide(this.mPaddle, this.mEnemyPaddle)
     this.mEnemyPaddle.update();
+    this.mPaddle.update();
 
     if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Escape)) { 
         this.mBall.pauseGame ^= 1;

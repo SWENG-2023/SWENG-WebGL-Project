@@ -8,7 +8,7 @@ function Paddle(spriteTexture){
     this.mPaddle.setColor([1,1,1,0]);
     let initCoords = this.getSquareCoords(8,1);
     this.mPaddle.getXform().setPosition(initCoords[0],initCoords[1]);
-    this.mPaddle.getXform().setSize(14,14);
+    this.mPaddle.getXform().setSize(14,58);
     
     this.mLastLetter="A";
     this.mFrameCounter = 0;
@@ -52,7 +52,6 @@ Paddle.prototype.takeInput = function () {
 
 Paddle.prototype.update = function(){
         GameObject.prototype.update.call(this);
-
         if(this.mPaddle.getXform().getXPos() <= 8 && this.mLastLetter == 'A')
         {
             this.setSpeed(0);

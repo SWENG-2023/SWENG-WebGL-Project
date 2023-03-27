@@ -46,12 +46,12 @@ Ball.prototype.collide = function(paddle, enemyPaddle){
     let enemyPaddleY = enemyPaddle.getXform().getYPos();
     let ballX = this.mBall.getXform().getXPos();
     let ballY = this.mBall.getXform().getYPos();
-    if(paddleX-7<ballX && paddleX+7 > ballX && paddleY-7 < ballY && paddleY+7>ballY&& this.cooldown >=(50-(this.collideCount/5))){
+    if(paddleX-31 < ballX && paddleX+31 > ballX && paddleY+3 < ballY && paddleY+7>ballY&& this.cooldown >=(50-(this.collideCount/5))){
         vec2.set(this.getCurrentFrontDir(),this.getCurrentFrontDir()[0],-this.getCurrentFrontDir()[1])
         this.collideCount++;
         this.cooldown = 0;
     }
-    if(enemyPaddleX-7<ballX && enemyPaddleX+7 > ballX && enemyPaddleY-7 < ballY && enemyPaddleY+7>ballY&&this.cooldown>=(50-(this.collideCount/5))){
+    if(enemyPaddleX-31<ballX && enemyPaddleX+31 > ballX && enemyPaddleY-7 < ballY && enemyPaddleY-3>ballY&&this.cooldown>=(50-(this.collideCount/5))){
         vec2.set(this.getCurrentFrontDir(),this.getCurrentFrontDir()[0],-this.getCurrentFrontDir()[1])
         this.collideCount++;
         this.cooldown = 0;
