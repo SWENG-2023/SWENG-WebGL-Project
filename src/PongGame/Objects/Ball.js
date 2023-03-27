@@ -88,7 +88,8 @@ Ball.prototype.update = function(){
         if(gEngine.Input.isKeyClicked(gEngine.Input.keys.A) || gEngine.Input.isKeyClicked(gEngine.Input.keys.D)) { 
             this.roundOver = 0;
             this.pauseGame ^= 1;
-        }
+        } 
+        
     } else {
         if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Escape)) { 
             this.pauseGame ^= 1;
