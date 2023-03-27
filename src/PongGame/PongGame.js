@@ -24,7 +24,6 @@ function PongGame() {
     this.mTail = null;
     this.mNewAllowed = true;
     this.mGridSegments = null;
-
     this.mBg = null;
 }
 gEngine.Core.inheritPrototype(PongGame, Scene)
@@ -85,7 +84,17 @@ PongGame.prototype.initialize = function () {
     this.mScoreMsg.setColor([0, 0, 0, 1]);
     this.mScoreMsg.getXform().setPosition(10, 40);
     this.mScoreMsg.setTextHeight(10);
+
+    this.mPlayerScoreMsg = new FontRenderable("The player's score is");
+    // this.mPlayerScoreMsg.setColor([0, 0, 0, 0]);
+    this.mPlayerScoreMsg.getXform().setPosition(50, 50);
+    this.mPlayerScoreMsg.setTextHeight(10);
     
+    this.mEnemyScoreMsg = new FontRenderable("The player's score is");
+    // this.mPlayerScoreMsg.setColor([0, 0, 0, 0]);
+    this.mEnemyScoreMsg.getXform().setPosition(50, 200);
+    this.mEnemyScoreMsg.setTextHeight(10);
+
     this.mFPSMsg.getXform().setPosition(10, 30);
     this.mFPSMsg.setTextHeight(10);
 
@@ -125,27 +134,37 @@ PongGame.prototype.draw = function () {
     this.mInputMsg.draw(this.mCamera);
     this.mFPSMsg.draw(this.mCamera);
     this.mScoreMsg.draw(this.mCamera);
+    this.mPlayerScoreMsg.draw(this.mCamera);
+    this.mEnemyScoreMsg.draw(this.mCamera);
 };
 
 PongGame.prototype.update = function(){
     let msg = "Last pressed command: ";
     let fpsMsg = "Frame Counter: ";
     let scoreMsg = "Collisions: ";
-
+    let playerScoreMsg = "The player's score is: ";
+    let enemyScoreMsg = "The enemy's score is: ";
     this.mBall.update();
     this.mBall.collide(this.mPaddle, this.mEnemyPaddle)
     this.mEnemyPaddle.update();
 
-    for (let i = this.mSegments.length-1; i >= 0; i--) {
-        this.mSegments[i].update();
-    }
-    this.mScoreMsg.setText(scoreMsg + this.mBall.collideCount);
+    if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Escape)) { 
+        this.mBall.pauseGame ^= 1;
+    } 
+    if(this.mBall.pauseGame == 0) {
+        for (let i = this.mSegments.length-1; i >= 0; i--) {
+            this.mSegments[i].update();
+        }
+        this.mScoreMsg.setText(scoreMsg + this.mBall.collideCount);
 
-    this.mFrameCounter++;
-    if(this.mFrameCounter == 10){
-        this.mFrameCounter = 0;
-        this.makeSegment();
+        this.mFrameCounter++;
+        if(this.mFrameCounter == 10){
+            this.mFrameCounter = 0;
+            this.makeSegment();
+        }   
     }
+    this.mEnemyScoreMsg.setText(enemyScoreMsg + this.mBall.enemyScore);
+    this.mPlayerScoreMsg.setText(playerScoreMsg + this.mBall.playerScore);
     this.mInputMsg.setText(msg + this.mPaddle.mLastLetter);
     this.mFPSMsg.setText(fpsMsg + this.mPaddle.mFrameCounter);    
 };
