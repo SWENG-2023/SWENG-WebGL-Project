@@ -63,11 +63,15 @@ Ball.prototype.collide = function(paddle, enemyPaddle){
     if(ballY>= 256 || ballY <= 0) {
         if(ballY>= 256 ) {
             this.playerScore++;
+            this.mBall.getXform().setPosition(128,128);
+            this.angleToVector(45+Math.random()*90);
         } else {
             this.enemyScore++;
+            this.mBall.getXform().setPosition(128,128);
+            this.angleToVector(225+Math.random()*90);
         }
-        this.mBall.getXform().setPosition(128,128);
-        this.angleToVector(225+Math.random()*90);    
+        this.setSpeed(16/10);
+        this.collideCount = 0;    
         this.pauseGame ^= 1;
         this.roundOver = 1;
     }
@@ -89,7 +93,7 @@ Ball.prototype.update = function(){
             this.roundOver = 0;
             this.pauseGame ^= 1;
         } 
-        
+
     } else {
         if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Escape)) { 
             this.pauseGame ^= 1;

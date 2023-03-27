@@ -142,9 +142,9 @@ PongGame.prototype.draw = function () {
     this.mSegments.forEach(segment => segment.draw(this.mCamera));
 
     this.mMsg.draw(this.mCamera);
-    this.mInputMsg.draw(this.mCamera);
-    this.mFPSMsg.draw(this.mCamera);
-    this.mScoreMsg.draw(this.mCamera);
+    // this.mInputMsg.draw(this.mCamera);
+    // this.mFPSMsg.draw(this.mCamera);
+    // this.mScoreMsg.draw(this.mCamera);
     this.mPlayerScoreMsg.draw(this.mCamera);
     this.mEnemyScoreMsg.draw(this.mCamera);
     this.mRoundOverMsg.draw(this.mCamera);
@@ -180,8 +180,8 @@ PongGame.prototype.update = function(){
     }
     this.mEnemyScoreMsg.setText(enemyScoreMsg + this.mBall.enemyScore);
     this.mPlayerScoreMsg.setText(playerScoreMsg + this.mBall.playerScore);
-    this.mInputMsg.setText(msg + this.mPaddle.mLastLetter);
-    this.mFPSMsg.setText(fpsMsg + this.mPaddle.mFrameCounter);    
+    // this.mInputMsg.setText(msg + this.mPaddle.mLastLetter);
+    // this.mFPSMsg.setText(fpsMsg + this.mPaddle.mFrameCounter);    
     if(this.mBall.roundOver == 1) {
         this.mRoundOverMsg.setText(roundOverMsg);
     } else {
