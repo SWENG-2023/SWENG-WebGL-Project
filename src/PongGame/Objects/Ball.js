@@ -21,6 +21,7 @@ function Ball(spriteTexture)
     this.playerScore = 0;
     this.enemyScore = 0;
     this.pauseGame = 0;
+    this.roundOver = 0;
 }
 gEngine.Core.inheritPrototype(Ball,GameObject);
 
@@ -62,13 +63,13 @@ Ball.prototype.collide = function(paddle, enemyPaddle){
     if(ballY>= 256 || ballY <= 0) {
         if(ballY>= 256 ) {
             this.playerScore++;
-            this.mBall.getXform().setPosition(128,128);
-            this.angleToVector(225+Math.random()*90);
         } else {
             this.enemyScore++;
-            this.mBall.getXform().setPosition(128,128);
-            this.angleToVector(225+Math.random()*90);        
         }
+        this.mBall.getXform().setPosition(128,128);
+        this.angleToVector(225+Math.random()*90);    
+        this.pauseGame ^= 1;
+        this.roundOver = 1;
     }
     this.cooldown++;
 };
@@ -83,13 +84,20 @@ Ball.prototype.takeInput = function (){
 };
 
 Ball.prototype.update = function(){
-    if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Escape)) { 
-        this.pauseGame ^= 1;
-    } 
-    if(this.pauseGame == 0) {
-        GameObject.prototype.update.call(this);
-        this.mBall.getXform().setRotationInDegree(this.mBall.getXform().getRotationInDegree()+2);
-        this.takeInput();
-        this.setSpeed(1+(this.collideCount/20));
+    if(this.roundOver == 1) {
+        if(gEngine.Input.isKeyClicked(gEngine.Input.keys.A) || gEngine.Input.isKeyClicked(gEngine.Input.keys.D)) { 
+            this.roundOver = 0;
+            this.pauseGame ^= 1;
+        }
+    } else {
+        if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Escape)) { 
+            this.pauseGame ^= 1;
+        } 
+        if(this.pauseGame == 0) {
+            GameObject.prototype.update.call(this);
+            this.mBall.getXform().setRotationInDegree(this.mBall.getXform().getRotationInDegree()+2);
+            this.takeInput();
+            this.setSpeed(1+(this.collideCount/20));
+        }
     }
 }

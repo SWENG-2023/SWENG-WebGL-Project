@@ -85,15 +85,26 @@ PongGame.prototype.initialize = function () {
     this.mScoreMsg.getXform().setPosition(10, 40);
     this.mScoreMsg.setTextHeight(10);
 
-    this.mPlayerScoreMsg = new FontRenderable("The player's score is");
+    this.mPlayerScoreMsg = new FontRenderable("Player score msg");
     // this.mPlayerScoreMsg.setColor([0, 0, 0, 0]);
     this.mPlayerScoreMsg.getXform().setPosition(50, 50);
     this.mPlayerScoreMsg.setTextHeight(10);
     
-    this.mEnemyScoreMsg = new FontRenderable("The player's score is");
-    // this.mPlayerScoreMsg.setColor([0, 0, 0, 0]);
+    this.mEnemyScoreMsg = new FontRenderable("Enemy score msg");
+    // this.mEnemyScoreMsg.setColor([0, 0, 0, 0]);
     this.mEnemyScoreMsg.getXform().setPosition(50, 200);
     this.mEnemyScoreMsg.setTextHeight(10);
+    
+    this.mRoundOverMsg = new FontRenderable("Round over msg");
+    // this.mRoundOverMsg.setColor([0, 0, 0, 0]);
+    this.mRoundOverMsg.getXform().setPosition(20, 140);
+    this.mRoundOverMsg.setTextHeight(10);
+    
+    this.mPausedMsg = new FontRenderable("Paused game msg");
+    // this.mPausedMsg.setColor([0, 0, 0, 0]);
+    this.mPausedMsg.getXform().setPosition(50, 140);
+    this.mPausedMsg.setTextHeight(10);
+
 
     this.mFPSMsg.getXform().setPosition(10, 30);
     this.mFPSMsg.setTextHeight(10);
@@ -136,6 +147,8 @@ PongGame.prototype.draw = function () {
     this.mScoreMsg.draw(this.mCamera);
     this.mPlayerScoreMsg.draw(this.mCamera);
     this.mEnemyScoreMsg.draw(this.mCamera);
+    this.mRoundOverMsg.draw(this.mCamera);
+    this.mPausedMsg.draw(this.mCamera);
 };
 
 PongGame.prototype.update = function(){
@@ -144,6 +157,8 @@ PongGame.prototype.update = function(){
     let scoreMsg = "Collisions: ";
     let playerScoreMsg = "The player's score is: ";
     let enemyScoreMsg = "The enemy's score is: ";
+    let roundOverMsg = "Round over. Press A or D to continue.";
+    let pausedGameMsg = "Game is Paused.";
     this.mBall.update();
     this.mBall.collide(this.mPaddle, this.mEnemyPaddle)
     this.mEnemyPaddle.update();
@@ -167,4 +182,15 @@ PongGame.prototype.update = function(){
     this.mPlayerScoreMsg.setText(playerScoreMsg + this.mBall.playerScore);
     this.mInputMsg.setText(msg + this.mPaddle.mLastLetter);
     this.mFPSMsg.setText(fpsMsg + this.mPaddle.mFrameCounter);    
+    if(this.mBall.roundOver == 1) {
+        this.mRoundOverMsg.setText(roundOverMsg);
+    } else {
+        this.mRoundOverMsg.setText("");
+    }
+    if(this.mBall.pauseGame == 1 && this.mBall.roundOver == 0) {
+        this.mPausedMsg.setText(pausedGameMsg);
+    } else {
+        this.mPausedMsg.setText("");
+    }
+    
 };
