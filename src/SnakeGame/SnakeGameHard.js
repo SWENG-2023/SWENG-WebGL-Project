@@ -180,6 +180,7 @@ SnakeGameHard.prototype.drawUICamera = function () {
     this.mScoreMsg.draw(camera);
 }
 
+var booleanPause = 0;
 // The update function, updates the application state. Make sure to _NOT_ draw
 // anything from this function!
 SnakeGameHard.prototype.update = function () {
@@ -205,29 +206,34 @@ SnakeGameHard.prototype.update = function () {
     this.mApple.update();
     this.mScoreMsg.setText(scoreMsg + this.mApple.score);
 
-    for (let i = this.mSegments.length-1; i >= 0; i--) {
-        this.mSegments[i].update();
-    }
+    if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Escape)) { 
+        booleanPause ^= 1;
+    } 
 
-    let h = [];
+    if(booleanPause == 0) {
+        for (let i = this.mSegments.length-1; i >= 0; i--) {
+            this.mSegments[i].update();
+        }
 
-    for (let i = 2; i < this.mSegments.length; i++) {
-        if(this.mSegments[i].pixelTouches(this.mSnake, h)){
-            gameOverSound.play();
-            gEngine.GameLoop.stop();
+        let h = [];
+
+        for (let i = 2; i < this.mSegments.length; i++) {
+            if(this.mSegments[i].pixelTouches(this.mSnake, h)){
+                gameOverSound.play();
+                gEngine.GameLoop.stop();
+            }
+        }
+
+        this.mFrameCounter++;
+        if(this.mFrameCounter == 10){
+            this.mFrameCounter = 0;
+            if(this.mApple.mEaten){
+                //gEngine.AudioClips.playACue(this.kEatCue);
+                this.makeSegment();
+                this.mApple.resetEaten();
+            }
         }
     }
-
-    this.mFrameCounter++;
-    if(this.mFrameCounter == 10){
-        this.mFrameCounter = 0;
-        if(this.mApple.mEaten){
-            //gEngine.AudioClips.playACue(this.kEatCue);
-            this.makeSegment();
-            this.mApple.resetEaten();
-        }
-    }
-
     this._moveSnakeLight(this.mSnake);
     this._moveAppleLight(this.mApple);
 
