@@ -58,7 +58,7 @@ EnemyPaddle.prototype.update = function(){
     } 
     if(this.mBall.pauseGame == 0) {
         GameObject.prototype.update.call(this);
-        if(this.mBall.getXform().getXPos() < this.mEnemyPaddle.getXform().getXPos()+28)
+        if(this.mBall.getXform().getXPos() < this.mEnemyPaddle.getXform().getXPos()-28)
         {
             this.mLastLetter = "A";
         }
