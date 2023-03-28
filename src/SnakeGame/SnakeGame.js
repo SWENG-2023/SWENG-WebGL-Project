@@ -170,7 +170,7 @@ SnakeGame.prototype.update = function () {
     this.mApple.update();
     this.mScoreMsg.setText(scoreMsg + this.mApple.score);
 
-    if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Escape)) { 
+    if(gEngine.Input.isKeyClicked(gEngine.Input.keys.P)) { 
         booleanPause ^= 1;
     } 
 
