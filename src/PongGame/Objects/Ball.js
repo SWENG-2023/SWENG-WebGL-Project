@@ -11,7 +11,7 @@ function Ball(spriteTexture)
     // this.rotation = 315+Math.random()*90;
     // this.mBall.getXform().setRotationInDegree(this.rotation);
     GameObject.call(this,this.mBall);
-    this.setSpeed(1);
+    this.setSpeed(1.5);
     if(this.coinFlip() == 1)
     {this.angleToVector(110+Math.random()*45);}
     else
@@ -102,7 +102,7 @@ Ball.prototype.update = function(){
             GameObject.prototype.update.call(this);
             this.mBall.getXform().setRotationInDegree(this.mBall.getXform().getRotationInDegree()+2);
             this.takeInput();
-            this.setSpeed(1+(this.collideCount/20));
+            this.setSpeed(1+(this.collideCount/10));
         }
     }
 }
