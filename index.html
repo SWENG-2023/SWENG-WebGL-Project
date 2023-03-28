@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <title>SnakeGame version 0.1 </title>
@@ -87,6 +87,11 @@
      <script type="text/javascript" src="src/PongGame/Objects/PaddleSegment.js"></script>
      <script type="text/javascript" src="src/PongGame/Objects/EnemyPaddle.js"></script>
 
+
+    <!-- Client game code for SnakeGameHard -->
+    <script type="text/javascript" src="src/SnakeGame/SnakeGameHard.js"></script>
+    <script type="text/javascript" src="src/SnakeGame/SnakeGameHardLights.js"></script>
+
     <!-- Client game code for TestGame -->
     <script type="text/javascript" src="src/TestGame/MyGame.js"></script>
     <script type="text/javascript" src="src/TestGame/MyGame_LightControl.js"></script>
@@ -96,6 +101,17 @@
     <script type="text/javascript" src="src/TestGame/Objects/Brain.js"></script>
     <script type="text/javascript" src="src/TestGame/Objects/Minion.js"></script>
     <script type="text/javascript" src="src/TestGame/Objects/TextureObject.js"></script>
+
+    <!-- carousel-->
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <script src="application/three.min.js"></script>
+    <script src="application/Tween.js"></script>
+    <script src="assets/helvetiker_regular.typeface.js"></script>
+    <script src="application/Carousel.js"></script>
+    <script src="application/CarouselApplication.js"></script>
+
 
     <!-- bootstrap js requirements -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -123,6 +139,7 @@
         function StartGame(gameScene) {
 
             Hide("StartViewSnake");
+            Hide("StartViewHardSnake");
             Hide("StartViewPong");
             Hide("SettingsMenuView");
             Hide("SettingsButton");
@@ -134,10 +151,10 @@
             Show("GiveUpGame");
 
             ShowCanvas(gameScene);
-            var backgroundMusic = new Audio("assets/sounds/BGWaltz.mp3");
-            backgroundMusic.loop = true;
+            backgroundMusic.currentTime = 0;
             backgroundMusic.play();
         }
+
         function GetStartViewSnake() {
             Show("StartViewSnake");
             Show("SettingsButton");
@@ -160,31 +177,54 @@
 
 
         }
-
-        function getTileView() {
-            Show("TileView");
+        function GetStartViewHardSnake() {
+            Show("StartViewHardSnake");
             Show("SettingsButton");
-            Hide("StartViewSnake");
-            Hide("StartViewPong");
-            Hide("SettingsMenuView");
-            Hide("informationContainer");
             Hide("PauseButton");
+            Hide("TileView");
+            Hide("informationContainer");
             Hide("PauseMenu");
             Hide("InstructionsSnake");
 
 
-            HideCanvas();
-
-
-
         }
+        function GetStartViewOurTeam() {
+            Show("CarouselView");
+            Show("SettingsButton");
+            Hide("PauseButton");
+            Hide("TileView");
+            Hide("informationContainer");
+            Hide("PauseMenu");
+            Hide("InstructionsSnake");
+        }
+
+        function getTileView() {
+            backgroundMusic.pause();
+            Show("TileView");
+            Hide("SettingsButton");
+            Hide("StartViewSnake");
+            Hide("StartViewPong");
+            Hide("StartViewHardSnake");
+            Hide("SettingsMenuView");
+            Hide("CarouselView");
+            Hide("informationContainer");
+            Hide("PauseButton");
+            Hide("PauseMenu");
+            Hide("InstructionsSnake");
+            Hide("GiveUpGame");
+            Hide("PlayAgain");
+            HideCanvas();
+        }
+
         function PausePopUP() {
+
             Show("PauseMenu");
             Hide("PauseButton");
 
         }
 
         function ResumeGame() {
+
             Show("PauseButton");
             Hide("PauseMenu");
             Hide("InstructionsSnake");
@@ -211,8 +251,12 @@
                     let gameScene = new SnakeGame();
                     gEngine.Core.initializeEngineCore('GLCanvas', gameScene);
                 }
-                if (gameScene== "PongGame"){
+                if (gameScene == "PongGame") {
                     let gameScene = new PongGame();
+                    gEngine.Core.initializeEngineCore('GLCanvas', gameScene);
+                }
+                if (gameScene == "SnakeGameHard") {
+                    let gameScene = new SnakeGameHard();
                     gEngine.Core.initializeEngineCore('GLCanvas', gameScene);
                 }
 
@@ -227,6 +271,7 @@
             }
 
         }
+
         function Hide(name) {
             var x = document.getElementById(name);
             x.style.display = "none";
@@ -252,11 +297,53 @@
             Show("PlayAgain");
             Hide("GiveUpGame");
         }
+
+
         function PlayAgain() {
             gEngine.GameLoop.stop();
             Show("GiveUpGame");
             Hide("PlayAgain");
         }
+
+        function MusicON() {
+            Show("MusicON");
+            Hide("MusicOFF");
+            Show("SettingsMusicON");
+            Hide("SettingsMusicOFF");
+            backgroundMusic.muted = true;
+
+        }
+
+        function MusicOFF() {
+            Show("MusicOFF");
+            Hide("MusicON");
+            Show("SettingsMusicOFF");
+            Hide("SettingsMusicON");
+            backgroundMusic.muted = false;
+        }
+        function SoundFXON() {
+            Show("SoundFXON");
+            Hide("SoundFXOFF");
+            Show("SettingsSoundFXON");
+            Hide("SettingsSoundFXOFF");
+            eatenSound.muted = true;
+            gameOverSound.muted = true;
+
+        }
+        function SoundFXOFF() {
+            Show("SoundFXOFF");
+            Hide("SoundFXON");
+            Show("SettingsSoundFXOFF");
+            Hide("SettingsSoundFXON");
+            eatenSound.muted = false;
+            gameOverSound.muted = false;
+        }
+        function RestartSnake() {
+            gEngine.GameLoop.stop();
+            Hide("PauseMenu");
+            
+        }
+        
 
         document.addEventListener('keydown', function (event) {
             if (event.keyCode == 80) {
@@ -272,6 +359,8 @@
                 ResumeGame();
             }
         }
+
+
         );
 
 
@@ -280,7 +369,7 @@
 
 
 
-    <canvas hidden="hidden" id="GLCanvas" width="500" height="500">
+    <canvas hidden="hidden" id="GLCanvas" width="500" height="650">
         <!-- GLCanvas is the area we will draw in: a 640x480 area. -->
         Your browser does not support the HTML5 canvas.
         <!-- this message will show only if WebGL clearing failed -->
@@ -299,10 +388,14 @@
         <button id="PauseButton" class="button button1" onclick="PausePopUP()">Pause <kbd>P</kbd></button>;
     </nav>
     <div id="TileView">
-        <button class="Tilebutton Tilebutton1" onclick="GetStartViewSnake()"><img id="icon"
-                src="assets/snake_sprites/head_up.png"><br>Snake</button>
-        <button class="Tilebutton Tilebutton1" onclick="GetStartViewPong()"> <img id="icon"
-                src="assets/snake_sprites/pong.png"><br> Pong </button>
+        <button class="Tilebuttons Tilebuttons1" onclick="GetStartViewSnake()"><img id="icon"
+                src="assets/snake_sprites/head_up.png"><br>Snake Easy</button>
+        <button class="Tilebuttons Tilebuttons1" onclick="GetStartViewPong()"> <img id="icon"
+                src="assets/snake_sprites/pong.png"><br>Pong 1.0</button>
+        <button class="Tilebuttons Tilebuttons1" onclick="GetStartViewHardSnake()"> <img id="icon"
+                src="assets/snake_sprites/head_down.png"><br>Snake 2.0</button>
+        <button class="Tilebuttons Tilebuttons1" onclick="GetStartViewOurTeam()"> <img id="icon"
+                src="assets/snake_sprites/Red_Snake.png"><br>Our Team</button>
 
         <br><br>
         <p id="retroText">More retro games coming soon...</p>
@@ -314,12 +407,29 @@
         <button class="roundbutton roundbutton1" onclick="instructionsSnakePopUp()">?</button>
     </div>
     <div id="StartViewPong">
-        <button id="StartGameButton" class="Tilebutton Tilebutton1" onclick="StartGame('PongGame')">Start Game Pong</button>
+        <button id="StartGameButton" class="Tilebutton Tilebutton1" onclick="StartGame('PongGame')">Start Game
+            Pong</button>
+    </div>
+    <div id="StartViewHardSnake">
+        <button id="StartGameButton" class="Tilebutton Tilebutton1" onclick ="StartGame('SnakeGameHard')"> Start Game
+            Snake 2.0</button>
     </div>
 
+
     <div id="SettingsMenuView">
-        <button class="button button1">Music on</button>
-        <button class="button button1">Sound on</button>
+        <div id="SettingsMusicOFF">
+            <button id="MenuButtons" onclick="MusicON()" class="button button1">Turn music off</button>
+        </div>
+        <div id="SettingsMusicON">
+            <button id="MenuButtons" onclick="MusicOFF()" class="button button1">Turn music on</button>
+        </div>
+        <div id="SettingsSoundFXOFF">
+            <button id="MenuButtons" onclick="SoundFXON()" class="button button1">Turn SoundFX off</button>
+        </div>
+        <div id="SettingsSoundFXON">
+            <button id="MenuButtons" onclick="SoundFXOFF()" class="button button1">Turn SoundFX on</button>
+        </div>
+
     </div>
 
     <div id="informationContainer">
@@ -337,12 +447,25 @@
 
     <div id="PauseMenu">
         <br>
-        <button class="button button1" onclick="ResumeGame()">Resume Game <kbd>Q</kbd></button><br>
-        <button class="button button1">Music on</button><br>
-        <button class="button button1">Sound on</button><br>
+        <button id="MenuButtons" class="button button1" onclick="ResumeGame()">Resume Game <kbd>Q</kbd></button><br>
+        <div id="MusicOFF">
+            <button id="MenuButtons" onclick="MusicON()" class="button button1">Turn Music off</button>
+        </div>
+        <div id="MusicON">
+            <button id="MenuButtons" onclick="MusicOFF()" class="button button1">Turn Music on </button>
+        </div>
+        <div id="SoundFXOFF">
+            <button id="MenuButtons" onclick="SoundFXON()" class="button button1">Turn SoundFX off</button>
+        </div>
+        <div id="SoundFXON">
+            <button id="MenuButtons" onclick="SoundFXOFF()" class="button button1">Turn SoundFX on </button>
+        </div>
+        <div id="Restart">
+             <buttom id="Restart" onclick="RestartSnake()" class="button button1">Restart</buttom>
+         </div>
         <button class="roundbutton roundbutton1" onclick="instructionsSnakePopUp()">?</button>
     </div>
-
+     
     <div id="GiveUpGame">
         <button class="button button1" onclick="GiveUpGame()">Give up!</button>
     </div>
@@ -358,6 +481,37 @@
         <a>Use <strong>WASD</strong> keys or <strong>UP/DOWN/LEFT/RIGHT</strong> arrow keys. </a>
         <a>Your goal is to eat as many apples as you can. Eating an apple increases your snake's length!</a>
     </div>
+
+
+    <div id="CarouselView">
+        <div id="aside" style="position:absolute;z-index:100;width:200px;">
+            <ul id="retroText">
+                <li>Drag Mouse left-right to rotate Carousel</li>
+                <li>Double Click on item to bring to front</li>
+            </ul>
+        </div>
+
+        <div id="container" style="margin:0 auto;padding:0;cursor:pointer"></div>
+    </div>
+
+    <script type="text/javascript">
+        //<![CDATA[
+
+        CarouselApplication.init([
+            { url: 'assets/placards/1.jpg', caption: 'Karthik', width: 200, height: 150 },
+            { url: 'assets/placards/2.jpg', caption: 'Diarmuid', width: 200, height: 150 },
+            { url: 'assets/placards/3.jpg', caption: 'Victoria', width: 200, height: 150 },
+            { url: 'assets/placards/4.jpg', caption: 'Isioma', width: 200, height: 150 },
+            { url: 'assets/placards/5.jpg', caption: 'Liam', width: 200, height: 150 },
+            { url: 'assets/placards/6.jpg', caption: 'Sean', width: 200, height: 150 },
+            { url: 'assets/placards/7.jpg', caption: 'Henry', width: 200, height: 150 },
+            { url: 'assets/placards/8.jpg', caption: 'Robby', width: 200, height: 150 },
+            { url: 'assets/placards/9.jpg', caption: 'Jason', width: 200, height: 150 },
+
+        ]);
+
+    //]]>
+    </script>
 
 
 

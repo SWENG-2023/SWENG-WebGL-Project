@@ -4,7 +4,7 @@
 
 function Snake(spriteTexture) {
 
-    this.mSnake= new TextureRenderable(spriteTexture);
+    this.mSnake= new LightRenderable(spriteTexture);
     this.mSnake.setColor([1, 1, 1, 0]);
 
     let initCoords = this.getSquareCoords(5, 10);
@@ -58,12 +58,7 @@ Snake.prototype.takeInput = function () {
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Right) && this.mLastLetter != "Left") {
         this.mLastLetter = "Right";
     }
-    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.R)) {
-        let coords = this.getSquareCoords(10, 10);
-        xform.setPosition(coords[0], coords[1]);
-        this.mFrameCounter = 0;
-        this.mLastLetter = "R";
-    }
+    
 };
 
 Snake.prototype.update = function () {

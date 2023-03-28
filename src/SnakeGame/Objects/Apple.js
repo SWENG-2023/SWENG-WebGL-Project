@@ -4,7 +4,7 @@
 
 function Apple(spriteTexture, snakeHead) {
     this.mSnakeHead = snakeHead;
-    this.mApple = new TextureRenderable(spriteTexture);
+    this.mApple = new LightRenderable(spriteTexture);
     this.score = 0;
     this.mApple.setColor([1,1,1,0]);
     this.mApple.getXform().setSize(12,12);
