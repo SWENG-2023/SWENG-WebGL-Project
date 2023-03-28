@@ -52,11 +52,11 @@ Paddle.prototype.takeInput = function () {
 
 Paddle.prototype.update = function(){
         GameObject.prototype.update.call(this);
-        if(this.mPaddle.getXform().getXPos() <= 8 && this.mLastLetter == 'A')
+        if(this.mPaddle.getXform().getXPos() <= 28 && this.mLastLetter == 'A')
         {
             this.setSpeed(0);
         }
-    else  if(this.mPaddle.getXform().getXPos() >= 248 && this.mLastLetter == 'D')
+    else  if(this.mPaddle.getXform().getXPos() >= 228 && this.mLastLetter == 'D')
         {
             this.setSpeed(0);
         }
