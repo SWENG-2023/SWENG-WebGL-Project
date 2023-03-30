@@ -358,22 +358,27 @@
         
 
         document.addEventListener('keydown', function (event) {
+            var x=document.getElementById("PauseMenu");
             if (event.keyCode == 80) {
+                if(x.style.display==="block"){
+                    ResumeGame();
+                
+                }
+                else{
                 PausePopUP();
+                }
+                
+                
             }
         }
         );
 
 
 
-        document.addEventListener('keydown', function (event) {
-            if (event.keyCode == 81) {
-                ResumeGame();
-            }
-        }
+        
 
 
-        );
+        
 
 
 
@@ -466,7 +471,7 @@
 
     <div id="PauseMenu">
         <br>
-        <button id="MenuButtons" class="button button1" onclick="ResumeGame()">Resume Game <kbd>Q</kbd></button><br>
+        <button id="MenuButtons" class="button button1" onclick="ResumeGame()">Resume Game <kbd>P</kbd></button><br>
         <div id="MusicOFF">
             <button id="MenuButtons" onclick="MusicON()" class="button button1">Turn Music off</button>
         </div>
