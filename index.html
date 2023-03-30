@@ -13,6 +13,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
+    <!--Font Awesome import-->
+    <script src="https://kit.fontawesome.com/3507498930.js" crossorigin="anonymous"></script>
 
     <!-- the following says there are javascript source code contained in 
              the external source files-->
@@ -137,7 +139,7 @@
     <script>
 
         function StartGame(gameScene) {
-
+                
             Hide("StartViewSnake");
             Hide("StartViewHardSnake");
             Hide("StartViewPong");
@@ -208,6 +210,8 @@
             Hide("SettingsMenuView");
             Hide("CarouselView");
             Hide("informationContainer");
+            Hide("InstructionHelp1");
+            Hide("InstructionHelp2");
             Hide("PauseButton");
             Hide("PauseMenu");
             Hide("InstructionsSnake");
@@ -236,6 +240,14 @@
         }
         function informationPopUp() {
             ShowHide("informationContainer");
+        }
+
+        function InstructionHelp1Popup(){
+            ShowHide("InstructionHelp1");
+        }
+
+        function InstructionHelp2Popup(){
+            ShowHide("InstructionHelp2");
         }
 
         function instructionsSnakePopUp() {
@@ -437,7 +449,14 @@
         <a id="qualcomm" href="https://www.qualcomm.com/home"><img id="qualcommIMG"
                 src="assets/snake_sprites/Qualcomm_logo.png"></a><br>
         <a id="github" href="https://github.com/SWENG-2023/SWENG-WebGL-Project">github</a>
+    </div>
 
+    <div id="InstructionHelp1">
+        <a>Click and Drag to Rotate</a>
+    </div>
+
+    <div id="InstructionHelp2">
+        <a>Double Click to Center</a>
     </div>
 
     <div id="informationButton">
@@ -486,8 +505,18 @@
     <div id="CarouselView">
         <div id="aside" style="position:absolute;z-index:100;width:200px;">
             <ul id="retroText">
-                <li>Drag Mouse left-right to rotate Carousel</li>
-                <li>Double Click on item to bring to front</li>
+                <li>
+                    <i class="fa-solid fa-right-left" onclick="InstructionHelp1Popup()"></i>
+                    <i class="fa-solid fa-computer-mouse" onclick="InstructionHelp1Popup()"></i>
+                    <i class="fa-solid fa-arrow-right" onclick="InstructionHelp1Popup()"></i>
+                    <i class="fa-solid fa-arrows-rotate" onclick="InstructionHelp1Popup()"></i>
+                </li>
+                <li>
+                    <i class="fa-solid fa-2"></i>
+                    <i class="fa-solid fa-computer-mouse"></i>
+                    <i class="fa-solid fa-arrow-right"></i>
+                    <i class="fa-solid fa-arrows-to-eye" style="color: #6cbd30;"></i>
+                </li>
             </ul>
         </div>
 
