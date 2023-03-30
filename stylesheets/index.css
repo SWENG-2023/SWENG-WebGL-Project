@@ -92,6 +92,7 @@ canvas {
 }
 #text{
     font-size:1vw;
+    
 }
 
 #MainButton{ 
@@ -109,8 +110,9 @@ canvas {
         cursive;
     height: auto;
     padding-top: auto;
+    left:31%;
     position: fixed;
-    left: 25%;
+    
 }
 
 #qualcomm {
