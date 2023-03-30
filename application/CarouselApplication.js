@@ -179,8 +179,8 @@
             var w,h;
             
             container=document.getElementById('container');
-            w=window.innerWidth;
-            h=window.innerHeight;
+            w=window.innerWidth-100;
+            h=window.innerHeight-100;
             container.style.width=w+"px";
             container.style.height=h+"px";
             container.style.marginTop=0.5*(window.innerHeight-h)+'px';
