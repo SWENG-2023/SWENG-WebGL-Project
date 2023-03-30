@@ -16,6 +16,49 @@ canvas {
     left: 16px;
     display: none;
 }
+#MenuButtons {
+    width:80%;
+}
+
+#MusicOFF{ 
+    display: block;
+}
+
+#MusicON{ 
+    display: none;
+}
+
+#SettingsMusicON{
+    display: none;
+}
+
+#SettingsMusicOFF{ 
+    display: block;
+}
+
+#SoundFXOFF{
+    display: block;
+}
+
+#SoundFXON{
+    display: none;
+}
+
+#SettingsSoundFXOFF{
+    display: block;
+}
+
+#SettingsSoundFXON{
+    display: none;
+}
+
+
+
+
+
+#CarouselView{
+    display:none;
+}
 
 #PlayAgain {
     position: fixed;
@@ -27,7 +70,7 @@ canvas {
 #SettingsButton {
     position: absolute;
     right: 2%;
-    display: block;
+    display: none;
 }
 
 #PauseButton {
@@ -119,6 +162,15 @@ canvas {
     border-radius: 12px;
 
 }
+#InstructionHelp1{
+    color:#6cbd30;
+    display:none;
+}
+
+#InstructionHelp2{
+    color:#6cbd30;
+    display:none;
+}
 
 #informationButton {
     position: fixed;
@@ -145,6 +197,18 @@ canvas {
 }
 
 #StartViewSnake {
+    width: 50%;
+    position: absolute;
+    left: 25%;
+    padding: 50px 0;
+    text-align: center;
+    background-color: grey;
+    margin-top: 20px;
+    display: none;
+    border-radius: 12px;
+
+}
+#StartViewHardSnake {
     width: 50%;
     position: absolute;
     left: 25%;
@@ -238,6 +302,38 @@ canvas {
 }
 
 .Tilebutton1:hover {
+
+    cursor: pointer;
+    background-color: #6cbd30;
+    color: white;
+}
+.Tilebuttons {
+    border: none;
+    color: #6cbd30;
+    width:180px;
+    height:180px;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-family: 'Press Start 2P';
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-radius: 12px;
+    box-shadow: 1px 1px 3px 2px #383942;
+    -webkit-box-shadow: 1px 1px 3px 2px #383942;
+    -moz-box-shadow: 1px 1px 3px 2px #383942;
+}
+
+.Tilebuttons1 {
+    background-color: black;
+    color: #6cbd30;
+    border: 2px solid #6cbd30;
+}
+
+.Tilebuttons1:hover {
 
     cursor: pointer;
     background-color: #6cbd30;
