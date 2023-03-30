@@ -162,6 +162,15 @@ canvas {
     border-radius: 12px;
 
 }
+#InstructionHelp1{
+    color:#6cbd30;
+    display:none;
+}
+
+#InstructionHelp2{
+    color:#6cbd30;
+    display:none;
+}
 
 #informationButton {
     position: fixed;
