@@ -153,33 +153,36 @@
 
     //
 
-    function animate() 
+    function animate2() 
     {
-        requestAnimationFrame( animate );
-        render();
+        requestAnimationFrame( animate2 );
+        render2();
     }
-  
     
-    function render() 
+    function render2() 
     {
         if (carouselupdate)
             carousel.rotation.y += ( targetRotationY - carousel.rotation.y ) * 0.05;
         if (updatecamera && Math.abs(mouse.y-prevmouse.y)>Math.abs(mouse.x-prevmouse.x))
             camera.position.z +=  (mouse.y-prevmouse.y)*20;
-        renderer.render( scene, camera );
+        renderer.render2( scene, camera );
         updatecamera=false;
         //carouselupdate=true;
         TWEEN.update();
     }
-   
     
+    function stop() 
+    {
+        window.cancelAnimationFrame();
+    }
     
     // main Application Object
     var self={
     
         init: function(images)  {
             var w,h;
-            container=document.getElementById('container');
+            
+            container=document.getElementById('container1');
             w=window.innerWidth;
             h=window.innerHeight;
             container.style.width=w+"px";
@@ -195,7 +198,7 @@
             renderer.setSize( w, h );
 
             // Carousel
-            carousel=new Carousel(200, images, 150, 100);
+            carousel=new featuredCarousel(100, images, 75, 50);
             scene.add( carousel );
 
             container.appendChild( renderer.domElement );
@@ -205,14 +208,14 @@
             container.addEventListener( 'touchstart', onDocumentTouchStart, false );
             container.addEventListener( 'touchmove', onDocumentTouchMove, false );
             
-            animate();
+            animate2();
         },
         
-        animate : animate
+        animate2 : animate2
     };
 
 
     
     // export it
-    window.CarouselApplication=self;
+    window.featuredCarouselApplication=self;
 })(window);

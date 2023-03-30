@@ -110,6 +110,8 @@
     <script src="assets/helvetiker_regular.typeface.js"></script>
     <script src="application/Carousel.js"></script>
     <script src="application/CarouselApplication.js"></script>
+    <script src="application/featuredCarouselApplication.js"></script>
+    <script src="application/featuredCarousel.js"></script>
 
 
     <!-- bootstrap js requirements -->
@@ -387,6 +389,9 @@
         <button id="PauseButton" class="button button1" onclick="PausePopUP()">Pause <kbd>P</kbd></button>;
     </nav>
     <div id="TileView">
+        <div id="MenuCarousel">
+            <div id="container1" style="margin:0 auto;padding:0;cursor:pointer"></div>
+      </div>
         <button class="Tilebuttons Tilebuttons1" onclick="GetStartViewSnake()"><img id="icon"
                 src="assets/snake_sprites/head_up.png"><br>Snake Easy</button>
         <button class="Tilebuttons Tilebuttons1" onclick="GetStartViewPong()"> <img id="icon"
@@ -511,7 +516,18 @@
 
     //]]>
     </script>
+   <script type="text/javascript">
+    //<![CDATA[`
+    CarouselApplication.stop();
+    featuredCarouselApplication.init([
+        { url: 'assets/snake_sprites/head_up.png', caption: 'Snake', width: 200, height: 150 },
+        { url: 'assets/snake_sprites/pong.png', caption: 'Pong', width: 200, height: 150 },
+        { url: 'assets/snake_sprites/head_down.png', caption: 'Snake 2.0', width: 200, height: 150 },
+ 
+    ]);
 
+//]]>
+</script>
 
 
 </body>
