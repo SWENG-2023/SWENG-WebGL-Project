@@ -132,6 +132,8 @@
             border: 1px solid #6cbd30;
         }
     </style>
+    <!-- viewport set-UP-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 </body>
 
@@ -201,6 +203,7 @@
         }
 
         function getTileView() {
+            booleanPause=1;
             backgroundMusic.pause();
             Show("TileView");
             Hide("SettingsButton");
@@ -221,14 +224,15 @@
         }
 
         function PausePopUP() {
-
+            booleanPause =-1;
             Show("PauseMenu");
             Hide("PauseButton");
 
         }
+        
 
         function ResumeGame() {
-
+            booleanPause =1;
             Show("PauseButton");
             Hide("PauseMenu");
             Hide("InstructionsSnake");
@@ -385,20 +389,20 @@
     </script>
 
 
-
+    
     <canvas hidden="hidden" id="GLCanvas" width="500" height="650">
         <!-- GLCanvas is the area we will draw in: a 640x480 area. -->
         Your browser does not support the HTML5 canvas.
         <!-- this message will show only if WebGL clearing failed -->
     </canvas>
-    <nav class="navbar navbar-light" style="background-color: black;">
+    <nav class="navbar navbar-light" style="background-color: black; padding-top:1%; padding-bottom:1%">
 
         <!-- Navbar content -->
 
-        <button class=" button button1" onclick="getTileView()">Main Menu</button>
+        <button  id="MainButton" class=" button button1" onclick="getTileView()">Main Menu</button>
 
         <flex id="retroflexTitle2">
-            <a id="retroTextTitel">SWENG Group 18 - WebGL Game Development</a>
+            <a id="text">SWENG Group 18 - WebGL Game Development</a>
         </flex>
 
         <button id="SettingsButton" class="button button1" onclick="SettingsPopUP()"> Settings</button>
@@ -419,16 +423,15 @@
     </div>
 
     <div id="StartViewSnake">
-        <button id="StartGameButton" class="Tilebutton Tilebutton1" onclick="StartGame('SnakeGame')">Start Game
-            Snake</button><br>
-        <button class="roundbutton roundbutton1" onclick="instructionsSnakePopUp()">?</button>
+        <button id="MenuButtons" class="Tilebutton Tilebutton1" onclick="StartGame('SnakeGame')">Start Game
+            Snake</button>
     </div>
     <div id="StartViewPong">
-        <button id="StartGameButton" class="Tilebutton Tilebutton1" onclick="StartGame('PongGame')">Start Game
+        <button id="MenuButtons" class="Tilebutton Tilebutton1" onclick="StartGame('PongGame')">Start Game
             Pong</button>
     </div>
     <div id="StartViewHardSnake">
-        <button id="StartGameButton" class="Tilebutton Tilebutton1" onclick ="StartGame('SnakeGameHard')"> Start Game
+        <button id="MenuButtons" class="Tilebutton Tilebutton1" onclick ="StartGame('SnakeGameHard')"> Start Game
             Snake 2.0</button>
     </div>
 
@@ -485,7 +488,7 @@
             <button id="MenuButtons" onclick="SoundFXOFF()" class="button button1">Turn SoundFX on </button>
         </div>
         <div id="Restart">
-             <buttom id="Restart" onclick="RestartSnake()" class="button button1">Restart</buttom>
+             <buttom id="MenuButtons" onclick="RestartSnake()" class="button button1">Restart</buttom>
          </div>
         <button class="roundbutton roundbutton1" onclick="instructionsSnakePopUp()">?</button>
     </div>
