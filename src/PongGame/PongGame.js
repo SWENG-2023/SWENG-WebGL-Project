@@ -164,7 +164,7 @@ PongGame.prototype.update = function(){
     this.mEnemyPaddle.update();
     this.mPaddle.update();
 
-    if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Escape)) { 
+    if(gEngine.Input.isKeyClicked(gEngine.Input.keys.P)) { 
         this.mBall.pauseGame ^= 1;
     } 
     if(this.mBall.pauseGame == 0) {
