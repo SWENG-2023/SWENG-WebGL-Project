@@ -264,14 +264,20 @@
             if (hidden) {
                 canvas.removeAttribute("hidden");
                 if (gameScene == "SnakeGame") {
+                    let x = document.getElementById('GLCanvas');
+                    x.height = 650;
                     let gameScene = new SnakeGame();
                     gEngine.Core.initializeEngineCore('GLCanvas', gameScene);
                 }
                 if (gameScene == "PongGame") {
+                    let x = document.getElementById('GLCanvas');
+                    x.height = 500;
                     let gameScene = new PongGame();
                     gEngine.Core.initializeEngineCore('GLCanvas', gameScene);
                 }
                 if (gameScene == "SnakeGameHard") {
+                    let x = document.getElementById('GLCanvas');
+                    x.height = 650;
                     let gameScene = new SnakeGameHard();
                     gEngine.Core.initializeEngineCore('GLCanvas', gameScene);
                 }
