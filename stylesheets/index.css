@@ -1,8 +1,9 @@
 canvas {
     position: absolute;
-    width:25%;
+    width:30%; 
     height:auto;
-    top: 55%;
+    
+    top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);
 
@@ -14,20 +15,15 @@ canvas {
 
 #GiveUpGameS1 {
     position: fixed;
-    top: 50%;
-    left: 3%;
+    top: 40%;
+    left: 17.5%;
     display: none;
 }
-#GiveUpGameP1 {
-    position: fixed;
-    top: 50%;
-    left: 3%;
-    display: none;
-}
+
 #GiveUpGameS2 {
     position: fixed;
-    top: 50%;
-    left: 3%;
+    top: 40%;
+    left: 17.5%;
     display: none;
 }
 #MenuButtons {
@@ -76,20 +72,15 @@ canvas {
 
 #PlayAgainS1 {
     position: fixed;
-    top: 50%;
-    left: 3%;
+    top: 40%;
+    left: 17.5%;
     display: none;
 }
-#PlayAgainP1 {
-    position: fixed;
-    top: 50%;
-    left: 3%;
-    display: none;
-}
+
 #PlayAgainS2 {
     position: fixed;
-    top: 50%;
-    left: 3%;
+    top: 40%;
+    left: 17.5%;
     display: none;
 }
 

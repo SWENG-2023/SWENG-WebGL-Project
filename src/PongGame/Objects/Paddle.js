@@ -40,7 +40,7 @@ Paddle.prototype.takeInput = function () {
         this.mLastLetter = "D";
 
     }
-    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.R)) {
+   /* if (gEngine.Input.isKeyPressed(gEngine.Input.keys.R)) {
         let coords = this.getSquareCoords(8, 1);
         xform.setPosition(coords[0], coords[1]);
         this.mFrameCounter = 0;
@@ -48,6 +48,7 @@ Paddle.prototype.takeInput = function () {
         this.setSpeed(16/10);
 
     }
+    */
 };
 
 Paddle.prototype.update = function(){

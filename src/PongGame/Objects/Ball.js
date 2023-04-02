@@ -82,10 +82,11 @@ Ball.prototype.takeInput = function (){
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.R)) {
         // this.rotation = 315+Math.random()*90;
         // this.mBall.getXform().setRotationInDegree(this.rotation);
-        this.mBall.getXform().setPosition(128,128);
-        this.angleToVector(225+Math.random()*90);
+       // this.mBall.getXform().setPosition(128,128);
+       // this.angleToVector(225+Math.random()*90);
     }
 };
+
 
 Ball.prototype.update = function(){
     if(this.roundOver == 1) {

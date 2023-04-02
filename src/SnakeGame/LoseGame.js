@@ -108,8 +108,8 @@ LoseGame.prototype.update = function () {
 
     this.mScoreMsg.setText(scoreMsg + this.mScore);
 
-    if(gEngine.Input.isKeyPressed(gEngine.Input.keys.R)){
+    /*if(gEngine.Input.isKeyPressed(gEngine.Input.keys.R)){
         gEngine.GameLoop.stop();
-    }
+    }*/
 
 };

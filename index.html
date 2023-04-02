@@ -221,8 +221,6 @@
             Hide("InstructionsSnake");
             Hide("GiveUpGameS1");
             Hide("PlayAgainS1");
-            Hide("GiveUpGameP1");
-            Hide("PlayAgainP1");
             Hide("GiveUpGameS2");
             Hide("PlayAgainS2");
             HideCanvas();
@@ -232,6 +230,7 @@
             booleanPause =-1;
             Show("PauseMenu");
             Hide("PauseButton");
+            
 
         }
         
@@ -285,7 +284,6 @@
                     x.height = 500;
                     let gameScene = new PongGame();
                     gEngine.Core.initializeEngineCore('GLCanvas', gameScene);
-                    Show("GiveUpGameP1");
                     gameChoice=2;
                     window.gameChoice=gameChoice;
                 }
@@ -343,14 +341,7 @@
         }
 
         
-        function GiveUpGameP1() {      
-            Show("PlayAgainP1");
-            Hide("GiveUpGameP1");
-        }
-        function PlayAgainP1() {
-            Show("GiveUpGameP1");
-            Hide("PlayAgainP1");
-        }
+        
 
 
         function GiveUpGameS2() {
@@ -516,6 +507,24 @@ var inGame=false;
     </div>
 
 
+    
+     
+    <div id="GiveUpGameS1">
+        <button class="button button1" onclick="GiveUpGameS1()">Play again</button>
+    </div>
+
+    <div id="PlayAgainS1">
+        <button class="button button1" onclick="PlayAgainS1()">Play again</button>
+    </div>
+
+    <div id="GiveUpGameS2">
+        <button class="button button1" onclick="GiveUpGameS2()">Play again</button>
+    </div>
+
+    <div id="PlayAgainS2">
+        <button class="button button1" onclick="PlayAgainS2()">Play again</button>
+    </div>
+    
     <div id="PauseMenu">
         <br>
         <button id="MenuButtons" class="button button1" onclick="ResumeGame()">Resume Game <kbd>P</kbd></button><br>
@@ -535,29 +544,6 @@ var inGame=false;
              <buttom id="MenuButtons" onclick="RestartSnake()" class="button button1">Restart</buttom>
          </div>
         <button class="roundbutton roundbutton1" onclick="instructionsSnakePopUp()">?</button>
-    </div>
-     
-    <div id="GiveUpGameS1">
-        <button class="button button1" onclick="GiveUpGameS1()">Play again</button>
-    </div>
-
-    <div id="PlayAgainS1">
-        <button class="button button1" onclick="PlayAgainS1()">Play again</button>
-    </div>
-
-    <div id="GiveUpGameP1">
-        <button class="button button1" onclick="GiveUpGameP1()">Play again<kbd>R</kbd></button>
-    </div>
-
-    <div id="PlayAgainP1">
-        <button class="button button1" onclick="PlayAgainP1()">Play again<kbd>R</kbd></button>
-    </div>
-    <div id="GiveUpGameS2">
-        <button class="button button1" onclick="GiveUpGameS2()">Play again</button>
-    </div>
-
-    <div id="PlayAgainS2">
-        <button class="button button1" onclick="PlayAgainS2()">Play again</button>
     </div>
 
 
