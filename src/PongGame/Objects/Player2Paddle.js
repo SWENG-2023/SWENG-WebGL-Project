@@ -3,27 +3,27 @@
 
 
 
-function EnemyPaddle(spriteTexture, ball){
-    this.mEnemyPaddle = new TextureRenderable(spriteTexture);
+function Player2Paddle(spriteTexture, ball){
+    this.mPlayer2Paddlee = new TextureRenderable(spriteTexture);
     this.mBall = ball
-    this.mEnemyPaddle.setColor([1,1,1,0]);
+    this.mPlayer2Paddle.setColor([1,1,1,0]);
     let initCoords = this.getSquareCoords(8,16);
-    this.mEnemyPaddle.getXform().setPosition(initCoords[0],initCoords[1]);
-    this.mEnemyPaddle.getXform().setSize(14,58);
+    this.mPlayer2Paddle.getXform().setPosition(initCoords[0],initCoords[1]);
+    this.mPlayer2Paddle.getXform().setSize(14,58);
     
     this.mLastLetter="A";
     this.mFrameCounter = 0;
     this.mFrameUpdateInterval = 10;
-    GameObject.call(this, this.mEnemyPaddle)
+    GameObject.call(this, this.mPlayer2Paddle)
 
     this.setSpeed(16/10);
-    this.mEnemyPaddle.getXform().setRotationInDegree(90);
+    this.mPlayer2Paddle.getXform().setRotationInDegree(90);
     vec2.set(this.getCurrentFrontDir(), -1, 0);
     this.wiggleTimer = 0;
 }
-gEngine.Core.inheritPrototype(EnemyPaddle, GameObject);
+gEngine.Core.inheritPrototype(Player2Paddle, GameObject);
 
-EnemyPaddle.prototype.getSquareCoords = function (xSquare, ySquare){
+Player2Paddle.prototype.getSquareCoords = function (xSquare, ySquare){
     let coordsArray = [];
 
     // 1-indexed, 16 * 16 grid, gets the middle of squares
@@ -32,7 +32,7 @@ EnemyPaddle.prototype.getSquareCoords = function (xSquare, ySquare){
     return coordsArray;
 }
 
-EnemyPaddle.prototype.takeInput = function () {
+Player2Paddle.prototype.takeInput = function () {
     var xform = this.getXform();
 
     if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Left)) {
@@ -43,7 +43,7 @@ EnemyPaddle.prototype.takeInput = function () {
     }
 };
 
-EnemyPaddle.prototype.update = function(){
+Player2Paddle.prototype.update = function(){
     if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Escape)) { 
         this.mBall.pauseGame ^= 1;
     } 

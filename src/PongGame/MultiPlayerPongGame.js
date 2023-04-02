@@ -26,9 +26,9 @@ function MultiPlayerPongGame() {
     this.mGridSegments = null;
     this.mBg = null;
 }
-gEngine.Core.inheritPrototype(PongGame, Scene)
+gEngine.Core.inheritPrototype(MultiPlayerPongGame, Scene)
 
-PongGame.prototype.loadScene = function(){
+MultiPlayerPongGame.prototype.loadScene = function(){
     gEngine.Textures.loadTexture(this.kBallSprite);
     gEngine.Textures.loadTexture(this.kSnakeSegmentSprite);
     gEngine.Textures.loadTexture(this.kEnemySnakeSegmentSprite);
@@ -36,7 +36,7 @@ PongGame.prototype.loadScene = function(){
     gEngine.Textures.loadTexture(this.kEnemySnake);
     gEngine.Textures.loadTexture(this.kBgSprite);
 };
-PongGame.prototype.unloadScene = function(){
+MultiPlayerPongGame.prototype.unloadScene = function(){
     gEngine.Textures.unloadTexture(this.kBallSprite);
     gEngine.Textures.unloadTexture(this.kSnakeSegmentSprite);
     gEngine.Textures.unloadTexture(this.kEnemySnakeSegmentSprite);
@@ -44,7 +44,7 @@ PongGame.prototype.unloadScene = function(){
     gEngine.Textures.unloadTexture(this.kEnemySnake);
 };
 
-PongGame.prototype.initialize = function () {
+MultiPlayerPongGame.prototype.initialize = function () {
     // Step A: set up the cameras
     this.mCamera = new Camera(
         vec2.fromValues(128, 128), // position of the camera
@@ -126,7 +126,7 @@ PongGame.prototype.initialize = function () {
 //     this.mSegments.push(newSegment);
 // }
 
-PongGame.prototype.draw = function () {
+MultiPlayerPongGame.prototype.draw = function () {
     // Step A: clear the canvas
     gEngine.Core.clearCanvas([0.9, 0.9, 0.9, 1.0]); // clear to light gray
 
@@ -151,7 +151,7 @@ PongGame.prototype.draw = function () {
     this.mPausedMsg.draw(this.mCamera);
 };
 
-PongGame.prototype.update = function(){
+MultiPlayerPongGame.prototype.update = function(){
     let msg = "Last pressed command: ";
     let fpsMsg = "Frame Counter: ";
     let scoreMsg = "Collisions: ";
