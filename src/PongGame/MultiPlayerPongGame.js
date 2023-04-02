@@ -168,8 +168,18 @@ MultiPlayerPongGame.prototype.update = function(){
         this.mBall.pauseGame ^= 1;
     } 
         // this.mScoreMsg.setText(scoreMsg + this.mBall.collideCount);
-
-    this.mFrameCounter++;
+        if(this.mBall.pauseGame == 0) {
+            for (let i = this.mSegments.length-1; i >= 0; i--) {
+                this.mSegments[i].update();
+            }
+            // this.mScoreMsg.setText(scoreMsg + this.mBall.collideCount);
+    
+            this.mFrameCounter++;
+            if(this.mFrameCounter == 10){
+                this.mFrameCounter = 0;
+                this.makeSegment();
+            }   
+        }
     this.mEnemyScoreMsg.setText(enemyScoreMsg + this.mBall.enemyScore);
     this.mPlayerScoreMsg.setText(playerScoreMsg + this.mBall.playerScore);
     // this.mInputMsg.setText(msg + this.mPaddle.mLastLetter);

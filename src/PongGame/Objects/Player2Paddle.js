@@ -4,7 +4,7 @@
 
 
 function Player2Paddle(spriteTexture, ball){
-    this.mPlayer2Paddlee = new TextureRenderable(spriteTexture);
+    this.mPlayer2Paddle = new TextureRenderable(spriteTexture);
     this.mBall = ball
     this.mPlayer2Paddle.setColor([1,1,1,0]);
     let initCoords = this.getSquareCoords(8,16);
