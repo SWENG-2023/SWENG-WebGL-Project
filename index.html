@@ -152,7 +152,7 @@
             Hide("PauseMenu");
             Hide("InstructionsSnake");
             Show("PauseButton");
-            Show("GiveUpGame");
+            
 
             ShowCanvas(gameScene);
             backgroundMusic.currentTime = 0;
@@ -204,6 +204,7 @@
 
         function getTileView() {
             booleanPause=1;
+            inGame=false;
             backgroundMusic.pause();
             Show("TileView");
             Hide("SettingsButton");
@@ -218,8 +219,12 @@
             Hide("PauseButton");
             Hide("PauseMenu");
             Hide("InstructionsSnake");
-            Hide("GiveUpGame");
-            Hide("PlayAgain");
+            Hide("GiveUpGameS1");
+            Hide("PlayAgainS1");
+            Hide("GiveUpGameP1");
+            Hide("PlayAgainP1");
+            Hide("GiveUpGameS2");
+            Hide("PlayAgainS2");
             HideCanvas();
         }
 
@@ -258,7 +263,10 @@
             ShowHide("InstructionsSnake");
         }
 
+        var gameChoice=0;
+       
         function ShowCanvas(gameScene) {
+            inGame=true;
             let canvas = document.getElementById("GLCanvas");
             let hidden = canvas.getAttribute("hidden");
             if (hidden) {
@@ -268,18 +276,27 @@
                     x.height = 650;
                     let gameScene = new SnakeGame();
                     gEngine.Core.initializeEngineCore('GLCanvas', gameScene);
+                    Show("GiveUpGameS1");
+                    gameChoice=1;
+                    window.gameChoice=gameChoice;
                 }
                 if (gameScene == "PongGame") {
                     let x = document.getElementById('GLCanvas');
                     x.height = 500;
                     let gameScene = new PongGame();
                     gEngine.Core.initializeEngineCore('GLCanvas', gameScene);
+                    Show("GiveUpGameP1");
+                    gameChoice=2;
+                    window.gameChoice=gameChoice;
                 }
                 if (gameScene == "SnakeGameHard") {
                     let x = document.getElementById('GLCanvas');
                     x.height = 650;
                     let gameScene = new SnakeGameHard();
                     gEngine.Core.initializeEngineCore('GLCanvas', gameScene);
+                    Show("GiveUpGameS2");
+                    gameChoice=3;
+                    window.gameChoice=gameChoice;
                 }
 
             }
@@ -314,17 +331,37 @@
             }
         }
 
-        function GiveUpGame() {
+        function GiveUpGameS1() {
             gEngine.GameLoop.stop();
-            Show("PlayAgain");
-            Hide("GiveUpGame");
+            Show("PlayAgainS1");
+            Hide("GiveUpGameS1");
+        }
+        function PlayAgainS1() {
+            gEngine.GameLoop.stop();
+            Show("GiveUpGameS1");
+            Hide("PlayAgainS1");
+        }
+
+        
+        function GiveUpGameP1() {      
+            Show("PlayAgainP1");
+            Hide("GiveUpGameP1");
+        }
+        function PlayAgainP1() {
+            Show("GiveUpGameP1");
+            Hide("PlayAgainP1");
         }
 
 
-        function PlayAgain() {
+        function GiveUpGameS2() {
             gEngine.GameLoop.stop();
-            Show("GiveUpGame");
-            Hide("PlayAgain");
+            Show("PlayAgainS2");
+            Hide("GiveUpGameS2");
+        }
+        function PlayAgainS2() {
+            gEngine.GameLoop.stop();
+            Show("GiveUpGameS2");
+            Hide("PlayAgainS2");
         }
 
         function MusicON() {
@@ -366,10 +403,10 @@
             
         }
         
-
+var inGame=false;
         document.addEventListener('keydown', function (event) {
             var x=document.getElementById("PauseMenu");
-            if (event.keyCode == 80) {
+            if (event.keyCode == 80&&inGame) {
                 if(x.style.display==="block"){
                     ResumeGame();
                 
@@ -500,12 +537,27 @@
         <button class="roundbutton roundbutton1" onclick="instructionsSnakePopUp()">?</button>
     </div>
      
-    <div id="GiveUpGame">
-        <button class="button button1" onclick="GiveUpGame()">Give up!</button>
+    <div id="GiveUpGameS1">
+        <button class="button button1" onclick="GiveUpGameS1()">Play again</button>
     </div>
 
-    <div id="PlayAgain">
-        <button class="button button1" onclick="PlayAgain()">Play again</button>
+    <div id="PlayAgainS1">
+        <button class="button button1" onclick="PlayAgainS1()">Play again</button>
+    </div>
+
+    <div id="GiveUpGameP1">
+        <button class="button button1" onclick="GiveUpGameP1()">Play again<kbd>R</kbd></button>
+    </div>
+
+    <div id="PlayAgainP1">
+        <button class="button button1" onclick="PlayAgainP1()">Play again<kbd>R</kbd></button>
+    </div>
+    <div id="GiveUpGameS2">
+        <button class="button button1" onclick="GiveUpGameS2()">Play again</button>
+    </div>
+
+    <div id="PlayAgainS2">
+        <button class="button button1" onclick="PlayAgainS2()">Play again</button>
     </div>
 
 

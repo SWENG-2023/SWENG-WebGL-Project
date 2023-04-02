@@ -34,8 +34,24 @@ LoseGame.prototype.loadScene = function () {
 
 LoseGame.prototype.unloadScene = function () {
     //gEngine.Textures.unloadTexture(this.kSnakeBgSprite);
+    
+    if(window.gameChoice==1)
+    {
     let snakeLevel = new SnakeGame();
     gEngine.Core.startScene(snakeLevel);
+    }
+    else if(window.gameChoice==2)
+    {
+        let snakeLevel = new PongGame();
+        gEngine.Core.startScene(snakeLevel);
+    }
+    else{
+        let snakeLevel= new SnakeGameHard();
+        gEngine.Core.startScene(snakeLevel);
+    }
+    
+    
+
 };
 
 LoseGame.prototype.initialize = function () {

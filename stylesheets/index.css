@@ -12,7 +12,19 @@ canvas {
 
 
 
-#GiveUpGame {
+#GiveUpGameS1 {
+    position: fixed;
+    top: 50%;
+    left: 3%;
+    display: none;
+}
+#GiveUpGameP1 {
+    position: fixed;
+    top: 50%;
+    left: 3%;
+    display: none;
+}
+#GiveUpGameS2 {
     position: fixed;
     top: 50%;
     left: 3%;
@@ -62,7 +74,19 @@ canvas {
     display:none;
 }
 
-#PlayAgain {
+#PlayAgainS1 {
+    position: fixed;
+    top: 50%;
+    left: 3%;
+    display: none;
+}
+#PlayAgainP1 {
+    position: fixed;
+    top: 50%;
+    left: 3%;
+    display: none;
+}
+#PlayAgainS2 {
     position: fixed;
     top: 50%;
     left: 3%;
