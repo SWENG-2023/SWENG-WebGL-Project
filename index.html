@@ -144,7 +144,8 @@
 
 <body style="background-color: black">
     <script>
-
+        var backgroundPongMusic = new Audio("pong music.mp3");
+        var backgroundSnakeMusic = new Audio("snake2.mp3");
         function StartGame(gameScene) {
 
             Hide("StartViewSnake");
@@ -161,8 +162,36 @@
 
 
             ShowCanvas(gameScene);
-            backgroundMusic.currentTime = 0;
-            backgroundMusic.play();
+            if(gameScene == "SnakeGame"){
+                backgroundMusic.currentTime = 0;
+                backgroundMusic.play();
+                backgroundMusic.loop();
+                backgroundPongMusic.pause();
+                backgroundSnakeMusic.pause();
+
+            }
+            else if(gameScene == "PongGame"){
+                backgroundPongMusic.currentTime = 0;
+                backgroundPongMusic.play();
+                backgroundPongMusic.loop();
+                backgroundMusic.pause();
+                backgroundSnakeMusic.pause();
+            }
+            else if(gameScene == "SnakeGameHard"){
+                backgroundSnakeMusic.currentTime = 0;
+                backgroundSnakeMusic.play();
+                backgroundSnakeMusic.loop();
+                backgroundMusic.pause();
+                backgroundPongMusic.pause();
+            }else if(gameScene == "MultiPlayerPongGame"){
+                backgroundPongMusic.currentTime = 0;
+                backgroundPongMusic.play();
+                backgroundPongMusic.loop();
+                backgroundMusic.pause();
+                backgroundSnakeMusic.pause();
+            }
+
+
         }
 
         function GetStartViewSnake() {
@@ -222,6 +251,9 @@
             booleanPause = 1;
             inGame = false;
             backgroundMusic.pause();
+            backgroundMusic.pause();
+            backgroundPongMusic.pause();
+            backgroundSnakeMusic.pause();
             Show("TileView");
             Hide("SettingsButton");
             Hide("StartViewSnake");
