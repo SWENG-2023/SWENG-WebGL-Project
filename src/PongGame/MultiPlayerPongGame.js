@@ -155,8 +155,8 @@ MultiPlayerPongGame.prototype.update = function(){
     let msg = "Last pressed command: ";
     let fpsMsg = "Frame Counter: ";
     let scoreMsg = "Collisions: ";
-    let playerScoreMsg = "Player score: ";
-    let enemyScoreMsg = "Enemy score: ";
+    let playerScoreMsg = "Player1 score: ";
+    let enemyScoreMsg = "Player2 score: ";
     let roundOverMsg = "Round over. Press A or D to continue.";
     let pausedGameMsg = "Game is Paused.";
     this.mBall.update();

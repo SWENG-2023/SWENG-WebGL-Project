@@ -288,7 +288,7 @@
             if (hidden) {
                 canvas.removeAttribute("hidden");
                 if (gameScene == "SnakeGame") {
-                    let x = document.getElementById('GLCanvas');
+                    let x = document.unlsgetElementById('GLCanvas');
                     x.height = 650;
                     let gameScene = new SnakeGame();
                     gEngine.Core.initializeEngineCore('GLCanvas', gameScene);
@@ -475,7 +475,7 @@
         <button class="Tilebuttons Tilebuttons1" onclick="GetStartViewPong()"> <img id="icon"
                 src="assets/snake_sprites/pong.png"><br>Pong Game</button>
         <button class="Tilebuttons Tilebuttons1" onclick="GetStartViewPongPvP()"><img id="icon"
-                src="assets/snake_sprites/head_up.png"><br>Pong PvP</button>
+                src="assets/snake_sprites/pong.png"><br>Pong PvP</button>
 
         <button class="Tilebuttons Tilebuttons1" onclick="GetStartViewOurTeam()"> <img id="icon"
                 src="assets/snake_sprites/Red_Snake.png"><br>Our Team</button>
