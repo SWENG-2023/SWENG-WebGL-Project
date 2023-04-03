@@ -54,11 +54,11 @@ SnakeGameHard.prototype.loadScene = function () {
 };
 
 SnakeGameHard.prototype.unloadScene = function () {
-    gEngine.Textures.unloadTexture(this.kSnakeSprite);
-    gEngine.Textures.unloadTexture(this.kAppleSprite);
-    gEngine.Textures.unloadTexture(this.kSnakeSegmentSprite);
+    //gEngine.Textures.unloadTexture(this.kSnakeSprite);
+    //gEngine.Textures.unloadTexture(this.kAppleSprite);
+    //gEngine.Textures.unloadTexture(this.kSnakeSegmentSprite);
     //gEngine.Textures.unloadTexture(this.kSnakeBgSprite);
-    gEngine.AudioClips.unloadAudio(this.kEatCue);
+    //gEngine.AudioClips.unloadAudio(this.kEatCue);
 
     let loseLevel = new LoseGame(this.mApple.score);
     gEngine.Core.startScene(loseLevel);
