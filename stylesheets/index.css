@@ -266,6 +266,19 @@ canvas {
     border-radius: 12px;
     
 }
+#StartViewPongPvP {
+    width: 50%;
+    height:20%;
+    position: absolute;
+    left: 25%;
+    padding: 1% 0;
+    text-align: center;
+    background-color: grey;
+    margin-top: 3%;
+    display: none;
+    border-radius: 12px;
+
+}
 
 #TileView {
     width: 50%;
