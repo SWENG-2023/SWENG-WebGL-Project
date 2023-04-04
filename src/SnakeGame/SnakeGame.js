@@ -77,7 +77,7 @@ SnakeGame.prototype.initialize = function () {
     this.mBg.getXform().setSize(256, 256);
     this.mBg.getXform().setPosition(128, 128);
 
-    this.mMsg = new FontRenderable("Hello Snake! [R] to reset");
+    this.mMsg = new FontRenderable("Hello Snake!");
     this.mMsg.setColor([0, 0, 0, 1]);
     this.mMsg.getXform().setPosition(10, 10);
     this.mMsg.setTextHeight(10);
