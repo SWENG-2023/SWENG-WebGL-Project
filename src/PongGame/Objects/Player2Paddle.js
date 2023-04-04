@@ -1,27 +1,29 @@
-//File: Paddle.js
+//File: EnemyPaddle.js
 "use strict";
 
 
 
-function Paddle(spriteTexture){
-    this.mPaddle = new TextureRenderable(spriteTexture);
-    this.mPaddle.setColor([1,1,1,0]);
-    let initCoords = this.getSquareCoords(8,1);
-    this.mPaddle.getXform().setPosition(initCoords[0],initCoords[1]);
-    this.mPaddle.getXform().setSize(14,58);
+function Player2Paddle(spriteTexture, ball){
+    this.mPlayer2Paddle = new TextureRenderable(spriteTexture);
+    this.mBall = ball
+    this.mPlayer2Paddle.setColor([1,1,1,0]);
+    let initCoords = this.getSquareCoords(8,16);
+    this.mPlayer2Paddle.getXform().setPosition(initCoords[0],initCoords[1]);
+    this.mPlayer2Paddle.getXform().setSize(14,58);
     
     this.mLastLetter="A";
     this.mFrameCounter = 0;
     this.mFrameUpdateInterval = 10;
-    GameObject.call(this, this.mPaddle)
+    GameObject.call(this, this.mPlayer2Paddle)
 
     this.setSpeed(16/10);
-    this.mPaddle.getXform().setRotationInDegree(90);
+    this.mPlayer2Paddle.getXform().setRotationInDegree(90);
     vec2.set(this.getCurrentFrontDir(), -1, 0);
+    this.wiggleTimer = 0;
 }
-gEngine.Core.inheritPrototype(Paddle, GameObject);
+gEngine.Core.inheritPrototype(Player2Paddle, GameObject);
 
-Paddle.prototype.getSquareCoords = function (xSquare, ySquare){
+Player2Paddle.prototype.getSquareCoords = function (xSquare, ySquare){
     let coordsArray = [];
 
     // 1-indexed, 16 * 16 grid, gets the middle of squares
@@ -30,34 +32,28 @@ Paddle.prototype.getSquareCoords = function (xSquare, ySquare){
     return coordsArray;
 }
 
-Paddle.prototype.takeInput = function () {
+Player2Paddle.prototype.takeInput = function () {
     var xform = this.getXform();
 
-    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.A)) {
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Left)) {
         this.mLastLetter = "A";
     }
-    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.D)) {
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Right)) {
         this.mLastLetter = "D";
-
     }
-   /* if (gEngine.Input.isKeyPressed(gEngine.Input.keys.R)) {
-        let coords = this.getSquareCoords(8, 1);
-        xform.setPosition(coords[0], coords[1]);
-        this.mFrameCounter = 0;
-        this.mLastLetter = "R";
-        this.setSpeed(16/10);
-
-    }
-    */
 };
 
-Paddle.prototype.update = function(){
+Player2Paddle.prototype.update = function(){
+    if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Escape)) { 
+        this.mBall.pauseGame ^= 1;
+    } 
+    if(this.mBall.pauseGame == 0) {
         GameObject.prototype.update.call(this);
-        if(this.mPaddle.getXform().getXPos() <= 28 && this.mLastLetter == 'A')
+        if(this.mPlayer2Paddle.getXform().getXPos() <= 28 && this.mLastLetter == 'A')
         {
             this.setSpeed(0);
         }
-    else  if(this.mPaddle.getXform().getXPos() >= 228 && this.mLastLetter == 'D')
+    else  if(this.mPlayer2Paddle.getXform().getXPos() >= 228 && this.mLastLetter == 'D')
         {
             this.setSpeed(0);
         }
@@ -86,4 +82,5 @@ Paddle.prototype.update = function(){
                         break;
             }
         }
+    }
 };

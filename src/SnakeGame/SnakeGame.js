@@ -49,9 +49,9 @@ SnakeGame.prototype.loadScene = function () {
 };
 
 SnakeGame.prototype.unloadScene = function () {
-    gEngine.Textures.unloadTexture(this.kSnakeSprite);
-    gEngine.Textures.unloadTexture(this.kAppleSprite);
-    gEngine.Textures.unloadTexture(this.kSnakeSegmentSprite);
+    //gEngine.Textures.unloadTexture(this.kSnakeSprite);
+    //gEngine.Textures.unloadTexture(this.kAppleSprite);
+    //gEngine.Textures.unloadTexture(this.kSnakeSegmentSprite);
     //gEngine.Textures.unloadTexture(this.kSnakeBgSprite);
 
     let loseLevel = new LoseGame(this.mApple.score);
