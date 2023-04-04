@@ -219,7 +219,7 @@
         }
 
         function getTileView() {
-            booleanPause = 1;
+            //booleanPause = 1;
             inGame = false;
             backgroundMusic.pause();
             Show("TileView");
@@ -244,7 +244,7 @@
         }
 
         function PausePopUP() {
-            booleanPause = -1;
+            //booleanPause = -1;
             Show("PauseMenu");
             Hide("PauseButton");
 
@@ -253,7 +253,7 @@
 
 
         function ResumeGame() {
-            booleanPause = 1;
+           // booleanPause = 1;
             Show("PauseButton");
             Hide("PauseMenu");
             Hide("InstructionsSnake");
@@ -288,7 +288,7 @@
             if (hidden) {
                 canvas.removeAttribute("hidden");
                 if (gameScene == "SnakeGame") {
-                    let x = document.unlsgetElementById('GLCanvas');
+                    let x = document.getElementById('GLCanvas');
                     x.height = 650;
                     let gameScene = new SnakeGame();
                     gEngine.Core.initializeEngineCore('GLCanvas', gameScene);
@@ -318,7 +318,7 @@
                     x.height = 500;
                     let gameScene = new MultiPlayerPongGame();
                     gEngine.Core.initializeEngineCore('GLCanvas', gameScene);
-                    gameChoice = 2;
+                    gameChoice = 4;
                     window.gameChoice = gameChoice;
                 }
 
